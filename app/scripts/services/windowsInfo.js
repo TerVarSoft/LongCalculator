@@ -7,7 +7,7 @@ angular.module('longCalculatorApp')
             name:'Ventana Sala',
             rielSuperior: 1000,
             rielInferior: 2000,
-            jamda: 300,
+            jamba: 300,
             gancho: 700,
             cabezal: 1500,
             socalo: 3000
@@ -16,7 +16,7 @@ angular.module('longCalculatorApp')
             name:'Ventana Cocina',
             rielSuperior: 1000,
             rielInferior: 2000,
-            jamda: 300,
+            jamba: 300,
             gancho: 700,
             cabezal: 1500,
             socalo: 3000
@@ -25,7 +25,7 @@ angular.module('longCalculatorApp')
             name:'Ventana Cuarto',
             rielSuperior: 1000,
             rielInferior: 2000,
-            jamda: 300,
+            jamba: 300,
             gancho: 700,
             cabezal: 1500,
             socalo: 3000
@@ -38,7 +38,7 @@ angular.module('longCalculatorApp')
         return  [
                     'Riel Superior',
                     'Riel Inferior',
-                    'Jamda',
+                    'Jamba',
                     'Gancho',
                     'Cabezal',
                     'Socalo'
@@ -78,6 +78,10 @@ angular.module('longCalculatorApp')
         var propertyKey = toPropertyKey(windowPartName);
         delete window[propertyKey];
     };
+    
+    this.saveData = function(windows) {
+        this.windows = windows;
+    }
     
     function toPropertyKey(propertyString){
         var propNoSpaces = propertyString.replace(/\s+/g, '');
