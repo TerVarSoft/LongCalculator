@@ -2,64 +2,41 @@
 
 
 angular.module('longCalculatorApp')
-  .controller('calculatorCtrl', function ($scope) {
+  .controller('calculatorCtrl', function ($scope, windowsInfo) {
     $scope.longValue = '';
-    $scope.sticksSize = 5000;
+    $scope.sticksSize = 20000;
+    
+    $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
+    $scope.selectedWindowPart = $scope.windowsPartsNames[0];
+
+    
     $scope.canvasData ={
         numberOfSticks : 1,
         accumulatedMilimeters :0,
         lastXposition: 5
     };
-    $scope.longRows = [];
+    
+    $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
+    $scope.longRows = _.pluck($scope.longObjects,'value');
+   
+
     var sortedLongs = [];
+    sortLongs();
+    recalculateDetails();
+    repaintCanvas();
+    sortedLongs = [];
 
     $scope.refreshCanvas = function(){
+        $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
+        $scope.longRows = _.pluck($scope.longObjects,'value');
         sortLongs();
         recalculateDetails();
         repaintCanvas();
         sortedLongs = [];
     }
     $scope.sticksDetails = [];
-    $scope.addLong = function (longValue) {
-        
-        //var arrayLeft = [1000];
-        //var result = getBestArrayDifferenceFor(2000,2000,arrayLeft);
-        //console.log(result);
-        
-        //var arrayLeft =[{value:2000},{value:1000}];
-        //var result = getLongsToAdd(2000,arrayLeft);
-        //console.log(result);
-        
-       /* $scope.longRows.push(1000);
-        //$scope.longRows.push(3000);
-        //$scope.longRows.push(4000);
-        $scope.longRows.push(2000);
-        $scope.longRows.sort(function(a, b){return b-a;});
-        sortLongs();
-        console.log(sortedLongs);*/
 
-        var newLong = longValue;
-        $scope.longRows.push(parseInt(longValue));
-        $scope.longValue = ''; 
-        
-        $scope.longRows.sort(function(a, b){return b-a;});
-        
-        
-        sortLongs();
-        console.log(sortedLongs);
-        
-        recalculateDetails();
-        repaintCanvas();
-        sortedLongs = [];
-    };
-    
-    $scope.removeLong = function (longRow) {                
-        $scope.longRows.splice($scope.longRows.indexOf(longRow),1);
-        sortLongs();
-        recalculateDetails();
-        repaintCanvas();
-        sortedLongs = [];
-    };
+
     
     
     function sortLongs(){
