@@ -6,55 +6,42 @@
     <div class="row">
         <!-- You can make it whatever width you want. I'm making it full width
              on <= small devices and 4/12 page width on >= medium devices -->
+         <div class="row">
+
+            <label class="col-sm-4 control-label">Tipo de perfil :</label>
+            <div class="col-sm-6">
+                <select class="btn btn-primary form-control" ng-model="selectedWindowPart" ng-change="refreshCanvas()">
+                    <option ng-repeat="windowPartName in windowsPartsNames">{{windowPartName}}</option>
+                  </select>
+            </div>
+             <div ng-controller="saveDocumentCtrl" class="col-sm-2">
+                <button class="btn btn-success btn-lg" ng-click="saveDocument()">Guardar</button>
+            </div>
+        </div>
+        <hr/>
+
         <div class="col-xs-12 col-md-4">
             
             <label for="sticksSize">Longitud de las barras</label>
             <input type="number" class="form-control" ng-model="sticksSize" return-press="refreshCanvas()"name="sticksSize" placeholder="Milimetros..."/>
             
-             <br/>
-            <!-- CREDIT CARD FORM STARTS HERE -->
-            <div class="panel panel-default credit-card-box">
-                <div class="panel-heading display-table" >
-                    <div class="row display-tr" >
-                        <h3 class="panel-title display-td" >Agregar Longitud</h3>
-
-                    </div>                    
-                </div>
-                <div class="panel-body">
-                    <form name='addLongForm' role="form" id="payment-form">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="cardNumber">Longitud</label>
-                                    <div class="input-group">
-                                        <input 
-                                            type="number"
-                                            class="form-control"
-                                            name="cardNumber"
-                                            placeholder="Valor en milimetros"
-                                            ng-model="longValue"                                            
-                                            required
-                                            max='{{sticksSize}}'   
-                                        />
-
-                                    </div>
-                                </div>                            
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn btn-success btn-lg btn-block" ng-disabled='!addLongForm.$valid' ng-click="addLong(longValue)">Agregar Longitud</button>
-                            </div>
-                        </div>
-                        <div class="row" style="display:none;">
-                            <div class="col-xs-12">
-                                <p class="payment-errors"></p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>            
+             <br/>  
+            <div>
+                <table class="table table-striped table-hover ">
+                    <tr>
+                        <td>                                
+                            <strong>Ventana</strong>
+                        </td>
+                        <td>
+                            <strong>Longitud [mm]</strong>
+                        </td>                       
+                    </tr>
+                    <tr ng-repeat = "longObject in longObjects">
+                        <td>{{longObject.name}}</td>
+                        <td>{{longObject.value}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>            
         
         <div class="col-xs-12 col-md-8" style="font-size: 12pt; line-height: 2em;">
@@ -64,38 +51,27 @@
                 <canvas id="sticksCanvas" width="700" height="200"></canvas>
             </div>
             
-            <div ng-controller="saveDocumentCtrl" class="col-xs-12 col-md-8">
-                <button class="btn btn-success btn-lg" ng-click="saveDocument()">Guardar</button>
+            <div id="dataTable">
+                <table class="table table-striped table-hover ">
+                    <tr>
+                        <td>Numero de la barra</td>
+                        <td>Cortes [mm]</td>
+                        <td>Perdida [mm]</td>
+                    </tr>
+                    <tr ng-repeat = "stickDetail in sticksDetails">
+                        <td>{{stickDetail.numberOfStick}}</td>
+                        <td>{{stickDetail.values}}</td>
+                        <td>{{stickDetail.lostMilimeters}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
         
     </div>
     <div class="row">
         
-        <div class="col-xs-12 col-md-4">
-            <table class="table table-striped table-hover ">
-                <tr ng-repeat = "longRow in longRows track by $index">
-                    <td>{{longRow}} [mm]</td>
-                    <td nowrap=nowrap>
-                        <i ng-click="removeLong(longRow)"class="glyphicon glyphicon-minus-sign"></i>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="dataTable" class="col-xs-12 col-md-8">
-            <table class="table table-striped table-hover ">
-                <tr>
-                    <td>Numero de la barra</td>
-                    <td>Cortes [mm]</td>
-                    <td>Perdida [mm]</td>
-                </tr>
-                <tr ng-repeat = "stickDetail in sticksDetails">
-                    <td>{{stickDetail.numberOfStick}}</td>
-                    <td>{{stickDetail.values}}</td>
-                    <td>{{stickDetail.lostMilimeters}}</td>
-                </tr>
-            </table>
-        </div>
+        
+        
     </div>
 
 </div>

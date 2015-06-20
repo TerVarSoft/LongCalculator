@@ -2,7 +2,36 @@
 
 angular.module('longCalculatorApp')
  .service('windowsInfo', function(){
-    this.windows=[];
+    this.windows=[
+        {
+            name:'Ventana Sala',
+            rielSuperior: 1000,
+            rielInferior: 2000,
+            jamda: 300,
+            gancho: 700,
+            cabezal: 1500,
+            socalo: 3000
+        },
+        {
+            name:'Ventana Cocina',
+            rielSuperior: 1000,
+            rielInferior: 2000,
+            jamda: 300,
+            gancho: 700,
+            cabezal: 1500,
+            socalo: 3000
+        },
+        {
+            name:'Ventana Cuarto',
+            rielSuperior: 1000,
+            rielInferior: 2000,
+            jamda: 300,
+            gancho: 700,
+            cabezal: 1500,
+            socalo: 3000
+        }
+        
+    ];
     
     this.getWindowsPartsNames = function()
     {
@@ -31,23 +60,24 @@ angular.module('longCalculatorApp')
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
         return _.map(this.windows, function(window){
-            window['value'] = window[propertyKey]
-            return _.pick(window,'name','value')});
+            window['value'] = window[propertyKey];
+            return _.pick(window,'name','value');
+        });
     };
     
     this.addLong = function(longValue, windowName, windowPartName){
         
-        var window = _.find(this.windows, function(window){return window.name==windowName});
+        var window = _.find(this.windows, function(window){return window.name===windowName;});
         var propertyKey = toPropertyKey(windowPartName);
         window[propertyKey] = longValue;
         console.log(propertyKey);
-    }
+    };
     
     this.removeLong = function(windowName, windowPartName){
-        var window = _.find(this.windows, function(window){return window.name==windowName});
+        var window = _.find(this.windows, function(window){return window.name===windowName;});
         var propertyKey = toPropertyKey(windowPartName);
         delete window[propertyKey];
-    }
+    };
     
     function toPropertyKey(propertyString){
         var propNoSpaces = propertyString.replace(/\s+/g, '');
