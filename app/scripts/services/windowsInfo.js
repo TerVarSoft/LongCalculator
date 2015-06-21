@@ -2,6 +2,7 @@
 
 angular.module('longCalculatorApp')
  .service('windowsInfo', function(){
+    this.windowNumber = 1;
     this.windows=[
         {
             name:'Ventana Sala',
@@ -32,6 +33,14 @@ angular.module('longCalculatorApp')
         }
         
     ];
+    
+    this.getNumberWindow = function(){
+        return this.windowNumber;
+    }
+    
+    this.incrementNumberWindow = function(){
+        this.windowNumber++;
+    }
     
     this.getWindowsPartsNames = function(){
         return  [

@@ -3,12 +3,10 @@
 angular.module('longCalculatorApp')
   .controller('windowsCtrl', function ($scope, $http, windowsInfo) {
     var removeTemplate = '<span class="glyphicon glyphicon-trash" ng-click="grid.appScope.removeRow(row)" />';
-    
-    var numberWindow = 1;
+
     $scope.mySelections = [];
     
-    var windowsData = [{name: 'Sala', jamba: 526, rielSuperior: 1500, rielInferior: 150, jamba: 150, gancho: 358, cabezal: 459, socalo: 458},
-                       {name: 'Cocina', jamba: 1324, rielSuperior: 230, rielInferior: 2342, jamba: 150, gancho: 358, cabezal: 459, socalo: 458}];
+    var windowsData = windowsInfo.getWindows();
     
     $scope.gridOptions = {
         data: windowsData,
@@ -18,7 +16,7 @@ angular.module('longCalculatorApp')
         enableColumnResize: true,
         
         columnDefs: [{field: 'remove', displayName: '', cellTemplate: removeTemplate},
-                     {field: 'name', displayName: 'Ventana'},
+                     {field: 'name', displayName: 'Ventana', width: 200},
                      {field: 'rielSuperior', displayName:'Riel Superior'},
                      {field: 'rielInferior', displayName:'Riel Inferior'},
                      {field: 'jamba', displayName:'Jamba'},
@@ -28,8 +26,8 @@ angular.module('longCalculatorApp')
         };
     
     $scope.addNewWindow = function() {
-        windowsData.push({name: 'Ventana '+numberWindow, jamba: '', rielSuperior: '', rielInferior: ''});
-        numberWindow++;
+        windowsData.push({name: 'Ventana '+windowsInfo.windowNumber, jamba: '', rielSuperior: '', rielInferior: ''});
+        windowsInfo.incrementNumberWindow();
     };
     
     $scope.removeRow = function(row){
