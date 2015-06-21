@@ -45,17 +45,17 @@ angular.module('longCalculatorApp')
     $scope.addNewWindow = function() {
         windowsData.push({name: 'Ventana '+windowsInfo.windowNumber,
                           rielSuperior: '',
-                          rielSuperiorQuantity: '',
+                          rielSuperiorQuantity: 1,
                           rielInferior: '',
-                          rielInferiorQuantity: '',
+                          rielInferiorQuantity: 1,
                           jamba: '',
-                          jambaQuantity: '',
+                          jambaQuantity: 1,
                           gancho: '',
-                          ganchoQuantity: '',
+                          ganchoQuantity: 1,
                           cabezal: '',
-                          cabezalQuantity: '',
+                          cabezalQuantity: 1,
                           socalo: '',
-                          socaloQuantity: ''});
+                          socaloQuantity: 1});
         
         windowsInfo.incrementNumberWindow();
         $scope.gridOptions.api.onNewRows();
