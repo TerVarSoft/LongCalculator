@@ -2,12 +2,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-3">
-            <button class="btn btn-success btn-lg" ng-click="addNewWindow()">Agregar Ventana</button>
+        <div class="col-xs-4">
+            <button class="btn btn-success btn-lg" ng-click="addNewWindow()"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
         </div>
         
-        <div class="col-xs-2">
-            <a ng-href="#/calculator" class="btn btn-success btn-lg" ng-click="saveData()">Calcular</a>
+        <div class="col-xs-4">
+            <button class="btn btn-success btn-lg" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
+        </div>
+        
+        <div class="col-xs-3">
+            <a ng-href="#/calculator" class="btn btn-success btn-lg" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Calcular</a>
         </div>
     </div>
     

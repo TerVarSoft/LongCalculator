@@ -1,18 +1,16 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('windowsCtrl', function ($scope, $http, windowsInfo) {
-    var removeTemplate = '<i class="glyphicon glyphicon-trash" ng-click="removeRow(row)" />';
+  .controller('windowsCtrl', function ($scope, windowsInfo) {
     var longColumnsWidth = 70;
-    var quantityColumnsWidth = 40;
+    var quantityColumnsWidth = 45;
     var configurationColumnsWidth = 120;
     
     var windowsData = windowsInfo.getWindows();
     var configData = windowsInfo.getConfig();
     
     $scope.gridOptions = {
-        columnDefs: [{field: 'remove', headerName: '', group: 'Ventanas', template: removeTemplate, width: 30},
-                     {field: 'name', headerName: 'Ventana', group: 'Ventanas', editable: true, width: 150},
+        columnDefs: [{field: 'name', headerName: 'Ventana', group: 'Ventanas', editable: true, width: 150},
                      {field: 'rielSuperior', headerName:'Longitud', group: 'Riel Superior', editable: true, width: longColumnsWidth},
                      {field: 'rielSuperiorQuantity', headerName:'Nº', group: 'Riel Superior', editable: true, width: quantityColumnsWidth},
                      {field: 'rielInferior', headerName:'Longitud', group: 'Riel Inferior', editable: true, width: longColumnsWidth},
@@ -27,6 +25,7 @@ angular.module('longCalculatorApp')
                      {field: 'socaloQuantity', headerName:'Nº', group: 'Socalo', editable: true, width: quantityColumnsWidth}],
    
         rowData: windowsData,
+        rowSelection: 'single',
         angularCompileRows: true,
         groupHeaders: true,
     };
@@ -62,9 +61,11 @@ angular.module('longCalculatorApp')
         $scope.gridOptions.api.onNewRows();
     };
     
-    $scope.removeRow = function(row){
-        var index = $scope.windowsData.indexOf(row.entity);
-        windowsData.splice(1, 1);
+    $scope.removeWindow = function(){
+        var selectedWindow = $scope.gridOptions.selectedRows[0];
+        var selectedId = windowsData.indexOf(selectedWindow);
+        windowsData.splice(selectedId, 1);
+        $scope.gridOptions.api.onNewRows();
     }
     
     $scope.saveData = function() {
