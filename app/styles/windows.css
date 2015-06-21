@@ -1,4 +1,10 @@
 .gridStyle {
     border: 1px solid rgb(212,212,212);
-    height: 300px
+    width: 844px;
+    height: 300px;
+}
+
+.configurationGridStyle {
+    width: 844px;
+    height: 140px; 
 }

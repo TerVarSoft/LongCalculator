@@ -11,8 +11,7 @@
 angular
   .module('longCalculatorApp', [
     'ngRoute',
-    'ui.grid',
-    'ui.grid.edit'
+    'angularGrid'
   ])
   .config(function ($routeProvider) {
     $routeProvider
