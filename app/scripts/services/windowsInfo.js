@@ -103,11 +103,13 @@ angular.module('longCalculatorApp')
         var propertyKey = toPropertyKey(windowPartName);
         var multiplier = this.multipliers[propertyKey];
         var substrahend = this.substrahends[propertyKey];
-        return _.map(this.windows, function(window){
-            window['value'] = window[propertyKey];
-            window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
+        var nameLongs = _.map(this.windows, function(window){
+                window['value'] = window[propertyKey];
+                window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
             return _.pick(window,'name','value', 'realValue');
         });
+        
+        return _.filter(nameLongs, function(nameLong){return nameLong.value});
     };
     
     this.addLong = function(longValue, windowName, windowPartName){
