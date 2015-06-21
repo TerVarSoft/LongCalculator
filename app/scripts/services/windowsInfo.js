@@ -53,7 +53,7 @@ angular.module('longCalculatorApp')
                 ];
     };
     
-    this.sticksSizes = {
+    /*this.sticksSizes = {
         rielSuperior: 5000,
         rielInferior: 3000,
         jamba: 4000,
@@ -79,6 +79,37 @@ angular.module('longCalculatorApp')
         cabezal: 0,
         socalo: 0
     };
+    */
+    this.configuration = [
+    {
+        property : 'Longitud de las barras',
+        rielSuperior: 5000,
+        rielInferior: 3000,
+        jamba: 4000,
+        gancho: 1000,
+        cabezal: 2000,
+        socalo: 4000
+    },
+    {
+        property : 'Substraendos',
+        rielSuperior: 0,
+        rielInferior: 0,
+        jamba: 0,
+        gancho: 0,
+        cabezal: 0,
+        socalo: 0
+    },    
+    {
+        property : 'Multiplicadores',
+        rielSuperior: 1,
+        rielInferior: 1,
+        jamba: 1,
+        gancho: 1,
+        cabezal: 1,
+        socalo: 1
+        
+    }
+    ];
 
     this.updateConfig = function(windowPartName, sticksSize, multiplier, substrahend){
         var propertyKey = toPropertyKey(windowPartName);
@@ -88,21 +119,37 @@ angular.module('longCalculatorApp')
     }
     this.getWindows = function(){
       return this.windows;  
-    };   
-    
-    this.addWindow = function(window){
-        this.windows.push(window);
-        
-    };
+    }; 
     
     this.getNames = function(){
         return _.pluck(this.windows, 'name');
     };
     
+    this.getConfig = function(){
+        return this.configuration;
+    }    
+    
+    this.getSticksSize = function(windowPartName){
+        var propertyKey = toPropertyKey(windowPartName);
+        return this.configuration[0][propertyKey];
+    }
+    
+    this.getSubstrahend = function(windowPartName){
+        var propertyKey = toPropertyKey(windowPartName);
+        return this.configuration[1][propertyKey];
+    }
+    
+    this.getMultiplier = function(windowPartName){
+        var propertyKey = toPropertyKey(windowPartName);
+        return this.configuration[2][propertyKey];
+    }
+    
+    
+    
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
-        var multiplier = this.multipliers[propertyKey];
-        var substrahend = this.substrahends[propertyKey];
+        var multiplier = this.getMultiplier(propertyKey);
+        var substrahend = this.getSubstrahend(propertyKey);
         var nameLongs = _.map(this.windows, function(window){
                 window['value'] = window[propertyKey];
                 window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
@@ -111,6 +158,12 @@ angular.module('longCalculatorApp')
         
         return _.filter(nameLongs, function(nameLong){return nameLong.value});
     };
+    
+    this.addWindow = function(window){
+        this.windows.push(window);
+        
+    };
+     
     
     this.addLong = function(longValue, windowName, windowPartName){
         
@@ -126,18 +179,12 @@ angular.module('longCalculatorApp')
         delete window[propertyKey];
     };
     
-    this.getConfiguration = function(windowPartName){
-      var propertyKey = toPropertyKey(windowPartName);    
-      return {
-          sticksSize:this.sticksSizes[propertyKey],
-          multiplier:this.multipliers[propertyKey],
-          substrahend:this.substrahends[propertyKey],
-      };  
-    };
+    
 
-    this.saveData = function(windows) {
+    this.saveData = function(windows, configuration) {
         this.windows = windows;
-    }
+        this.configuration = configuration;
+    };
     
     function toPropertyKey(propertyString){
         var propNoSpaces = propertyString.replace(/\s+/g, '');
