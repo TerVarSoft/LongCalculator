@@ -6,7 +6,7 @@ angular.module('longCalculatorApp')
     this.windows=[
         {
             name:'Ventana Sala',
-            rielSuperior: 1000,
+            rielSuperior: 2000,
             rielInferior: 2000,
             jamba: 300,
             gancho: 700,
@@ -24,7 +24,7 @@ angular.module('longCalculatorApp')
         },
         {
             name:'Ventana Cuarto',
-            rielSuperior: 1000,
+            rielSuperior: 3000,
             rielInferior: 2000,
             jamba: 300,
             gancho: 700,

@@ -21,6 +21,7 @@ angular.module('longCalculatorApp')
     
     $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
     $scope.longRows = _.pluck($scope.longObjects,'realValue');
+    $scope.sticksDetails = [];
     var sortedLongs = [];
 
 
@@ -36,21 +37,24 @@ angular.module('longCalculatorApp')
         sortedLongs = [];
     }
     
-    $scope.sticksDetails = [];
-
-
-    
     
     function sortLongs(){
-        if($scope.longRows.length==0) return;
-        sortedLongs.push($scope.longRows[0]);         
+        if($scope.longObjects.length==0) {
+            return;
+        }
+        var upperSortedLongs = Array.prototype.slice.call($scope.longObjects);
+        upperSortedLongs.sort(function(a, b){return b.realValue-a.realValue;});
         
-        var leftoverMilimeters =$scope.sticksSize-sortedLongs[0];
-        var remainingLongs = Array.prototype.slice.call($scope.longRows).slice(1, $scope.longRows.length);
+        //Adds the biggest long to sortedLongs array
+        sortedLongs.push(upperSortedLongs[0]);         
+        
+        var leftoverMilimeters =$scope.sticksSize-sortedLongs[0].realValue;
+        var remainingLongs = Array.prototype.slice.call(upperSortedLongs).slice(1, upperSortedLongs.length);
+        
+        while(sortedLongs.length!==upperSortedLongs.length){            
 
-        while(sortedLongs.length!==$scope.longRows.length){            
-
-            var longsToAdd = getLongsToAdd(leftoverMilimeters, remainingLongs);
+            var longsToAdd = getLongsToAdd(remainingLongs, leftoverMilimeters)
+            
             if(longsToAdd.length!==0){
                 Array.prototype.push.apply(sortedLongs, longsToAdd);
                 
@@ -58,74 +62,140 @@ angular.module('longCalculatorApp')
                     remainingLongs.splice(remainingLongs.indexOf(longsToAdd[i]),1);
                 }
             }
-            if(remainingLongs.length!==0){
-                
-                leftoverMilimeters =$scope.sticksSize-remainingLongs[0];
+            
+            //Adds the next biggest long to sortedLongs array
+            if(remainingLongs.length!==0){                
+                leftoverMilimeters =$scope.sticksSize-remainingLongs[0].realValue;
                 sortedLongs.push(remainingLongs[0]);
                 remainingLongs.splice(0,1);
             }
         }
     }
     
-    function getLongsToAdd(leftoverMilimeters, remainingLongs){
-        var arraySmallestDifference={
-            difference:$scope.sticksSize+1,
-            array:[]    
-        };
-        
-        if(remainingLongs.length===1){
-            return [remainingLongs[0]];
-        }
-        
-        for(var i=0;i<remainingLongs.length;i++){
-            if(remainingLongs[i]>leftoverMilimeters){
-                continue;
-            }
-            var arrayDifference = getBestArrayDifferenceFor(remainingLongs[i], leftoverMilimeters, remainingLongs.slice(i+1, remainingLongs.length));
+    
+    function getLongsToAdd(longsArray, neededSum){
+        var sum=0;
+        var i=0;
+        var results=[];
+        var remainingMilimeters;
 
-            if(arrayDifference.difference < arraySmallestDifference.difference){
-                arraySmallestDifference = arrayDifference;
-            }
+        while(i<longsArray.length && sum+longsArray[i].realValue<=neededSum){
+            sum+=longsArray[i].realValue;
+            results.push(longsArray[i]);
+            i++;    
         }
         
-        return arraySmallestDifference.array;
+        remainingMilimeters = neededSum - sum;
+        var notUsedLongs=Array.prototype.slice.call(longsArray).slice(i,longsArray.length);
+        var i=0;
+        while(i<results.length)
+        {
+            var replacement = getReplaceFor(results[i], notUsedLongs, remainingMilimeters);
+
+            if(replacement.length>0)
+            {           
+                var iResult = results[i];
+                results = addRemoveLongs(results, replacement, [iResult]);
+                notUsedLongs = addRemoveLongs(notUsedLongs, [iResult], replacement);
+                remainingMilimeters -= (getRealValuesSum(replacement)-iResult);
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+        i=0;
+        while(i<notUsedLongs.length)
+        {
+            var toReplace = getArrayToReplace(notUsedLongs[i], results, remainingMilimeters);
+
+            if(toReplace.length>0)
+            {  
+                var iResult = notUsedLongs[i];       
+                results = addRemoveLongs(results, [iResult], toReplace);
+                notUsedLongs = addRemoveLongs(notUsedLongs, toReplace, [iResult]);
+                remainingMilimeters -= iResult-getRealValuesSum(toReplace);
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+        return results;
+    }
+ 
+    function getArrayToReplace(replacement, results, remainingMilimeters){
+        var sum=0;   
+        var toReplace = [];
+
+        for(var i=0;i<results.length;i++)
+        {
+            if(results[i].realValue<replacement.realValue && sum+results[i].realValue<replacement.realValue){
+                sum += results[i].realValue;
+
+                toReplace.push(results[i]);
+            }
+        }
+
+
+        if(replacement.realValue-getRealValuesSum(toReplace)>remainingMilimeters){
+            toReplace = [];
+        }
+
+        return toReplace;
+    }
+ 
+    
+    function getReplaceFor(toReplace, notUsedLongs, remainingMilimeters){
+        var sum=0;
+        var results=[];
+
+        var i=0;
+        while(i<notUsedLongs.length && sum+notUsedLongs[i].realValue-toReplace.realValue<=remainingMilimeters ){
+            sum += notUsedLongs[i].realValue;
+
+            results.push(notUsedLongs[i]);
+            i++;
+        }
+
+        if(getRealValuesSum(results) < toReplace.realValue){
+            results = [];
+        }
+
+        return results;
+    }
+
+    
+    function addRemoveLongs(arrayToModify, longsToAdd, longsToRemove)
+    {
+        var results = Array.prototype.slice.call(arrayToModify);
+
+        for(var i=0;i<longsToRemove.length;i++){
+            results.splice(results.indexOf(longsToRemove[i]), 1);
+        }
+
+        for(var i=0;i<longsToAdd.length;i++){
+            results.push(longsToAdd[i]);
+        }
+
+        results.sort(function(a, b){return b.realValue-a.realValue;});
+
+        return results;
     }
     
-    function getBestArrayDifferenceFor(baseNumber, maxSum, leftoverArray){
-        var bestArrayDifference={
-            difference:$scope.sticksSize+1,
-            array:[]    
-        };
-        bestArrayDifference.array = [baseNumber];
-        bestArrayDifference.difference = maxSum - baseNumber;
-        var bestDifference = maxSum;
-        while(leftoverArray.length>0){
-            if(baseNumber+ leftoverArray[0]> maxSum){
-                leftoverArray.splice(0,1);
-            }
-            else{
-                var tempArray=[baseNumber];
-                var temDifference = maxSum - baseNumber;
-                var reversedLeftoverArray = Array.prototype.slice.call(leftoverArray).reverse();
-                var j = 0;
-                while(temDifference-reversedLeftoverArray[j]>=0){
-                    var longToAdd = reversedLeftoverArray[j];
-                        tempArray.push(longToAdd);
-                        temDifference -= longToAdd;
-                        leftoverArray.splice(leftoverArray.indexOf(longToAdd),1);
-                        j++;
-                }
-
-                if(temDifference < bestDifference){
-                    bestDifference = temDifference;
-                    bestArrayDifference.array = tempArray;
-                    bestArrayDifference.difference = temDifference;
-                }
-            }
+    
+    function getRealValuesSum(arrayToSum)
+    {
+        var result=0;
+        for(var i=0;i<arrayToSum.length;i++){
+            result+=arrayToSum[i].realValue;
         }
-        
-        return bestArrayDifference;
+
+        return result;
     }
+        
     
     function recalculateDetails(){
         if(sortedLongs.length==0) 
@@ -144,10 +214,10 @@ angular.module('longCalculatorApp')
             lostMilimeters: 0
           });
         for(var i=0; i<sortedLongs.length;i++){
-            tempSum += sortedLongs[i];
+            tempSum += sortedLongs[i].realValue;
             if(tempSum>$scope.sticksSize){
                 
-                tempSum = sortedLongs[i];
+                tempSum = sortedLongs[i].realValue;
                 numberOfSticks++;
                 $scope.sticksDetails.push({
                 numberOfStick : numberOfSticks,
@@ -172,7 +242,7 @@ angular.module('longCalculatorApp')
         
         
         for(var i=0; i<sortedLongs.length;i++){
-            addRectangle(sortedLongs[i], context);
+            addRectangle(sortedLongs[i].realValue, context);
         }
         
     }

@@ -74,7 +74,8 @@
                 <canvas id="sticksCanvas" width="700" height="200"></canvas>
             </div>
             
-            <div id="dataTable">
+            <!--Noo tocaaar mucho cambia el formato de imprimir la tabla-->
+            <div id="dataTable" >
                 <table class="table table-striped table-hover ">
                     <tr>
                         <td>Numero de la barra</td>
@@ -83,7 +84,13 @@
                     </tr>
                     <tr ng-repeat = "stickDetail in sticksDetails">
                         <td>{{stickDetail.numberOfStick}}</td>
-                        <td>{{stickDetail.values}}</td>
+                        <!--<td>{{stickDetail.values}}
+                        </td>-->
+                        <td><div class="panel panel-default"><table class="table table-striped table-hover "><tr ng-repeat = "long in stickDetail.values"><td>{{long.name}}:</td><td>{{long.realValue}}</td>
+                            </tr>
+                                </table>
+                            </div>
+                        </td>
                         <td>{{stickDetail.lostMilimeters}}</td>
                     </tr>
                 </table>
