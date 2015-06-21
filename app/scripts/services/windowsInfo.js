@@ -7,29 +7,47 @@ angular.module('longCalculatorApp')
         {
             name:'Ventana Sala',
             rielSuperior: 2000,
+            rielSuperiorQuantity: 1,
             rielInferior: 2000,
+            rielInferiorQuantity: 1,
             jamba: 300,
+            jambaQuantity: 1,
             gancho: 700,
+            ganchoQuantity: 1,
             cabezal: 1500,
-            socalo: 3000
+            cabezalQuantity: 1,
+            socalo: 3000,
+            socaloQuantity: 1
         },
         {
             name:'Ventana Cocina',
             rielSuperior: 1000,
+            rielSuperiorQuantity: 1,
             rielInferior: 2000,
+            rielInferiorQuantity: 1,
             jamba: 300,
+            jambaQuantity: 1,
             gancho: 700,
+            ganchoQuantity: 1,
             cabezal: 1500,
-            socalo: 3000
+            cabezalQuantity: 1,
+            socalo: 3000,
+            socaloQuantity: 1
         },
         {
             name:'Ventana Cuarto',
             rielSuperior: 3000,
+            rielSuperiorQuantity: 1,
             rielInferior: 2000,
+            rielInferiorQuantity: 1,
             jamba: 300,
+            jambaQuantity: 1,
             gancho: 700,
+            ganchoQuantity: 1,
             cabezal: 1500,
-            socalo: 3000
+            cabezalQuantity: 1,
+            socalo: 3000,
+            socaloQuantity: 1
         }
         
     ];
@@ -148,15 +166,21 @@ angular.module('longCalculatorApp')
     
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
+        var propertyQuantityKey = toPropertyKey(windowPartName)+'Quantity';
+        
         var multiplier = this.getMultiplier(propertyKey);
         var substrahend = this.getSubstrahend(propertyKey);
-        var nameLongs = _.map(this.windows, function(window){
+        
+        var longObjects = _.map(this.windows, function(window){
                 window['value'] = window[propertyKey];
                 window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
-            return _.pick(window,'name','value', 'realValue');
+                window['quantity'] = window[propertyQuantityKey];
+            return _.pick(window,'name','value', 'realValue', 'quantity');
         });
         
-        return _.filter(nameLongs, function(nameLong){return nameLong.value});
+        var longObjectsModifiedByQuantityValues = ModifyListByQuantityValues(longObjects);
+        
+        return _.filter(longObjectsModifiedByQuantityValues, function(longObject){return longObject.value});
     };
     
     this.addWindow = function(window){
@@ -186,8 +210,39 @@ angular.module('longCalculatorApp')
         this.configuration = configuration;
     };
     
+    function ModifyListByQuantityValues(longObjects){
+        var results = [];
+        var lenght = longObjects.length
+        
+        for(var i=0;i<lenght;i++){
+            if(longObjects[i].quantity!==1){
+                var quantity = longObjects[i].quantity;
+                
+                //add a longs quantity times
+                for(var j=0;j<quantity;j++){
+                    results.push({
+                    name: (j==0) ? longObjects[i].name : longObjects[i].name+'*',
+                    value: longObjects[i].value,
+                    realValue: longObjects[i].realValue
+                    });
+                }
+            }
+            else{
+                //remove quantity property
+                results.push({
+                    name: longObjects[i].name,
+                    value: longObjects[i].value,
+                    realValue: longObjects[i].realValue
+                });
+            }
+        }
+        
+        return results
+    }
     function toPropertyKey(propertyString){
         var propNoSpaces = propertyString.replace(/\s+/g, '');
         return propNoSpaces.substr(0,1).toLowerCase()+propNoSpaces.substr(1,propNoSpaces.length);
     }
+    
+    
 });
