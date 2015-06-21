@@ -4,10 +4,14 @@
 angular.module('longCalculatorApp')
   .controller('calculatorCtrl', function ($scope, windowsInfo) {
     $scope.longValue = '';
-    $scope.sticksSize = 20000;
+    
     
     $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
     $scope.selectedWindowPart = $scope.windowsPartsNames[0];
+    
+    $scope.sticksSize = windowsInfo.getConfiguration($scope.selectedWindowPart).sticksSize;
+    $scope.multiplier = windowsInfo.getConfiguration($scope.selectedWindowPart).multiplier;
+    $scope.substrahend = windowsInfo.getConfiguration($scope.selectedWindowPart).substrahend;
 
     
     $scope.canvasData ={
@@ -17,23 +21,31 @@ angular.module('longCalculatorApp')
     };
     
     $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
-    $scope.longRows = _.pluck($scope.longObjects,'value');
-   
-
+    $scope.longRows = _.pluck($scope.longObjects,'realValue');
     var sortedLongs = [];
-    sortLongs();
-    recalculateDetails();
-    repaintCanvas();
-    sortedLongs = [];
 
-    $scope.refreshCanvas = function(){
+
+    $scope.refreshCanvas = function(){        
+        $scope.sticksSize = windowsInfo.getConfiguration($scope.selectedWindowPart).sticksSize;
+        $scope.multiplier = windowsInfo.getConfiguration($scope.selectedWindowPart).multiplier;
+        $scope.substrahend = windowsInfo.getConfiguration($scope.selectedWindowPart).substrahend;
         $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
-        $scope.longRows = _.pluck($scope.longObjects,'value');
+        $scope.longRows = _.pluck($scope.longObjects,'realValue');
         sortLongs();
         recalculateDetails();
         repaintCanvas();
         sortedLongs = [];
     }
+    
+    $scope.updateConfig = function(){
+        windowsInfo.updateConfig($scope.selectedWindowPart, $scope.sticksSize, $scope.multiplier, $scope.substrahend);
+        $scope.longObjects = windowsInfo.getLongs($scope.selectedWindowPart);
+        $scope.longRows = _.pluck($scope.longObjects,'realValue');
+        sortLongs();
+        recalculateDetails();
+        repaintCanvas();
+        sortedLongs = [];
+    };
     $scope.sticksDetails = [];
 
 

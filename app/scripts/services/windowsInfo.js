@@ -33,8 +33,7 @@ angular.module('longCalculatorApp')
         
     ];
     
-    this.getWindowsPartsNames = function()
-    {
+    this.getWindowsPartsNames = function(){
         return  [
                     'Riel Superior',
                     'Riel Inferior',
@@ -44,6 +43,40 @@ angular.module('longCalculatorApp')
                     'Socalo'
                 ];
     };
+    
+    this.sticksSizes = {
+        rielSuperior: 5000,
+        rielInferior: 3000,
+        jamda: 4000,
+        gancho: 1000,
+        cabezal: 2000,
+        socalo: 4000
+    };
+    
+    this.multipliers = {
+        rielSuperior: 1,
+        rielInferior: 1,
+        jamda: 1,
+        gancho: 1,
+        cabezal: 1,
+        socalo: 1
+    };
+    
+    this.substrahends = {
+        rielSuperior: 0,
+        rielInferior: 0,
+        jamda: 0,
+        gancho: 0,
+        cabezal: 0,
+        socalo: 0
+    };
+
+    this.updateConfig = function(windowPartName, sticksSize, multiplier, substrahend){
+        var propertyKey = toPropertyKey(windowPartName);
+        this.sticksSizes[propertyKey] = sticksSize;
+        this.multipliers[propertyKey] = multiplier;
+        this.substrahends[propertyKey] = substrahend;
+    }
     this.getWindows = function(){
       return this.windows;  
     };   
@@ -59,9 +92,12 @@ angular.module('longCalculatorApp')
     
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
+        var multiplier = this.multipliers[propertyKey];
+        var substrahend = this.substrahends[propertyKey];
         return _.map(this.windows, function(window){
             window['value'] = window[propertyKey];
-            return _.pick(window,'name','value');
+            window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
+            return _.pick(window,'name','value', 'realValue');
         });
     };
     
@@ -79,6 +115,15 @@ angular.module('longCalculatorApp')
         delete window[propertyKey];
     };
     
+    this.getConfiguration = function(windowPartName){
+      var propertyKey = toPropertyKey(windowPartName);    
+      return {
+          sticksSize:this.sticksSizes[propertyKey],
+          multiplier:this.multipliers[propertyKey],
+          substrahend:this.substrahends[propertyKey],
+      };  
+    };
+
     this.saveData = function(windows) {
         this.windows = windows;
     }
