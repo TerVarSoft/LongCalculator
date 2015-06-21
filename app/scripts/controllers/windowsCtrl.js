@@ -7,6 +7,7 @@ angular.module('longCalculatorApp')
     $scope.mySelections = [];
     
     var windowsData = windowsInfo.getWindows();
+    $scope.configData = windowsInfo.getConfig();
     
     $scope.gridOptions = {
         data: windowsData,
@@ -17,6 +18,22 @@ angular.module('longCalculatorApp')
         
         columnDefs: [{field: 'remove', displayName: '', cellTemplate: removeTemplate},
                      {field: 'name', displayName: 'Ventana', width: 200},
+                     {field: 'rielSuperior', displayName:'Riel Superior'},
+                     {field: 'rielInferior', displayName:'Riel Inferior'},
+                     {field: 'jamba', displayName:'Jamba'},
+                     {field: 'gancho', displayName:'Gancho'},
+                     {field: 'cabezal', displayName:'Cabezal'},
+                     {field: 'socalo', displayName:'Socalo'}]
+        };
+    
+    $scope.configGridOptions = {
+        data: $scope.configData,
+        //enableCellSelection: true,
+        //enableCellEdit: true,
+        //enableRowSelection: false,
+        enableColumnResize: true,
+        
+        columnDefs: [{field: 'property', displayName: 'Propiedad', width: 200},
                      {field: 'rielSuperior', displayName:'Riel Superior'},
                      {field: 'rielInferior', displayName:'Riel Inferior'},
                      {field: 'jamba', displayName:'Jamba'},
@@ -36,7 +53,7 @@ angular.module('longCalculatorApp')
     }
     
     $scope.saveData = function() {
-        windowsInfo.saveData(windowsData);
+        windowsInfo.saveData(windowsData, $scope.configData);
     }
   });
     
