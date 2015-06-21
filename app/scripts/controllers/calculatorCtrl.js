@@ -220,4 +220,6 @@ angular.module('longCalculatorApp')
         }
         return result;
     }
+    
+    $scope.refreshCanvas();
   });
