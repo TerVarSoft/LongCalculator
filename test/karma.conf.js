@@ -28,7 +28,7 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/underscore/underscore.js',
       'bower_components/jspdf/dist/jspdf.min.js',
-      'bower_components/angular-ui-grid/ui-grid.js',
+      'bower_components/ag-grid/dist/angular-grid.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

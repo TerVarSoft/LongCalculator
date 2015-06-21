@@ -5,9 +5,10 @@ angular.module('longCalculatorApp')
     var removeTemplate = '<i class="glyphicon glyphicon-trash" ng-click="removeRow(row)" />';
     var longColumnsWidth = 70;
     var quantityColumnsWidth = 40;
+    var configurationColumnsWidth = 120;
     
     var windowsData = windowsInfo.getWindows();
-    $scope.configData = windowsInfo.getConfig();
+    var configData = windowsInfo.getConfig();
     
     $scope.gridOptions = {
         columnDefs: [{field: 'remove', headerName: '', group: 'Ventanas', template: removeTemplate, width: 30},
@@ -31,19 +32,15 @@ angular.module('longCalculatorApp')
     };
     
     $scope.configGridOptions = {
-        data: $scope.configData,
-        //enableCellSelection: true,
-        //enableCellEdit: true,
-        //enableRowSelection: false,
-        enableColumnResize: true,
+        rowData: configData,
         
-        columnDefs: [{field: 'property', displayName: 'Propiedad', width: 200},
-                     {field: 'rielSuperior', displayName:'Riel Superior'},
-                     {field: 'rielInferior', displayName:'Riel Inferior'},
-                     {field: 'jamba', displayName:'Jamba'},
-                     {field: 'gancho', displayName:'Gancho'},
-                     {field: 'cabezal', displayName:'Cabezal'},
-                     {field: 'socalo', displayName:'Socalo'}]
+        columnDefs: [{field: 'property', headerName: 'Propiedad', editable: true, width: configurationColumnsWidth},
+                     {field: 'rielSuperior', headerName:'Riel Superior', editable: true, width: configurationColumnsWidth},
+                     {field: 'rielInferior', headerName:'Riel Inferior', editable: true, width: configurationColumnsWidth},
+                     {field: 'jamba', headerName:'Jamba', editable: true, width: configurationColumnsWidth},
+                     {field: 'gancho', headerName:'Gancho', editable: true, width: configurationColumnsWidth},
+                     {field: 'cabezal', headerName:'Cabezal', editable: true, width: configurationColumnsWidth},
+                     {field: 'socalo', headerName:'Socalo', editable: true, width: configurationColumnsWidth}]
         };
     
     $scope.addNewWindow = function() {
@@ -68,11 +65,10 @@ angular.module('longCalculatorApp')
     $scope.removeRow = function(row){
         var index = $scope.windowsData.indexOf(row.entity);
         windowsData.splice(1, 1);
-//        $scope.gridOptions.api.onNewRows();
     }
     
     $scope.saveData = function() {
-        windowsInfo.saveData(windowsData, $scope.configData);
+        windowsInfo.saveData(windowsData, configData);
     }
   });
     
