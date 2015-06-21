@@ -7,6 +7,7 @@ angular.module('longCalculatorApp')
     var quantityColumnsWidth = 40;
     
     var windowsData = windowsInfo.getWindows();
+    $scope.configData = windowsInfo.getConfig();
     
     $scope.gridOptions = {
         columnDefs: [{field: 'remove', headerName: '', group: 'Ventanas', template: removeTemplate, width: 30},
@@ -28,6 +29,22 @@ angular.module('longCalculatorApp')
         angularCompileRows: true,
         groupHeaders: true,
     };
+    
+    $scope.configGridOptions = {
+        data: $scope.configData,
+        //enableCellSelection: true,
+        //enableCellEdit: true,
+        //enableRowSelection: false,
+        enableColumnResize: true,
+        
+        columnDefs: [{field: 'property', displayName: 'Propiedad', width: 200},
+                     {field: 'rielSuperior', displayName:'Riel Superior'},
+                     {field: 'rielInferior', displayName:'Riel Inferior'},
+                     {field: 'jamba', displayName:'Jamba'},
+                     {field: 'gancho', displayName:'Gancho'},
+                     {field: 'cabezal', displayName:'Cabezal'},
+                     {field: 'socalo', displayName:'Socalo'}]
+        };
     
     $scope.addNewWindow = function() {
         windowsData.push({name: 'Ventana '+windowsInfo.windowNumber,
@@ -55,7 +72,7 @@ angular.module('longCalculatorApp')
     }
     
     $scope.saveData = function() {
-        windowsInfo.saveData(windowsData);
+        windowsInfo.saveData(windowsData, $scope.configData);
     }
   });
     

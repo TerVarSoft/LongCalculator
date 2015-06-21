@@ -21,25 +21,30 @@
         <hr/>
 
         <div class="col-xs-12 col-md-5">
-            <label for="sticksSize">Longitud de las barras</label>
-            <input type="number" class="form-control" ng-model="sticksSize" return-press="updateConfig()" name="sticksSize" placeholder="Milimetros..."/>
-            
-             <br/> 
-            <form class="form-horizontal" role="form">
-              <div class="form-group">    
-                <label  class="col-sm-4 control-label">-</label>
-                <div class="col-sm-8">
-                  <input type="number" class="form-control" ng-model="substrahend" return-press="updateConfig()"/>
-                </div> 
-              </div>    
-              <div class="form-group">
-                <label class="col-sm-4 control-label">x</label>
-                <div class="col-sm-8 ">
-                  <input type="number" class="form-control" ng-model="multiplier" return-press="updateConfig()"/>
+            <div class="panel panel-default">
+                <div class="panel-heading display-table" >
+                    <div class="row display-tr" >
+                        <h3 class="panel-title display-td" >Configuracion</h3>
+
+                    </div>                    
                 </div>
-                 
-              </div>              
-            </form>            
+                <div>
+                    <table class="table table-striped table-hover ">
+                        <tr>
+                            <td>Long. de las barras</td>
+                            <td>{{sticksSize}}</td>
+                        </tr>
+                        <tr>
+                            <td>Substractor</td>
+                            <td>{{substrahend}}</td>
+                        </tr>
+                        <tr>
+                            <td>Multiplicador</td>
+                            <td>{{multiplier}}</td>
+                        </tr>
+                    </table>
+                </div>                
+            </div>
             <div>
                 <table class="table table-striped table-hover ">
                     <tr>
@@ -69,7 +74,8 @@
                 <canvas id="sticksCanvas" width="700" height="200"></canvas>
             </div>
             
-            <div id="dataTable">
+            <!--Noo tocaaar mucho cambia el formato de imprimir la tabla-->
+            <div id="dataTable" >
                 <table class="table table-striped table-hover ">
                     <tr>
                         <td>Numero de la barra</td>
@@ -78,7 +84,13 @@
                     </tr>
                     <tr ng-repeat = "stickDetail in sticksDetails">
                         <td>{{stickDetail.numberOfStick}}</td>
-                        <td>{{stickDetail.values}}</td>
+                        <!--<td>{{stickDetail.values}}
+                        </td>-->
+                        <td><div class="panel panel-default"><table class="table table-striped table-hover "><tr ng-repeat = "long in stickDetail.values"><td>{{long.name}}:</td><td>{{long.realValue}}</td>
+                            </tr>
+                                </table>
+                            </div>
+                        </td>
                         <td>{{stickDetail.lostMilimeters}}</td>
                     </tr>
                 </table>
