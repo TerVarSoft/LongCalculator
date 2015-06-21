@@ -10,7 +10,9 @@
  */
 angular
   .module('longCalculatorApp', [
-    'ngRoute'
+    'ngRoute',
+    'ui.grid',
+    'ui.grid.edit'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -22,14 +24,14 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
     .when('/calculator', {
         templateUrl: 'views/calculator.html',
         controller: 'calculatorCtrl'
     })
+      .when('/windows', {
+        templateUrl: 'views/windows.html',
+        controller: 'windowsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
