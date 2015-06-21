@@ -2,6 +2,7 @@
 
 angular.module('longCalculatorApp')
  .service('windowsInfo', function(){
+    this.windowNumber = 1;
     this.windows=[
         {
             name:'Ventana Sala',
@@ -33,6 +34,14 @@ angular.module('longCalculatorApp')
         
     ];
     
+    this.getNumberWindow = function(){
+        return this.windowNumber;
+    }
+    
+    this.incrementNumberWindow = function(){
+        this.windowNumber++;
+    }
+    
     this.getWindowsPartsNames = function(){
         return  [
                     'Riel Superior',
@@ -47,7 +56,7 @@ angular.module('longCalculatorApp')
     this.sticksSizes = {
         rielSuperior: 5000,
         rielInferior: 3000,
-        jamda: 4000,
+        jamba: 4000,
         gancho: 1000,
         cabezal: 2000,
         socalo: 4000
@@ -56,7 +65,7 @@ angular.module('longCalculatorApp')
     this.multipliers = {
         rielSuperior: 1,
         rielInferior: 1,
-        jamda: 1,
+        jamba: 1,
         gancho: 1,
         cabezal: 1,
         socalo: 1
@@ -65,7 +74,7 @@ angular.module('longCalculatorApp')
     this.substrahends = {
         rielSuperior: 0,
         rielInferior: 0,
-        jamda: 0,
+        jamba: 0,
         gancho: 0,
         cabezal: 0,
         socalo: 0
