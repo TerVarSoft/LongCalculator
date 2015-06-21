@@ -47,7 +47,7 @@ angular.module('longCalculatorApp')
     this.sticksSizes = {
         rielSuperior: 5000,
         rielInferior: 3000,
-        jamda: 4000,
+        jamba: 4000,
         gancho: 1000,
         cabezal: 2000,
         socalo: 4000
@@ -56,7 +56,7 @@ angular.module('longCalculatorApp')
     this.multipliers = {
         rielSuperior: 1,
         rielInferior: 1,
-        jamda: 1,
+        jamba: 1,
         gancho: 1,
         cabezal: 1,
         socalo: 1
@@ -65,7 +65,7 @@ angular.module('longCalculatorApp')
     this.substrahends = {
         rielSuperior: 0,
         rielInferior: 0,
-        jamda: 0,
+        jamba: 0,
         gancho: 0,
         cabezal: 0,
         socalo: 0
@@ -94,11 +94,13 @@ angular.module('longCalculatorApp')
         var propertyKey = toPropertyKey(windowPartName);
         var multiplier = this.multipliers[propertyKey];
         var substrahend = this.substrahends[propertyKey];
-        return _.map(this.windows, function(window){
-            window['value'] = window[propertyKey];
-            window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
+        var nameLongs = _.map(this.windows, function(window){
+                window['value'] = window[propertyKey];
+                window['realValue'] = (window[propertyKey]-substrahend)*multiplier;
             return _.pick(window,'name','value', 'realValue');
         });
+        
+        return _.filter(nameLongs, function(nameLong){return nameLong.value});
     };
     
     this.addLong = function(longValue, windowName, windowPartName){
