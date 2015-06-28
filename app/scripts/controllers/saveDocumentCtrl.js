@@ -2,9 +2,8 @@
 
 angular.module('longCalculatorApp')
   .controller('saveDocumentCtrl', function ($scope) {
-    $scope.types = ['Jamba', 'Riel Superior', 'Riel Inferior'];
-    $scope.saveDocument = function(){
-        saveDocumentPDF('Prueba');
+    $scope.saveDocument = function(type){
+        saveDocumentPDF(type);
     }
     
     function saveDocumentPDF(type) {
