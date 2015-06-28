@@ -29,12 +29,12 @@ angular.module('longCalculatorApp')
     {
         property : 'Long. barras',
         rielSuperior: 5000,
-        rielInferior: 3000,
-        jamba: 4000,
+        rielInferior: 6000,
+        jamba: 5000,
         pierna: 6000,
-        gancho: 1000,
-        cabezal: 2000,
-        socalo: 4000
+        gancho: 5000,
+        cabezal: 6000,
+        socalo: 5000
     }
     ];
 
