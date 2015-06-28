@@ -2,8 +2,13 @@
 
 angular.module('longCalculatorApp')
   .controller('windowsCtrl', function ($scope, windowsInfo, windowsFactory) {
-    $scope.numberFrames = [2, 3, 4];
-    $scope.lines = [20, 25];
+    $scope.numberFrames = ["2", "3", "4"];
+    $scope.lines = ["Linea 20", "Linea 25"];
+    $scope.newWindowProperties = {};
+    $scope.newWindowProperties.numberFrames = $scope.numberFrames[0];
+    $scope.newWindowProperties.line = $scope.lines[0];
+        
+//    $scope.newWindowProperties.lines = $scope.lines[0];
     $scope.equation = '';
     
     var longColumnsWidth = 70;
@@ -14,19 +19,24 @@ angular.module('longCalculatorApp')
     var configData = windowsInfo.getConfig();
     
     $scope.gridOptions = {
+        rowData: windowsData,
+        rowSelection: 'single',
+        angularCompileRows: true,
+        groupHeaders: true,
+        
         columnDefs: [
             {
                 field: 'name',
                 headerName: 'Ventana',
                 group: 'Ventanas',
-                editable: true,
+                editable: false,
                 width: 150
             },
             {
                 field: 'rielSuperior',
                 headerName:'Longitud',
                 group: 'Riel Superior',
-                editable: true,
+                editable: false,
                 width: longColumnsWidth,
                 valueGetter : 'data.rielSuperior.long',
                 cellRenderer: function(params) {
@@ -39,7 +49,7 @@ angular.module('longCalculatorApp')
                  field: 'rielSuperior',
                  headerName:'Nº',
                  group: 'Riel Superior',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.rielSuperior.quantity'
              },
@@ -47,7 +57,7 @@ angular.module('longCalculatorApp')
                  field: 'rielInferior',
                  headerName:'Longitud',
                  group: 'Riel Inferior',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.rielInferior.long',
                  cellRenderer: function(params) {
@@ -60,7 +70,7 @@ angular.module('longCalculatorApp')
                  field: 'rielInferior',
                  headerName:'Nº',
                  group: 'Riel Inferior',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.rielInferior.quantity'
              },   
@@ -68,7 +78,7 @@ angular.module('longCalculatorApp')
                  field: 'jamba',
                  headerName:'Longitud',
                  group: 'Jamba',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.jamba.long',
                  cellRenderer: function(params) {
@@ -81,7 +91,7 @@ angular.module('longCalculatorApp')
                  field: 'jamba',
                  headerName:'Nº',
                  group: 'Jamba',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.jamba.quantity'
              },
@@ -89,7 +99,7 @@ angular.module('longCalculatorApp')
                  field: 'pierna',
                  headerName:'Longitud',
                  group: 'Pierna',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.pierna.long',
                  cellRenderer: function(params) {
@@ -102,7 +112,7 @@ angular.module('longCalculatorApp')
                  field: 'pierna',
                  headerName:'Nº',
                  group: 'Pierna', 
-                 ditable: true,
+                 ditable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.pierna.quantity'
              },
@@ -110,7 +120,7 @@ angular.module('longCalculatorApp')
                  field: 'gancho',
                  headerName:'Longitud',
                  group: 'Gancho',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.gancho.long',
                  cellRenderer: function(params) {
@@ -123,7 +133,7 @@ angular.module('longCalculatorApp')
                  field: 'gancho',
                  headerName:'Nº',
                  group: 'Gancho',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.gancho.quantity'
              },
@@ -131,7 +141,7 @@ angular.module('longCalculatorApp')
                  field: 'cabezal',
                  headerName:'Longitud',
                  group: 'Cabezal',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.cabezal.long',
                  cellRenderer: function(params) {
@@ -144,7 +154,7 @@ angular.module('longCalculatorApp')
                  field: 'cabezal',
                  headerName:'Nº',
                  group: 'Cabezal',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.cabezal.quantity'
              },
@@ -152,7 +162,7 @@ angular.module('longCalculatorApp')
                  field: 'socalo',
                  headerName:'Longitud',
                  group: 'Socalo',
-                 editable: true,
+                 editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.socalo.long',
                  cellRenderer: function(params) {
@@ -165,16 +175,11 @@ angular.module('longCalculatorApp')
                  field: 'socalo',
                  headerName:'Nº',
                  group: 'Socalo',
-                 editable: true,
+                 editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.socalo.quantity'
              }
-        ],
-   
-        rowData: windowsData,
-        rowSelection: 'single',
-        angularCompileRows: true,
-        groupHeaders: true,
+        ]
     };
     
     $scope.configGridOptions = {
@@ -190,7 +195,7 @@ angular.module('longCalculatorApp')
         };
     
     $scope.addNewWindow = function() {
-        var window = windowsFactory.newWindow($scope.newWindowProperties.name, $scope.newWindowProperties.width, $scope.newWindowProperties.height, $scope.newWindowProperties.wallLoss, $scope.newWindowProperties.numberFrames);
+        var window = windowsFactory.newWindow($scope.newWindowProperties.name, $scope.newWindowProperties.width, $scope.newWindowProperties.height, $scope.newWindowProperties.wallLoss, $scope.newWindowProperties.numberFrames, $scope.newWindowProperties.line);
         windowsData.push(window);
         
         windowsInfo.incrementNumberWindow();
