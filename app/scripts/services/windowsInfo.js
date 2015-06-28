@@ -18,6 +18,7 @@ angular.module('longCalculatorApp')
                     'Riel Superior',
                     'Riel Inferior',
                     'Jamba',
+                    'Pierna',
                     'Gancho',
                     'Cabezal',
                     'Socalo'
@@ -30,6 +31,7 @@ angular.module('longCalculatorApp')
         rielSuperior: 5000,
         rielInferior: 3000,
         jamba: 4000,
+        pierna: 6000,
         gancho: 1000,
         cabezal: 2000,
         socalo: 4000
@@ -61,18 +63,17 @@ angular.module('longCalculatorApp')
     
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
-        var propertyQuantityKey = toPropertyKey(windowPartName)+'Quantity';
-        
-        
-        var longObjects = _.map(this.windows, function(window){
-                window['value'] = window[propertyKey].long;
-                window['quantity'] = window[propertyKey].quantity;
-            return _.pick(window,'name','value', 'quantity');
-        });
-        
-        var longObjectsModifiedByQuantityValues = ModifyListByQuantityValues(longObjects);
-        
-        return _.filter(longObjectsModifiedByQuantityValues, function(longObject){return longObject.value});
+            
+        var longObjects;
+        if(propertyKey!=='cabezal' && propertyKey!=='socalo'){
+            longObjects = this.getLongObjectsByPropertyKey(propertyKey, '');
+        }
+        else{
+            longObjects = this.getLongObjectsByPropertyKey(propertyKey+"Corredizo", " corr");
+            var longObjectsFixed = this.getLongObjectsByPropertyKey(propertyKey+"Fijo", " fijo");
+            Array.prototype.push.apply(longObjects, longObjectsFixed);
+        }
+        return longObjects;
     };
     
     this.addWindow = function(window){
@@ -80,21 +81,18 @@ angular.module('longCalculatorApp')
         
     };
      
-    
-   /* this.addLong = function(longValue, windowName, windowPartName){
+    this.getLongObjectsByPropertyKey = function (propertyKey, addToName){        
+       var longObjects =_.map(this.windows, function(window){
+                window['value'] = window[propertyKey].long;
+                window['quantity'] = window[propertyKey].quantity;
+                window['fixedName'] = window.name + addToName;
+            return _.pick(window,'fixedName','value', 'quantity');
+        });
         
-        var window = _.find(this.windows, function(window){return window.name===windowName;});
-        var propertyKey = toPropertyKey(windowPartName);
-        window[propertyKey] = longValue;
-        console.log(propertyKey);
-    };*/
-    
-    /*this.removeLong = function(windowName, windowPartName){
-        var window = _.find(this.windows, function(window){return window.name===windowName;});
-        var propertyKey = toPropertyKey(windowPartName);
-        delete window[propertyKey];
-    };*/
-    
+        var longObjectsModifiedByQuantityValues = ModifyListByQuantityValues(longObjects);
+        
+        return _.filter(longObjectsModifiedByQuantityValues, function(longObject){return longObject.value});         
+    }
     
 
     this.saveData = function(windows, configuration) {
@@ -113,18 +111,16 @@ angular.module('longCalculatorApp')
                 //add a longs quantity times
                 for(var j=0;j<quantity;j++){
                     results.push({
-                    name: (j==0) ? longObjects[i].name : longObjects[i].name+'*',
-                    value: longObjects[i].value,
-                    realValue: longObjects[i].realValue
+                    name: (j==0) ? longObjects[i].fixedName : longObjects[i].fixedName+'*',
+                    value: longObjects[i].value
                     });
                 }
             }
             else{
                 //remove quantity property
                 results.push({
-                    name: longObjects[i].name,
-                    value: longObjects[i].value,
-                    realValue: longObjects[i].realValue
+                    name: longObjects[i].fixedName,
+                    value: longObjects[i].value
                 });
             }
         }
