@@ -3,54 +3,7 @@
 angular.module('longCalculatorApp')
  .service('windowsInfo', function(){
     this.windowNumber = 1;
-    this.windows=[
-        {
-            name:'Ventana Sala',
-            rielSuperior: 2000,
-            rielSuperiorQuantity: 1,
-            rielInferior: 2000,
-            rielInferiorQuantity: 1,
-            jamba: 300,
-            jambaQuantity: 1,
-            gancho: 700,
-            ganchoQuantity: 1,
-            cabezal: 1500,
-            cabezalQuantity: 1,
-            socalo: 3000,
-            socaloQuantity: 1
-        },
-        {
-            name:'Ventana Cocina',
-            rielSuperior: 1000,
-            rielSuperiorQuantity: 1,
-            rielInferior: 2000,
-            rielInferiorQuantity: 1,
-            jamba: 300,
-            jambaQuantity: 1,
-            gancho: 700,
-            ganchoQuantity: 1,
-            cabezal: 1500,
-            cabezalQuantity: 1,
-            socalo: 3000,
-            socaloQuantity: 1
-        },
-        {
-            name:'Ventana Cuarto',
-            rielSuperior: 3000,
-            rielSuperiorQuantity: 1,
-            rielInferior: 2000,
-            rielInferiorQuantity: 1,
-            jamba: 300,
-            jambaQuantity: 1,
-            gancho: 700,
-            ganchoQuantity: 1,
-            cabezal: 1500,
-            cabezalQuantity: 1,
-            socalo: 3000,
-            socaloQuantity: 1
-        }
-        
-    ];
+    this.windows=[];
     
     this.getNumberWindow = function(){
         return this.windowNumber;
@@ -100,7 +53,7 @@ angular.module('longCalculatorApp')
     */
     this.configuration = [
     {
-        property : 'Longitud de las barras',
+        property : 'Long. barras',
         rielSuperior: 5000,
         rielInferior: 3000,
         jamba: 4000,
