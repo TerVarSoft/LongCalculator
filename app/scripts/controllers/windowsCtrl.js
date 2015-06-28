@@ -27,7 +27,7 @@ angular.module('longCalculatorApp')
         columnDefs: [
             {
                 field: 'name',
-                headerName: 'Ventana',
+                headerName: 'Nombre',
                 group: 'Ventanas',
                 editable: false,
                 width: 150
@@ -138,60 +138,157 @@ angular.module('longCalculatorApp')
                  valueGetter : 'data.gancho.quantity'
              },
              {
-                 field: 'cabezal',
+                 field: 'cabezalFijo',
                  headerName:'Longitud',
-                 group: 'Cabezal',
+                 group: 'Cabezal F.',
                  editable: false,
                  width: longColumnsWidth,
-                 valueGetter : 'data.cabezal.long',
+                 valueGetter : 'data.cabezalFijo.long',
                  cellRenderer: function(params) {
-                    params.$scope.cabezal = "cabezal";
+                    params.$scope.cabezalCorredizo = "cabezalFijo";
                     params.$scope.data = params.data;
-                    return '<div ng-click="showEquation(data, cabezal)">' + params.value + '</div>';
+                    return '<div ng-click="showEquation(data, cabezalFijo)">' + params.value + '</div>';
                 }
              },
              {
-                 field: 'cabezal',
+                 field: 'cabezalFijo',
                  headerName:'Nº',
-                 group: 'Cabezal',
+                 group: 'Cabezal F.',
                  editable: false,
                  width: quantityColumnsWidth,
-                 valueGetter : 'data.cabezal.quantity'
+                 valueGetter : 'data.cabezalFijo.quantity'
              },
              {
-                 field: 'socalo',
+                 field: 'cabezalCorredizo',
                  headerName:'Longitud',
-                 group: 'Socalo',
+                 group: 'Cabezal C.',
                  editable: false,
                  width: longColumnsWidth,
-                 valueGetter : 'data.socalo.long',
+                 valueGetter : 'data.cabezalCorredizo.long',
                  cellRenderer: function(params) {
-                    params.$scope.socalo = "socalo";
+                    params.$scope.cabezalCorredizo = "cabezalCorredizo";
                     params.$scope.data = params.data;
-                    return '<div ng-click="showEquation(data, socalo)">' + params.value + '</div>';
+                    return '<div ng-click="showEquation(data, cabezalCorredizo)">' + params.value + '</div>';
                 }
              },
              {
-                 field: 'socalo',
+                 field: 'cabezalCorredizo',
                  headerName:'Nº',
-                 group: 'Socalo',
+                 group: 'Cabezal C.',
                  editable: false,
                  width: quantityColumnsWidth,
-                 valueGetter : 'data.socalo.quantity'
-             }
+                 valueGetter : 'data.cabezalCorredizo.quantity'
+             },
+             {
+                 field: 'socaloFijo',
+                 headerName:'Longitud',
+                 group: 'Socalo F.',
+                 editable: false,
+                 width: longColumnsWidth,
+                 valueGetter : 'data.socaloFijo.long',
+                 cellRenderer: function(params) {
+                    params.$scope.socaloCorredizo = "socaloFijo";
+                    params.$scope.data = params.data;
+                    return '<div ng-click="showEquation(data, socaloFijo)">' + params.value + '</div>';
+                }
+             },
+             {
+                 field: 'socaloFijo',
+                 headerName:'Nº',
+                 group: 'Socalo F.',
+                 editable: false,
+                 width: quantityColumnsWidth,
+                 valueGetter : 'data.socaloFijo.quantity'
+             },
+             {
+                 field: 'socaloCorredizo',
+                 headerName:'Longitud',
+                 group: 'Socalo C.',
+                 editable: false,
+                 width: longColumnsWidth,
+                 valueGetter : 'data.socaloCorredizo.long',
+                 cellRenderer: function(params) {
+                    params.$scope.socaloCorredizo = "socaloCorredizo";
+                    params.$scope.data = params.data;
+                    return '<div ng-click="showEquation(data, socaloCorredizo)">' + params.value + '</div>';
+                }
+             },
+             {
+                 field: 'socaloCorredizo',
+                 headerName:'Nº',
+                 group: 'Socalo C.',
+                 editable: false,
+                 width: quantityColumnsWidth,
+                 valueGetter : 'data.socaloCorredizo.quantity'
+             },
+             {
+                field: 'line',
+                headerName: 'Nº',
+                group: 'Linea',
+                editable: false,
+                width: 70
+             },
+            {
+                field: 'numberFrames',
+                headerName: 'Cantidad',
+                group: 'Hojas',
+                editable: false,
+                width: 70
+            }
         ]
     };
     
     $scope.configGridOptions = {
         rowData: configData,
         
-        columnDefs: [{field: 'property', headerName: 'Propiedad', editable: true, width: configurationColumnsWidth},
-                     {field: 'rielSuperior', headerName:'Riel Superior', editable: true, width: configurationColumnsWidth},
-                     {field: 'rielInferior', headerName:'Riel Inferior', editable: true, width: configurationColumnsWidth},
-                     {field: 'jamba', headerName:'Jamba', editable: true, width: configurationColumnsWidth},
-                     {field: 'gancho', headerName:'Gancho', editable: true, width: configurationColumnsWidth},
-                     {field: 'cabezal', headerName:'Cabezal', editable: true, width: configurationColumnsWidth},
-                     {field: 'socalo', headerName:'Socalo', editable: true, width: configurationColumnsWidth}]
+        columnDefs: [
+            {
+                field: 'property',
+                headerName: 'Propiedad',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'rielSuperior',
+                headerName:'Riel Superior',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'rielInferior',
+                headerName:'Riel Inferior',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'jamba',
+                headerName:'Jamba',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'pierna',
+                headerName:'Pierna',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'gancho',
+                headerName:'Gancho',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'cabezal',
+                headerName:'Cabezal',
+                editable: true,
+                width: configurationColumnsWidth
+            },
+            {
+                field: 'socalo',
+                headerName:'Socalo',
+                editable: true,
+                width: configurationColumnsWidth}]
         };
     
     $scope.addNewWindow = function() {

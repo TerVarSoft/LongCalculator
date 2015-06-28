@@ -3,9 +3,11 @@
 angular.module('longCalculatorApp')
  .factory('windowsFactory', function() {
     return {
-        newWindow : function(nameWindow, width, height, wallLoss, numberFrames, line) {
-            var summandSocalo = 0;
-            var summandCabezal = 0;
+        newWindow : function(nameWindow, width, height, wallLoss, numberFramesWindow, lineWindow) {
+            var summandSocaloFijo = 0;
+            var summandSocaloCorredizo = 0;
+            var summandCabezalFijo = 0;
+            var summandCabezalCorredizo = 0;
             
             var subtrahendRielSuperior = 0;
             var subtrahendRielInferior = 0;
@@ -17,69 +19,83 @@ angular.module('longCalculatorApp')
             var jambaQuantity = 2;
             var piernaQuantity = 0;
             var ganchoQuantity = 0;
-            var cabezalQuantity = 0;
-            var socaloQuantity = 0;
+            var cabezalFijoQuantity = 0;
+            var cabezalCorredizoQuantity = 0;
+            var socaloFijoQuantity = 0;
+            var socaloCorredizoQuantity = 0;
             
-            if(numberFrames == "2") {
+            if(numberFramesWindow == "2") {
                 piernaQuantity = 2;
                 ganchoQuantity = 2;
-                cabezalQuantity = 2;
-                socaloQuantity = 2;
+                cabezalFijoQuantity = 1;
+                cabezalCorredizoQuantity = 1;
+                socaloFijoQuantity = 1;
+                socaloCorredizoQuantity = 1;
             }
-            else if(numberFrames == "3") {
+            else if(numberFramesWindow == "3") {
                 piernaQuantity = 2;
                 ganchoQuantity = 4;
-                cabezalQuantity = 3;
-                socaloQuantity = 3;
+                cabezalFijoQuantity = 1;
+                cabezalCorredizoQuantity = 2;
+                socaloFijoQuantity = 1;
+                socaloCorredizoQuantity = 2;
             }
-            else if(numberFrames == "4") {
+            else if(numberFramesWindow == "4") {
                 piernaQuantity = 4;
                 ganchoQuantity = 4;
-                cabezalQuantity = 4;
-                socaloQuantity = 4;
+                cabezalFijoQuantity = 4;
+                socaloFijoQuantity = 4;
+                cabezalFijoQuantity = 2;
+                cabezalCorredizoQuantity = 2;
+                socaloFijoQuantity = 2;
+                socaloCorredizoQuantity = 2;
             }
             
-            if(line == "Linea 20") {
+            if(lineWindow == "Linea 20") {
                 subtrahendRielSuperior = 12;
                 subtrahendRielInferior = 12;
                 subtrahendPierna = 24;
                 subtrahendGancho = 24;
                 
-                if(numberFrames == "2") {
-                    summandCabezal = 6;
-                    summandSocalo = 6;
+                if(numberFramesWindow == "2") {
+                    summandCabezalCorredizo = 6;
+                    summandSocaloCorredizo = 6;
                 }
-                else if(numberFrames == "3") {
-                    summandCabezal = 10;
-                    summandSocalo = 10;
+                else if(numberFramesWindow == "3") {
+                    summandCabezalFijo = 3;
+                    summandCabezalCorredizo = 10;
+                    summandSocaloFijo = 3;
+                    summandSocaloCorredizo = 10;
                 }
-                else if(numberFrames == "4") {
-                    summandCabezal = 5;
-                    summandSocalo = 5;
+                else if(numberFramesWindow == "4") {
+                    summandCabezalCorredizo = 5;
+                    summandSocaloCorredizo = 5;
                 }
             }
-            else if(line == "Linea 25") {
+            else if(lineWindow == "Linea 25") {
                 subtrahendRielSuperior = 18;
                 subtrahendRielInferior = 18;
                 subtrahendPierna = 33;
                 subtrahendGancho = 33;
                 
-                if(numberFrames == "2") {
-                    summandCabezal = 13;
-                    summandSocalo = 13;
+                if(numberFramesWindow == "2") {
+                    summandCabezalCorredizo = 13;
+                    summandSocaloCorredizo = 13;
                 }
-                else if(numberFrames == "3") {
-                    summandCabezal = 21;
-                    summandSocalo = 21;
+                else if(numberFramesWindow == "3") {
+                    summandCabezalFijo = -3;
+                    summandCabezalCorredizo = 21;
+                    summandSocaloFijo = -3;
+                    summandSocaloCorredizo = 21;
                 }
-                else if(numberFrames == "4") {
-                    summandCabezal = 11;
-                    summandSocalo = 11;
+                else if(numberFramesWindow == "4") {
+                    summandCabezalCorredizo = 11;
+                    summandSocaloCorredizo = 11;
                 }
             }
             
             return {
-                name: nameWindow,
+                name : nameWindow,
                 rielSuperior : {
                     long: width - wallLoss - subtrahendRielSuperior,
                     quantity: rielSuperiorQuantity,
@@ -105,16 +121,28 @@ angular.module('longCalculatorApp')
                     quantity: ganchoQuantity,
                     equation: 'Jamba - ' + subtrahendGancho
                 },
-                cabezal : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFrames) + summandCabezal,
-                    quantity: cabezalQuantity,
-                    equation: '(Riel Superior / ' + numberFrames + ') + ' + summandCabezal,
+                cabezalFijo : {
+                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo,
+                    quantity: cabezalFijoQuantity,
+                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo + ' + ' + summandCabezalFijo,
                 },
-                socalo : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFrames) + summandSocalo,
-                    quantity: socaloQuantity,
-                    equation: '(Riel Superior / ' + numberFrames + ') + ' + summandCabezal
+                cabezalCorredizo : {
+                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo,
+                    quantity: cabezalFijoQuantity,
+                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo,
                 },
+                socaloFijo : {
+                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo,
+                    quantity: socaloFijoQuantity,
+                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo + ' + ' + summandSocaloFijo
+                },
+                socaloCorredizo : {
+                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo,
+                    quantity: socaloFijoQuantity,
+                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo
+                },
+                line : lineWindow,
+                numberFrames : numberFramesWindow
             };
         }
     };
