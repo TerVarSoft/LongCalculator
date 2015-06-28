@@ -24,35 +24,8 @@ angular.module('longCalculatorApp')
             var socaloFijoQuantity = 0;
             var socaloCorredizoQuantity = 0;
             
-            var cabezalFijoEquation = '';
-            var socaloFijoEquation = '';
-            
-            if(numberFramesWindow == "2") {
-                piernaQuantity = 2;
-                ganchoQuantity = 2;
-                cabezalFijoQuantity = 1;
-                cabezalCorredizoQuantity = 1;
-                socaloFijoQuantity = 1;
-                socaloCorredizoQuantity = 1;
-            }
-            else if(numberFramesWindow == "3") {
-                piernaQuantity = 2;
-                ganchoQuantity = 4;
-                cabezalFijoQuantity = 1;
-                cabezalCorredizoQuantity = 2;
-                socaloFijoQuantity = 1;
-                socaloCorredizoQuantity = 2;
-            }
-            else if(numberFramesWindow == "4") {
-                piernaQuantity = 4;
-                ganchoQuantity = 4;
-                cabezalFijoQuantity = 4;
-                socaloFijoQuantity = 4;
-                cabezalFijoQuantity = 2;
-                cabezalCorredizoQuantity = 2;
-                socaloFijoQuantity = 2;
-                socaloCorredizoQuantity = 2;
-            }
+            var cabezalFijoEquation = 's';
+            var socaloFijoEquation = 's';
             
             if(lineWindow == "Linea 20") {
                 subtrahendRielSuperior = 12;
@@ -101,6 +74,39 @@ angular.module('longCalculatorApp')
                     summandCabezalCorredizo = 11;
                     summandSocaloCorredizo = 11;
                 }
+            }
+            
+            if(numberFramesWindow == "2") {
+                piernaQuantity = 2;
+                ganchoQuantity = 2;
+                cabezalFijoQuantity = 1;
+                cabezalCorredizoQuantity = 1;
+                socaloFijoQuantity = 1;
+                socaloCorredizoQuantity = 1;
+                
+                cabezalFijoEquation = '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo;
+                socaloFijoEquation = '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo;
+            }
+            else if(numberFramesWindow == "3") {
+                piernaQuantity = 2;
+                ganchoQuantity = 4;
+                cabezalFijoQuantity = 1;
+                cabezalCorredizoQuantity = 2;
+                socaloFijoQuantity = 1;
+                socaloCorredizoQuantity = 2;
+            }
+            else if(numberFramesWindow == "4") {
+                piernaQuantity = 4;
+                ganchoQuantity = 4;
+                cabezalFijoQuantity = 4;
+                socaloFijoQuantity = 4;
+                cabezalFijoQuantity = 2;
+                cabezalCorredizoQuantity = 2;
+                socaloFijoQuantity = 2;
+                socaloCorredizoQuantity = 2;
+                
+                cabezalFijoEquation = '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo;
+                socaloFijoEquation = '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo;
             }
             
             return {
