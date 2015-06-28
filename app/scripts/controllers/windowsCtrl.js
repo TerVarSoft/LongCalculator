@@ -33,6 +33,20 @@ angular.module('longCalculatorApp')
                 width: 150
             },
             {
+                field: 'line',
+                headerName: 'Nº',
+                group: 'Linea',
+                editable: false,
+                width: 70
+            },
+            {
+                field: 'numberFrames',
+                headerName: 'Cantidad',
+                group: 'Hojas',
+                editable: false,
+                width: 70
+            },
+            {
                 field: 'rielSuperior',
                 headerName:'Longitud',
                 group: 'Riel Superior',
@@ -145,7 +159,7 @@ angular.module('longCalculatorApp')
                  width: longColumnsWidth,
                  valueGetter : 'data.cabezalFijo.long',
                  cellRenderer: function(params) {
-                    params.$scope.cabezalCorredizo = "cabezalFijo";
+                    params.$scope.cabezalFijo = "cabezalFijo";
                     params.$scope.data = params.data;
                     return '<div ng-click="showEquation(data, cabezalFijo)">' + params.value + '</div>';
                 }
@@ -187,7 +201,7 @@ angular.module('longCalculatorApp')
                  width: longColumnsWidth,
                  valueGetter : 'data.socaloFijo.long',
                  cellRenderer: function(params) {
-                    params.$scope.socaloCorredizo = "socaloFijo";
+                    params.$scope.socaloFijo = "socaloFijo";
                     params.$scope.data = params.data;
                     return '<div ng-click="showEquation(data, socaloFijo)">' + params.value + '</div>';
                 }
@@ -220,21 +234,7 @@ angular.module('longCalculatorApp')
                  editable: false,
                  width: quantityColumnsWidth,
                  valueGetter : 'data.socaloCorredizo.quantity'
-             },
-             {
-                field: 'line',
-                headerName: 'Nº',
-                group: 'Linea',
-                editable: false,
-                width: 70
-             },
-            {
-                field: 'numberFrames',
-                headerName: 'Cantidad',
-                group: 'Hojas',
-                editable: false,
-                width: 70
-            }
+             }
         ]
     };
     

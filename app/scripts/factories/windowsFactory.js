@@ -24,6 +24,9 @@ angular.module('longCalculatorApp')
             var socaloFijoQuantity = 0;
             var socaloCorredizoQuantity = 0;
             
+            var cabezalFijoEquation = '';
+            var socaloFijoEquation = '';
+            
             if(numberFramesWindow == "2") {
                 piernaQuantity = 2;
                 ganchoQuantity = 2;
@@ -66,6 +69,9 @@ angular.module('longCalculatorApp')
                     summandCabezalCorredizo = 10;
                     summandSocaloFijo = 3;
                     summandSocaloCorredizo = 10;
+                    
+                    cabezalFijoEquation = 'Cabezal Corredizo + ' + summandCabezalFijo;
+                    socaloFijoEquation = 'Socalo Corredizo + ' + summandSocaloFijo;
                 }
                 else if(numberFramesWindow == "4") {
                     summandCabezalCorredizo = 5;
@@ -87,6 +93,9 @@ angular.module('longCalculatorApp')
                     summandCabezalCorredizo = 21;
                     summandSocaloFijo = -3;
                     summandSocaloCorredizo = 21;
+                    
+                    cabezalFijoEquation = 'Cabezal Corredizo ' + summandCabezalFijo;
+                    socaloFijoEquation = 'Socalo Corredizo ' + summandSocaloFijo;
                 }
                 else if(numberFramesWindow == "4") {
                     summandCabezalCorredizo = 11;
@@ -96,20 +105,22 @@ angular.module('longCalculatorApp')
             
             return {
                 name : nameWindow,
+                line : lineWindow,
+                numberFrames : numberFramesWindow,
                 rielSuperior : {
                     long: width - wallLoss - subtrahendRielSuperior,
                     quantity: rielSuperiorQuantity,
-                    equation: 'Ancho - Perdida/Pared - ' + subtrahendRielSuperior
+                    equation: 'Ancho - Perdida por Pared - ' + subtrahendRielSuperior
                 },
                 rielInferior : {
                     long: width - wallLoss -subtrahendRielInferior,
                     quantity: rielInferiorQuantity,
-                    equation: 'Ancho - Perdida/Pared - ' + subtrahendRielInferior
+                    equation: 'Ancho - Perdida por Pared - ' + subtrahendRielInferior
                 },
                 jamba : {
                     long: height - wallLoss,
                     quantity: jambaQuantity,
-                    equation: 'Alto - Perdida/Pared'
+                    equation: 'Alto - Perdida por Pared'
                 },
                 pierna : {
                     long: height - wallLoss - subtrahendPierna,
@@ -124,25 +135,23 @@ angular.module('longCalculatorApp')
                 cabezalFijo : {
                     long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo,
                     quantity: cabezalFijoQuantity,
-                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo + ' + ' + summandCabezalFijo,
+                    equation: cabezalFijoEquation
                 },
                 cabezalCorredizo : {
                     long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo,
-                    quantity: cabezalFijoQuantity,
-                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo,
+                    quantity: cabezalCorredizoQuantity,
+                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo
                 },
                 socaloFijo : {
                     long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo,
                     quantity: socaloFijoQuantity,
-                    equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo + ' + ' + summandSocaloFijo
+                    equation: socaloFijoEquation
                 },
                 socaloCorredizo : {
                     long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo,
-                    quantity: socaloFijoQuantity,
+                    quantity: socaloCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo
-                },
-                line : lineWindow,
-                numberFrames : numberFramesWindow
+                }
             };
         }
     };
