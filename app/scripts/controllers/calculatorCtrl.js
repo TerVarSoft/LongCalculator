@@ -78,6 +78,11 @@ angular.module('longCalculatorApp')
         var i=0;
         var results=[];
         var remainingMilimeters;
+        
+        //Excludes numbers bigger than the neededSum
+        while(i<longsArray.length && longsArray[i].realValue>neededSum){
+            i++;
+        }
 
         while(i<longsArray.length && sum+longsArray[i].realValue<=neededSum){
             sum+=longsArray[i].realValue;
