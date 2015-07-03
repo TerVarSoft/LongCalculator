@@ -2,29 +2,33 @@
 
 <div class="container">
     <div class="row">
-        <form role="form">
+        <form name="newWindowForm" role="form">
             <div class="row">
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label class="control-label">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre de la Ventana" ng-model="newWindowProperties.name">
+                        <input type="text" class="form-control" placeholder="Nombre de la Ventana" ng-model="newWindowProperties.name" required>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-3 ">
                         <label class="control-label">Ancho</label>
-                        <input type="text" class="form-control" placeholder="Ancho de la Ventana" ng-model="newWindowProperties.width">
+                        <input type="text" class="form-control" placeholder="Ancho de la Ventana" ng-model="newWindowProperties.width" required input-number>
                     </div>
 
                     <div class="form-group col-md-3">
                         <label class="control-label">Alto</label>
-                        <input type="text" class="form-control" placeholder="Alto de la Ventana" ng-model="newWindowProperties.height">
+                        <input type="text" class="form-control" placeholder="Alto de la Ventana" ng-model="newWindowProperties.height" required input-number>
                     </div>
                     
                     <div class="form-group col-md-3">
                         <label class="control-label">Perdida por Pared</label>
-                        <input type="text" class="form-control" placeholder="Perdida de Pared" ng-model="newWindowProperties.wallLoss">
+                        <input type="text" class="form-control" placeholder="Perdida de Pared" ng-model="newWindowProperties.wallLoss" required input-number>
                     </div>
-
+                    
+                    <div class="col-md-12 has-error">
+                        <label class="control-label">{{error}}</label>
+                    </div>
+                    
                     <div class=" col-md-3">
                         <label class="control-label">Cantidad de Hojas</label>
                         <select class="selectpicker btn btn-primary btn-lg" ng-model="newWindowProperties.numberFrames">
@@ -50,11 +54,11 @@
         
                 <div class="form-row">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-lg submit-button" ng-click="addNewWindow()"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
+                        <button type="submit" class="btn btn-success btn-lg" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
                     </div>
 
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-lg submit-button" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
+                        <button class="btn btn-success btn-lg" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
                     </div>
 
                     <div class="col-md-4">
