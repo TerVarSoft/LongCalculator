@@ -7,9 +7,8 @@ angular.module('longCalculatorApp')
     $scope.newWindowProperties = {};
     $scope.newWindowProperties.numberFrames = $scope.numberFrames[0];
     $scope.newWindowProperties.line = $scope.lines[0];
-        
-//    $scope.newWindowProperties.lines = $scope.lines[0];
     $scope.equation = '';
+    $scope.error = '';
     
     var longColumnsWidth = 70;
     var quantityColumnsWidth = 45;
@@ -173,27 +172,6 @@ angular.module('longCalculatorApp')
                  valueGetter : 'data.cabezalFijo.quantity'
              },
              {
-                 field: 'cabezalCorredizo',
-                 headerName:'Longitud',
-                 group: 'Cabezal C.',
-                 editable: false,
-                 width: longColumnsWidth,
-                 valueGetter : 'data.cabezalCorredizo.long',
-                 cellRenderer: function(params) {
-                    params.$scope.cabezalCorredizo = "cabezalCorredizo";
-                    params.$scope.data = params.data;
-                    return '<div ng-click="showEquation(data, cabezalCorredizo)">' + params.value + '</div>';
-                }
-             },
-             {
-                 field: 'cabezalCorredizo',
-                 headerName:'Nº',
-                 group: 'Cabezal C.',
-                 editable: false,
-                 width: quantityColumnsWidth,
-                 valueGetter : 'data.cabezalCorredizo.quantity'
-             },
-             {
                  field: 'socaloFijo',
                  headerName:'Longitud',
                  group: 'Socalo F.',
@@ -215,10 +193,31 @@ angular.module('longCalculatorApp')
                  valueGetter : 'data.socaloFijo.quantity'
              },
              {
+                 field: 'cabezalCorredizo',
+                 headerName:'Longitud',
+                 group: 'Cabezal C.',
+                 editable: false,
+                 width: longColumnsWidth,
+                 valueGetter : 'data.cabezalCorredizo.long',
+                 cellRenderer: function(params) {
+                    params.$scope.cabezalCorredizo = "cabezalCorredizo";
+                    params.$scope.data = params.data;
+                    return '<div ng-click="showEquation(data, cabezalCorredizo)">' + params.value + '</div>';
+                }
+             },
+             {
+                 field: 'cabezalCorredizo',
+                 headerName:'Nº',
+                 group: 'Cabezal C.',
+                 editable: false,
+                 width: quantityColumnsWidth,
+                 valueGetter : 'data.cabezalCorredizo.quantity'
+             },
+             {
                  field: 'socaloCorredizo',
                  headerName:'Longitud',
                  group: 'Socalo C.',
-                 editable: false,
+                 editable: true,
                  width: longColumnsWidth,
                  valueGetter : 'data.socaloCorredizo.long',
                  cellRenderer: function(params) {
@@ -292,10 +291,21 @@ angular.module('longCalculatorApp')
         };
     
     $scope.addNewWindow = function() {
-        var window = windowsFactory.newWindow($scope.newWindowProperties.name, $scope.newWindowProperties.width, $scope.newWindowProperties.height, $scope.newWindowProperties.wallLoss, $scope.newWindowProperties.numberFrames, $scope.newWindowProperties.line);
-        windowsData.push(window);
+        var window = windowsFactory.newWindow($scope.newWindowProperties.name,
+                                              $scope.newWindowProperties.width,
+                                              $scope.newWindowProperties.height,
+                                              $scope.newWindowProperties.wallLoss,
+                                              $scope.newWindowProperties.numberFrames,
+                                              $scope.newWindowProperties.line);
+        verifyLongs(window);
         
-        windowsInfo.incrementNumberWindow();
+        if($scope.error == '') {
+            windowsData.push(window);
+        
+            windowsInfo.incrementNumberWindow();
+        }
+        
+        
         $scope.gridOptions.api.onNewRows();
     };
     
@@ -312,6 +322,31 @@ angular.module('longCalculatorApp')
     
     $scope.showEquation = function(data, partOfWindowName){
         $scope.equation = data[partOfWindowName].equation;
+    }
+    
+    function verifyLongs(window) {
+        var configs = $scope.configGridOptions.rowData[0];
+        var partsOfWindow = _.reject(_.keys(configs), function(property) { return property == "property"; });
+        
+        
+        for(var i = 0; i < partsOfWindow.length; i++) {
+            var element = partsOfWindow[i];
+            
+            if(element == "cabezal" || element == "socalo") {
+                if(window[element + "Fijo"].long > configs[element] || window[element + "Corredizo"].long > configs[element]) {
+                    $scope.error = 'El ancho o el alto es demasiado grande, longitud de las barra ' + element + ' muy pequeño';
+                    return;
+                }
+            }
+            
+            else if(window[element].long > configs[element]) {
+                $scope.error = 'El ancho o el alto es demasiado grande, longitud de las barra ' + element + ' muy pequeño';
+                return;
+            }
+            else {
+                $scope.error = '';
+            }
+        }
     }
   });
     
