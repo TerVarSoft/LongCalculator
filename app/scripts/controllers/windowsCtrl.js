@@ -29,21 +29,24 @@ angular.module('longCalculatorApp')
                 headerName: 'Nombre',
                 group: 'Ventanas',
                 editable: false,
-                width: 150
+                width: 150,
+                cellStyle: createCellStyle('0, 0, 255')
             },
             {
                 field: 'line',
                 headerName: 'Nº',
                 group: 'Linea',
                 editable: false,
-                width: 70
+                width: 70,
+                cellStyle: createCellStyle('255, 0, 0')
             },
             {
                 field: 'numberFrames',
                 headerName: 'Cantidad',
                 group: 'Hojas',
                 editable: false,
-                width: 70
+                width: 70,
+                cellStyle: createCellStyle('0, 255, 0')
             },
             {
                 field: 'rielSuperior',
@@ -51,6 +54,7 @@ angular.module('longCalculatorApp')
                 group: 'Riel Superior',
                 editable: false,
                 width: longColumnsWidth,
+                cellStyle: createCellStyle('165, 42, 42'),
                 valueGetter : 'data.rielSuperior.long',
                 cellRenderer: function(params) {
                     params.$scope.rielSuperior = "rielSuperior";
@@ -64,6 +68,7 @@ angular.module('longCalculatorApp')
                  group: 'Riel Superior',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('165, 42, 42'),
                  valueGetter : 'data.rielSuperior.quantity'
              },
              {
@@ -72,6 +77,7 @@ angular.module('longCalculatorApp')
                  group: 'Riel Inferior',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('255, 165, 0'),
                  valueGetter : 'data.rielInferior.long',
                  cellRenderer: function(params) {
                     params.$scope.rielInferior = "rielInferior";
@@ -85,6 +91,7 @@ angular.module('longCalculatorApp')
                  group: 'Riel Inferior',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('255, 165, 0'),
                  valueGetter : 'data.rielInferior.quantity'
              },   
              {
@@ -93,6 +100,7 @@ angular.module('longCalculatorApp')
                  group: 'Jamba',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('102, 0, 102'),
                  valueGetter : 'data.jamba.long',
                  cellRenderer: function(params) {
                     params.$scope.jamba = "jamba";
@@ -106,6 +114,7 @@ angular.module('longCalculatorApp')
                  group: 'Jamba',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('102, 0, 102'),
                  valueGetter : 'data.jamba.quantity'
              },
              {
@@ -114,6 +123,7 @@ angular.module('longCalculatorApp')
                  group: 'Pierna',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('204, 153, 0'),
                  valueGetter : 'data.pierna.long',
                  cellRenderer: function(params) {
                     params.$scope.pierna = "pierna";
@@ -127,6 +137,7 @@ angular.module('longCalculatorApp')
                  group: 'Pierna', 
                  ditable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('204, 153, 0'),
                  valueGetter : 'data.pierna.quantity'
              },
              {
@@ -135,6 +146,7 @@ angular.module('longCalculatorApp')
                  group: 'Gancho',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('102, 102, 255'),
                  valueGetter : 'data.gancho.long',
                  cellRenderer: function(params) {
                     params.$scope.gancho = "gancho";
@@ -148,6 +160,7 @@ angular.module('longCalculatorApp')
                  group: 'Gancho',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('102, 102, 255'),
                  valueGetter : 'data.gancho.quantity'
              },
              {
@@ -156,6 +169,7 @@ angular.module('longCalculatorApp')
                  group: 'Cabezal F.',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('255, 255, 0'),
                  valueGetter : 'data.cabezalFijo.long',
                  cellRenderer: function(params) {
                     params.$scope.cabezalFijo = "cabezalFijo";
@@ -169,6 +183,7 @@ angular.module('longCalculatorApp')
                  group: 'Cabezal F.',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('255, 255, 0'),
                  valueGetter : 'data.cabezalFijo.quantity'
              },
              {
@@ -177,6 +192,7 @@ angular.module('longCalculatorApp')
                  group: 'Socalo F.',
                  editable: false,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('0, 153, 204'),
                  valueGetter : 'data.socaloFijo.long',
                  cellRenderer: function(params) {
                     params.$scope.socaloFijo = "socaloFijo";
@@ -190,6 +206,7 @@ angular.module('longCalculatorApp')
                  group: 'Socalo F.',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('0, 153, 204'),
                  valueGetter : 'data.socaloFijo.quantity'
              },
              {
@@ -199,6 +216,7 @@ angular.module('longCalculatorApp')
                  editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.cabezalCorredizo.long',
+                 cellStyle: createCellStyle('153, 255, 51'),
                  cellRenderer: function(params) {
                     params.$scope.cabezalCorredizo = "cabezalCorredizo";
                     params.$scope.data = params.data;
@@ -211,6 +229,7 @@ angular.module('longCalculatorApp')
                  group: 'Cabezal C.',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('153, 255, 51'),
                  valueGetter : 'data.cabezalCorredizo.quantity'
              },
              {
@@ -219,6 +238,7 @@ angular.module('longCalculatorApp')
                  group: 'Socalo C.',
                  editable: true,
                  width: longColumnsWidth,
+                 cellStyle: createCellStyle('102, 153, 153'),
                  valueGetter : 'data.socaloCorredizo.long',
                  cellRenderer: function(params) {
                     params.$scope.socaloCorredizo = "socaloCorredizo";
@@ -232,6 +252,7 @@ angular.module('longCalculatorApp')
                  group: 'Socalo C.',
                  editable: false,
                  width: quantityColumnsWidth,
+                 cellStyle: createCellStyle('102, 153, 153'),
                  valueGetter : 'data.socaloCorredizo.quantity'
              }
         ]
@@ -245,50 +266,60 @@ angular.module('longCalculatorApp')
                 field: 'property',
                 headerName: 'Propiedad',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('0, 0, 255')
             },
             {
                 field: 'rielSuperior',
                 headerName:'Riel Superior',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('165, 42, 42')
             },
             {
                 field: 'rielInferior',
                 headerName:'Riel Inferior',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('255, 165, 0')
             },
             {
                 field: 'jamba',
                 headerName:'Jamba',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('102, 0, 102')
             },
             {
                 field: 'pierna',
                 headerName:'Pierna',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('204, 153, 0')
             },
             {
                 field: 'gancho',
                 headerName:'Gancho',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('102, 102, 255')
             },
             {
                 field: 'cabezal',
                 headerName:'Cabezal',
                 editable: true,
-                width: configurationColumnsWidth
+                width: configurationColumnsWidth,
+                cellStyle: createCellStyle('255, 255, 0')
             },
             {
                 field: 'socalo',
                 headerName:'Socalo',
                 editable: true,
-                width: configurationColumnsWidth}]
-        };
+                width: configurationColumnsWidth,
+                 cellStyle: createCellStyle('0, 153, 204')
+            }
+        ]
+    };
     
     $scope.addNewWindow = function() {
         var window = windowsFactory.newWindow($scope.newWindowProperties.name,
@@ -347,6 +378,13 @@ angular.module('longCalculatorApp')
                 $scope.error = '';
             }
         }
+    }
+    
+    function createCellStyle(redIntensity, greenIntensity, blueIntensity) {
+        var backgroundColor = 'rgba('+ redIntensity + ',0.2)';
+        return {
+            background: backgroundColor
+        };
     }
   });
     
