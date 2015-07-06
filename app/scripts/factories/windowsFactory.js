@@ -139,22 +139,22 @@ angular.module('longCalculatorApp')
                     equation: 'Jamba - ' + subtrahendGancho
                 },
                 cabezalFijo : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo,
+                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo).toFixed(1),
                     quantity: cabezalFijoQuantity,
                     equation: cabezalFijoEquation
                 },
                 cabezalCorredizo : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo,
+                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo).toFixed(1),
                     quantity: cabezalCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo
                 },
                 socaloFijo : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo,
+                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo).toFixed(1),
                     quantity: socaloFijoQuantity,
                     equation: socaloFijoEquation
                 },
                 socaloCorredizo : {
-                    long: ((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo,
+                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo).toFixed(1),
                     quantity: socaloCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo
                 }
