@@ -21,6 +21,14 @@ angular.module('longCalculatorApp')
     $scope.longRows = _.pluck($scope.longObjects,'value');
     $scope.sticksDetails = [];
     var sortedLongs = [];
+    
+    $scope.windowPartDetails = function(windowPart) {
+        $scope.sticksSize = windowsInfo.getSticksSize(windowPart);
+        $scope.longObjects = windowsInfo.getLongs(windowPart);
+        sortLongs();
+        recalculateDetails();
+        sortedLongs = [];
+    }
 
 
     $scope.refreshCanvas = function(){        
