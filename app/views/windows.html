@@ -75,17 +75,52 @@
         <label>Formula: {{equation}}</label>
     </div>
 
-    
     </br>
-    
+
     <div class="row">        
         <div class="col-xs-12 col-md-12 col-lg-12 ">
             <div ag-grid="gridOptions" class="ag-fresh gridStyle"></div>
         </div>
     </div>
-    </hr>
+
+    </br>
+
+    <div class="row">
+        <h3>Configuracion</h3>
+        
+        <form name="configurationForm" role="form">
+            <div class="row">
+                <div class="form-row">
+                    <div class=" col-md-3">
+                        <label class="control-label">Tipo de Barra</label>
+                        <select class="selectpicker btn btn-primary btn-lg" ng-model="configurations.stickType">
+                            <option ng-repeat="stickType in stickTypes">{{stickType}}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Longitud</label>
+                        <input type="text" class="form-control" placeholder="Longitud de Barra" ng-model="configurations.stickLong" required input-number>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-lg" ng-click="addNewConfiguration()" ng-disabled="configurationForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Barra</button>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button class="btn btn-success btn-lg" ng-click=""><i class="glyphicon glyphicon-trash"/>    Eliminar Barra</button>
+                    </div>
+                    
+                    <div class="col-md-12 has-error">
+                        <label class="control-label">{{error}}</label>
+                    </div>
+                </div>               
+            </div>
+        </form>
+    </div>
+
+    </br>
     
-    <h3>Configuration</h3>
     <div class="row">        
         <div class="col-xs-12 col-md-12 col-lg-12">
             <div ag-grid="configGridOptions" class="ag-fresh configurationGridStyle"></div>

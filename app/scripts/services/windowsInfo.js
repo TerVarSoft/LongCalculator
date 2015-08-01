@@ -38,9 +38,9 @@ angular.module('longCalculatorApp')
     }
     ];
 
-    this.updateConfig = function(windowPartName, sticksSize){
+    this.updateConfig = function(windowPartName, sticksSizes){
         var propertyKey = toPropertyKey(windowPartName);
-        this.sticksSizes[propertyKey] = sticksSize;
+        this.sticksSizes[propertyKey] = sticksSizes;
     }
     this.getWindows = function(){
       return this.windows;  
@@ -54,12 +54,15 @@ angular.module('longCalculatorApp')
         return this.configuration;
     }    
     
-    this.getSticksSize = function(windowPartName){
+    this.getSticksSizes = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);
-        return this.configuration[0][propertyKey];
+        var sticksSizes = [];
+        
+        for(var i = 0; i < this.configuration.length; i++) {
+            sticksSizes.push(parseInt(this.configuration[i][propertyKey]));
+        }
+        return sticksSizes;
     }
-    
-    
     
     this.getLongs = function(windowPartName){
         var propertyKey = toPropertyKey(windowPartName);

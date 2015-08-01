@@ -7,6 +7,9 @@ angular.module('longCalculatorApp')
     $scope.newWindowProperties = {};
     $scope.newWindowProperties.numberFrames = $scope.numberFrames[0];
     $scope.newWindowProperties.line = $scope.lines[0];
+    $scope.stickTypes = windowsInfo.getWindowsPartsNames();
+    $scope.configurations = {};
+    $scope.configurations.stickType = $scope.stickTypes[0];
     $scope.equation = '';
     $scope.error = '';
     
@@ -335,8 +338,7 @@ angular.module('longCalculatorApp')
         
             windowsInfo.incrementNumberWindow();
         }
-        
-        
+          
         $scope.gridOptions.api.onNewRows();
     };
     
@@ -379,6 +381,38 @@ angular.module('longCalculatorApp')
             }
         }
     }
+    
+    $scope.addNewConfiguration = function() {
+        var config = configData[configData.length - 1];
+        var type = $scope.configurations.stickType.replace(/\s+/g, '');
+        type = type.substr(0,1).toLowerCase()+type.substr(1,type.length);
+        
+        if(config[type] !== 0) {
+            configData.push({
+                property : 'Restos',
+                rielSuperior: 0,
+                rielInferior: 0,
+                jamba: 0,
+                pierna: 0,
+                gancho: 0,
+                cabezal: 0,
+                socalo: 0
+            });
+            
+            config = configData[configData.length - 1];
+        }
+        else {
+            for(var i = 0; i < configData.length; i++) {
+                if(configData[i][type] === 0) {
+                    config = configData[i];
+                    i = configData.length;
+                }
+            }
+        }
+                
+        config[type] = $scope.configurations.stickLong;
+        $scope.configGridOptions.api.onNewRows();
+    };
     
     function createCellStyle(redIntensity, greenIntensity, blueIntensity) {
         var backgroundColor = 'rgba('+ redIntensity + ',0.2)';
