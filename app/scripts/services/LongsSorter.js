@@ -21,19 +21,15 @@ angular.module('longCalculatorApp')
         var firstLongToAdd;
         var leftoverMilimeters;
         if(iSticksSizes < sticksSizes.length-1){
-            console.log("If");
             firstLongToAdd = this.getFirstLongToAdd(upperSortedLongs, sticksSizes[iSticksSizes]);
             leftoverMilimeters = sticksSizes[iSticksSizes]-firstLongToAdd.value;
             iSticksSizes++;  
         }
         else{
-            console.log("Else");
             firstLongToAdd = this.getFirstLongToAdd(upperSortedLongs, sticksSizes[sticksSizes.length-1]);
             leftoverMilimeters = sticksSizes[sticksSizes.length-1]-firstLongToAdd.value;
         }   
-        
-        console.log(leftoverMilimeters);
-        
+
         sortedLongs.push(firstLongToAdd);         
         var remainingLongs = Array.prototype.slice.call(upperSortedLongs).slice(0, upperSortedLongs.length);
         remainingLongs.splice(upperSortedLongs.indexOf(firstLongToAdd), 1);
@@ -41,8 +37,6 @@ angular.module('longCalculatorApp')
         while(sortedLongs.length!==upperSortedLongs.length){            
             
             var longsToAdd = this.getLongsToAdd(remainingLongs, leftoverMilimeters);
-            console.log(longsToAdd);
-            
             //if not empty, add lognsToAdd to the result
             if(longsToAdd.length!==0){
                 Array.prototype.push.apply(sortedLongs, longsToAdd);
@@ -109,45 +103,43 @@ angular.module('longCalculatorApp')
             results.push(longsArray[i]);
             i++;    
         }
-        
+       
         remainingMilimeters = neededSum - sum;
+         
         var notUsedLongs=Array.prototype.slice.call(longsArray).slice(i,longsArray.length);
         i=0;
         while(i<results.length)
         {
             var replacement = this.getReplaceFor(results[i], notUsedLongs, remainingMilimeters);
-
             if(replacement.length>0)
             {           
                 var iResult = results[i];
                 results = this.addRemoveLongs(results, replacement, [iResult]);
                 notUsedLongs = this.addRemoveLongs(notUsedLongs, [iResult], replacement);
-                remainingMilimeters -= (this.getSum(replacement)-iResult);
+                remainingMilimeters -= (this.getSum(replacement)-iResult.value);
             }
             else
             {
                 i++;
             }
         }
-
+        
         i=0;
         while(i<notUsedLongs.length)
         {
             var toReplace = this.getArrayToReplace(notUsedLongs[i], results, remainingMilimeters);
-
             if(toReplace.length>0)
             {  
                 var iResult = notUsedLongs[i];       
                 results = this.addRemoveLongs(results, [iResult], toReplace);
                 notUsedLongs = this.addRemoveLongs(notUsedLongs, toReplace, [iResult]);
-                remainingMilimeters -= iResult-this.getSum(toReplace);
+                remainingMilimeters -= iResult.value-this.getSum(toReplace);
             }
             else
             {
                 i++;
             }
         }
-
         return results;
     }
     
@@ -156,14 +148,18 @@ angular.module('longCalculatorApp')
         var results=[];
 
         var i=0;
-        while(i<notUsedLongs.length && sum+notUsedLongs[i].value-toReplace.value<=remainingMilimeters ){
-            sum += notUsedLongs[i].value;
 
-            results.push(notUsedLongs[i]);
+        while(i<notUsedLongs.length){
+            if(sum+notUsedLongs[i].value-toReplace.value<=remainingMilimeters) {
+               sum += notUsedLongs[i].value;
+               results.push(notUsedLongs[i]); 
+            }
+            
+            
             i++;
         }
 
-        if(this.getSum(results) < toReplace.value){
+        if(this.getSum(results) <= toReplace.value){
             results = [];
         }
 
