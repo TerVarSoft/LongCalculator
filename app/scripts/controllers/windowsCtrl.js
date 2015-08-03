@@ -36,6 +36,30 @@ angular.module('longCalculatorApp')
                 cellStyle: createCellStyle('0, 0, 255')
             },
             {
+                field: 'width',
+                headerName: 'Ancho',
+                group: 'Ventanas',
+                editable: false,
+                width: 70,
+                cellStyle: createCellStyle('0, 0, 255')
+            },
+            {
+                field: 'height',
+                headerName: 'Alto',
+                group: 'Ventanas',
+                editable: false,
+                width: 70,
+                cellStyle: createCellStyle('0, 0, 255')
+            },
+            {
+                field: 'wallLoss',
+                headerName: 'P/Pared',
+                group: 'Ventanas',
+                editable: false,
+                width: 70,
+                cellStyle: createCellStyle('0, 0, 255')
+            },
+            {
                 field: 'line',
                 headerName: 'Nº',
                 group: 'Linea',
@@ -263,6 +287,7 @@ angular.module('longCalculatorApp')
     
     $scope.configGridOptions = {
         rowData: configData,
+        rowSelection: 'single',
         
         columnDefs: [
             {
@@ -383,36 +408,27 @@ angular.module('longCalculatorApp')
     }
     
     $scope.addNewConfiguration = function() {
-        var config = configData[configData.length - 1];
-        var type = $scope.configurations.stickType.replace(/\s+/g, '');
-        type = type.substr(0,1).toLowerCase()+type.substr(1,type.length);
-        
-        if(config[type] !== 0) {
-            configData.push({
-                property : 'Restos',
-                rielSuperior: 0,
-                rielInferior: 0,
-                jamba: 0,
-                pierna: 0,
-                gancho: 0,
-                cabezal: 0,
-                socalo: 0
-            });
-            
-            config = configData[configData.length - 1];
-        }
-        else {
-            for(var i = 0; i < configData.length; i++) {
-                if(configData[i][type] === 0) {
-                    config = configData[i];
-                    i = configData.length;
-                }
-            }
-        }
-                
-        config[type] = $scope.configurations.stickLong;
+        configData.push({
+            property : 'Restos',
+            rielSuperior: 0,
+            rielInferior: 0,
+            jamba: 0,
+            pierna: 0,
+            gancho: 0,
+            cabezal: 0,
+            socalo: 0
+        });
+          
         $scope.configGridOptions.api.onNewRows();
     };
+    
+    $scope.removeConfiguration = function(){
+        var selectedConfiguration = $scope.configGridOptions.selectedRows[0];
+        var selectedId = configData.indexOf(selectedConfiguration);
+        config = configData[selectedId];
+        config[type] = 0;
+        $scope.configGridOptions.api.onNewRows();
+    }
     
     function createCellStyle(redIntensity, greenIntensity, blueIntensity) {
         var backgroundColor = 'rgba('+ redIntensity + ',0.2)';

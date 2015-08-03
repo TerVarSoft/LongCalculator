@@ -3,7 +3,7 @@
 angular.module('longCalculatorApp')
  .factory('windowsFactory', function() {
     return {
-        newWindow : function(nameWindow, width, height, wallLoss, numberFramesWindow, lineWindow) {
+        newWindow : function(nameWindow, widthWindow, heightWindow, wallLossWindow, numberFramesWindow, lineWindow) {
             var summandSocaloFijo = 0;
             var summandSocaloCorredizo = 0;
             var summandCabezalFijo = 0;
@@ -111,50 +111,53 @@ angular.module('longCalculatorApp')
             
             return {
                 name : nameWindow,
+                width : widthWindow,
+                height : heightWindow,
+                wallLoss : wallLossWindow,
                 line : lineWindow,
                 numberFrames : numberFramesWindow,
                 rielSuperior : {
-                    long: width - wallLoss - subtrahendRielSuperior,
+                    long: widthWindow - wallLossWindow - subtrahendRielSuperior,
                     quantity: rielSuperiorQuantity,
                     equation: 'Ancho - Perdida por Pared - ' + subtrahendRielSuperior
                 },
                 rielInferior : {
-                    long: width - wallLoss -subtrahendRielInferior,
+                    long: widthWindow - wallLossWindow -subtrahendRielInferior,
                     quantity: rielInferiorQuantity,
                     equation: 'Ancho - Perdida por Pared - ' + subtrahendRielInferior
                 },
                 jamba : {
-                    long: height - wallLoss,
+                    long: heightWindow - wallLossWindow,
                     quantity: jambaQuantity,
                     equation: 'Alto - Perdida por Pared'
                 },
                 pierna : {
-                    long: height - wallLoss - subtrahendPierna,
+                    long: heightWindow - wallLossWindow - subtrahendPierna,
                     quantity: piernaQuantity,
                     equation: 'Jamba - ' + subtrahendPierna
                 },
                 gancho : {
-                    long: height - wallLoss - subtrahendGancho,
+                    long: heightWindow - wallLossWindow - subtrahendGancho,
                     quantity: ganchoQuantity,
                     equation: 'Jamba - ' + subtrahendGancho
                 },
                 cabezalFijo : {
-                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo).toFixed(1),
                     quantity: cabezalFijoQuantity,
                     equation: cabezalFijoEquation
                 },
                 cabezalCorredizo : {
-                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo).toFixed(1),
                     quantity: cabezalCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo
                 },
                 socaloFijo : {
-                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo).toFixed(1),
                     quantity: socaloFijoQuantity,
                     equation: socaloFijoEquation
                 },
                 socaloCorredizo : {
-                    long: (((width - wallLoss - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo).toFixed(1),
                     quantity: socaloCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo
                 }

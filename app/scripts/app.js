@@ -11,6 +11,7 @@
 angular
   .module('longCalculatorApp', [
     'ngRoute',
+    'ngAnimate',
     'angularGrid'
   ])
   .config(function ($routeProvider) {

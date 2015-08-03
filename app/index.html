@@ -9,6 +9,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/standalone.css"/>
     <link rel="stylesheet" href="bower_components/ag-grid/dist/angular-grid.css" />
     <link rel="stylesheet" href="bower_components/ag-grid/dist/theme-fresh.css" />
     <link rel="stylesheet" href="bower_components/ag-grid/dist/theme-dark.css" />
@@ -52,7 +53,7 @@
     </div>
 
     <div class="container">
-        <div ng-view=""></div>
+        <div ng-view="" class="reveal-animation"></div>
     </div>
 
     <div class="footer">
@@ -75,7 +76,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
@@ -83,6 +84,7 @@
     <script src="bower_components/jspdf/dist/jspdf.min.js"></script>
     <script src="bower_components/jspdf-autotable/jspdf.plugin.autotable.js"></script>
     <script src="bower_components/ag-grid/dist/angular-grid.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -99,5 +101,7 @@
     <script src="scripts/services/LongsSorter.js"></script>
     <script src="scripts/factories/windowsFactory.js"></script>
     <!-- endbuild -->
+    
+    <script src="../bower_components/easeljs-0.7.0.min.js.txt"></script>
 </body>
 </html>
