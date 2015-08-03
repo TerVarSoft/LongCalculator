@@ -2,14 +2,15 @@
 
 angular.module('longCalculatorApp')
   .controller('saveDocumentCtrl', function ($scope, windowsInfo) {
-    $scope.saveDocument = function(type){
-        saveDocumentPDF(type);
+    $scope.saveDocument = function(){
+        saveDocumentPDF();
     }
     
-    function saveDocumentPDF(type) {
-        var documentPDF = new jsPDF('p', 'pt', 'letter');
+    function saveDocumentPDF() {
+        var documentPDF = new jsPDF('p', 'pt', 'legal');
         var y = 80;
         var actualRow = 1;
+        var actualNumberOfStick = 1;
         var actualTableTitle = '';
         
         var actualCellColor = {
@@ -24,17 +25,21 @@ angular.module('longCalculatorApp')
                 title: "Numero de la Barra"
             },
             {
+                key: "stickLong",
+                title: "Longitud de la Barra"
+            },
+            {
+                key: "lostMilimeters",
+                title: "Perdida [mm]"
+            },
+            {
                 key: "window",
                 title: "Ventana"
             },
             {
                 key: "long",
                 title:"Corte [mm]"
-            },
-            {
-                key: "lostMilimeters",
-                title: "Perdida [mm]"
-            }
+            }            
         ];
 
         var cell = function (x, y, width, height, key, value, row, settings) {
@@ -57,10 +62,10 @@ angular.module('longCalculatorApp')
             }
             else
             {
-                if (key === 'numberOfStick') {    
+                if (key === "numberOfStick" || key === "lostMilimeters" || key === "stickLong") {
                     if(row === actualRow) {
                         for(var i = 0; i < data.length; i++) {
-                            if(data[i].numberOfStick == value) {
+                            if(data[i].numberOfStick == actualNumberOfStick) {
                                 if(data[i].numberOfStick % 2 == 0) {
                                     actualCellColor = {
                                         redValue: 200,
@@ -78,8 +83,12 @@ angular.module('longCalculatorApp')
 
                                 rowsUsed = data[i].quantityLongsOfStick;
                                 height = height * rowsUsed;
-                                actualRow = row + rowsUsed;
                                 i = data.length;
+                                
+                                if(key === "lostMilimeters") {
+                                    actualRow = row + rowsUsed;
+                                    actualNumberOfStick++;
+                                }
                             }
                         }
                         
@@ -130,9 +139,10 @@ angular.module('longCalculatorApp')
             
             y = documentPDF.autoTableEndPosY();
             actualRow = 1;
+            actualNumberOfStick = 1;
         }
         
-        documentPDF.save('Reporte ' + type + '.pdf');
+        documentPDF.save('Reporte Cortes.pdf');
     }
     
     function generateData(dataLongs) {
@@ -140,18 +150,20 @@ angular.module('longCalculatorApp')
         
         dataGenerated.push({
             numberOfStick: '',
+            stickLong: '',
             window: '',
             long: '',
             lostMilimeters: '',
             quantityLongsOfStick: ''
-       });
+        });
         
         for(var i = 0; i < dataLongs.length; i++) {
             var dataLong = dataLongs[i];
-            
+
             for(var j = 0; j < dataLong.values.length; j++) {
                 dataGenerated.push({
                     numberOfStick: dataLong.numberOfStick,
+                    stickLong: dataLong.stickLong,
                     window: dataLong.values[j].name,
                     long: dataLong.values[j].value,
                     lostMilimeters: dataLong.lostMilimeters,
