@@ -86,37 +86,11 @@
     </br>
 
     <div class="row">
-        <h3>Configuracion</h3>
+        <h3>Configuracion de Barras</h3>
         
-        <form name="configurationForm" role="form">
-            <div class="row">
-                <div class="form-row">
-                    <div class=" col-md-3">
-                        <label class="control-label">Tipo de Barra</label>
-                        <select class="selectpicker btn btn-primary btn-lg" ng-model="configurations.stickType">
-                            <option ng-repeat="stickType in stickTypes">{{stickType}}</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Longitud</label>
-                        <input type="text" class="form-control" placeholder="Longitud de Barra" ng-model="configurations.stickLong" required input-number>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-success btn-lg" ng-click="addNewConfiguration()" ng-disabled="configurationForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Barra</button>
-                    </div>
-
-                    <div class="col-md-3">
-                        <button class="btn btn-success btn-lg" ng-click=""><i class="glyphicon glyphicon-trash"/>    Eliminar Barra</button>
-                    </div>
-                    
-                    <div class="col-md-12 has-error">
-                        <label class="control-label">{{error}}</label>
-                    </div>
-                </div>               
-            </div>
-        </form>
+        <div class="col-md-3">
+            <button class="btn btn-success btn-lg" ng-click="addNewConfiguration()"><i class="glyphicon glyphicon-plus"/>    Agregar Restos</button>
+        </div>
     </div>
 
     </br>
