@@ -26,16 +26,56 @@ angular.module('longCalculatorApp')
     };
     
     this.configuration = [
-    {
-        property : 'Long. barras',
-        rielSuperior: 5000,
-        rielInferior: 6000,
-        jamba: 5000,
-        pierna: 6000,
-        gancho: 5000,
-        cabezal: 6000,
-        socalo: 5000
-    }
+        {
+            property : 'Long. barras',
+            rielSuperior: 5000,
+            rielInferior: 6000,
+            jamba: 5000,
+            pierna: 6000,
+            gancho: 5000,
+            cabezal: 6000,
+            socalo: 5000
+        },
+        {
+            property : 'Restos',
+            rielSuperior: 3000,
+            rielInferior: 0,
+            jamba: 0,
+            pierna: 0,
+            gancho: 0,
+            cabezal: 0,
+            socalo: 0        
+        },
+        {
+            property : 'Restos',
+            rielSuperior: 100,
+            rielInferior: 0,
+            jamba: 0,
+            pierna: 0,
+            gancho: 0,
+            cabezal: 0,
+            socalo: 0        
+        },
+        {
+            property : 'Restos',
+            rielSuperior: 100,
+            rielInferior: 0,
+            jamba: 0,
+            pierna: 0,
+            gancho: 0,
+            cabezal: 0,
+            socalo: 0        
+        } ,
+        {
+            property : 'Restos',
+            rielSuperior: 200,
+            rielInferior: 0,
+            jamba: 0,
+            pierna: 0,
+            gancho: 0,
+            cabezal: 0,
+            socalo: 0        
+        }     
     ];
 
     this.updateConfig = function(windowPartName, sticksSizes){
