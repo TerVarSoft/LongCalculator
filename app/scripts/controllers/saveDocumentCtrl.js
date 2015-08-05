@@ -120,6 +120,8 @@ angular.module('longCalculatorApp')
         documentPDF.text("Ferreteria Cesar", 200, y);
         documentPDF.setFontSize(20);
         
+        var actualSelectedWindowPart = $scope.selectedWindowPart;
+        
         for (var j = 0; j < $scope.windowsPartsNames.length; j++) {
             var windowPartName = $scope.windowsPartsNames[j];
             $scope.windowPartDetails(windowPartName);
@@ -143,6 +145,8 @@ angular.module('longCalculatorApp')
         }
         
         documentPDF.save('Reporte Cortes.pdf');
+        
+        $scope.windowPartDetails(actualSelectedWindowPart);
     }
     
     function generateData(dataLongs) {
