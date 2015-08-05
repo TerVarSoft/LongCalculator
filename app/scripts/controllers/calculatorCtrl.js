@@ -69,14 +69,7 @@ angular.module('longCalculatorApp')
             stickLong: $scope.sticksSizes[0],
             values : [],
             lostMilimeters: $scope.sticksSizes[0] 
-          });
-
-        if(sortedLongs[0].value > $scope.sticksSizes[0]) {
-            $scope.sticksDetails[0].values.push({
-                    name: "-----",
-                    value: "-----"
-            });
-        }
+        });
         
         while(i < sortedLongs.length) {
             tempSum += parseFloat(sortedLongs[i].value);
@@ -92,6 +85,13 @@ angular.module('longCalculatorApp')
                 numberOfSticks++;
                 
                 if(iSticksSizes < ($scope.sticksSizes.length-1)) {
+                    if($scope.sticksDetails[numberOfSticks-2].values.length == 0) {
+                        $scope.sticksDetails[numberOfSticks-2].values.push({
+                                name: "-----",
+                                value: "-----"
+                        });
+                    }
+                    
                     iSticksSizes++;
                 }
                 
