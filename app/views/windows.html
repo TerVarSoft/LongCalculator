@@ -53,15 +53,15 @@
                 </br>
         
                 <div class="form-row">
-                    <div class="col-md-4">
+                    <div data-ot="Agregar ventana" data-ot-delay="1" class="col-md-4">
                         <button type="submit" class="btn btn-success btn-lg" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
                     </div>
 
-                    <div class="col-md-4">
+                    <div data-ot="Seleccione una ventana y eliminela" data-ot-delay="1" class="col-md-4">
                         <button class="btn btn-success btn-lg" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
                     </div>
 
-                    <div class="col-md-4">
+                    <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-4">
                         <a ng-href="#/calculator" class="btn btn-success btn-lg" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Calcular</a>
                     </div>
                 </div>
@@ -88,7 +88,8 @@
     <div class="row">
         <h3>Configuracion de Barras</h3>
         
-        <div class="col-md-3">
+        <div data-ot="Agrega una fila vacia a la tabla de longitudes para especificar longitudes de barras diferentes a las por defecto" 
+             data-ot-delay="1" class="col-md-3">
             <button class="btn btn-success btn-lg" ng-click="addNewConfiguration()"><i class="glyphicon glyphicon-plus"/>    Agregar Restos</button>
         </div>
     </div>
@@ -100,4 +101,7 @@
             <div ag-grid="configGridOptions" class="ag-fresh configurationGridStyle"></div>
         </div>
     </div>
+    
+    <script src="bower_components/opentip/lib/opentip.js"></script>
+    <script src="bower_components/opentip/lib/adapter-jquery.js"></script>
 </div>

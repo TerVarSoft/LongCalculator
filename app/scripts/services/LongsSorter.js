@@ -18,25 +18,29 @@ angular.module('longCalculatorApp')
         var upperSortedLongs = Array.prototype.slice.call(longs);
         upperSortedLongs.sort(function(a, b){return b.value-a.value;});
         //Adds the biggest long to sortedLongs array based on the stickSize
-        var firstLongToAdd;
+        var firstLongToAdd = {};
         var leftoverMilimeters;
         if(iSticksSizes < sticksSizes.length-1){
-            firstLongToAdd = this.getFirstLongToAdd(upperSortedLongs, sticksSizes[iSticksSizes]);
-            leftoverMilimeters = sticksSizes[iSticksSizes]-firstLongToAdd.value;
-            iSticksSizes++;  
+            while(_.isEmpty(firstLongToAdd)) {
+                firstLongToAdd = this.getFirstLongToAdd(upperSortedLongs, sticksSizes[iSticksSizes]);
+                iSticksSizes++;
+            }
+            
+            leftoverMilimeters = sticksSizes[iSticksSizes-1]-firstLongToAdd.value; 
         }
         else{
             firstLongToAdd = this.getFirstLongToAdd(upperSortedLongs, sticksSizes[sticksSizes.length-1]);
             leftoverMilimeters = sticksSizes[sticksSizes.length-1]-firstLongToAdd.value;
-        }   
+        }
 
-        sortedLongs.push(firstLongToAdd);         
+        sortedLongs.push(firstLongToAdd);
         var remainingLongs = Array.prototype.slice.call(upperSortedLongs).slice(0, upperSortedLongs.length);
         remainingLongs.splice(upperSortedLongs.indexOf(firstLongToAdd), 1);
         
         while(sortedLongs.length!==upperSortedLongs.length){            
             
-            var longsToAdd = this.getLongsToAdd(remainingLongs, leftoverMilimeters);
+            var longsToAdd = this.getLongsToAdd(remainingLongs, leftoverMilimeters);            
+            
             //if not empty, add lognsToAdd to the result
             if(longsToAdd.length!==0){
                 Array.prototype.push.apply(sortedLongs, longsToAdd);
@@ -51,7 +55,7 @@ angular.module('longCalculatorApp')
             if(remainingLongs.length!==0){     
                 if(iSticksSizes < sticksSizes.length-1){
                     firstLongToAdd = this.getFirstLongToAdd(remainingLongs, sticksSizes[iSticksSizes]);
-                    leftoverMilimeters =sticksSizes[i]-firstLongToAdd.value;
+                    leftoverMilimeters = sticksSizes[iSticksSizes]-firstLongToAdd.value;
                     iSticksSizes++;  
                 }
                 else{
@@ -72,15 +76,14 @@ angular.module('longCalculatorApp')
         
         var i=0;
         var result = {};
-        while(i < (longsArray.length-1) && longsArray[i].value > stickSize) {
+        while(i < (longsArray.length) && longsArray[i].value > stickSize) {
             i++;
         }
         
-        result = longsArray[i];
-        
-        if(i >= longsArray.length){
-            result = {};
+        if(i < longsArray.length) {
+            result = longsArray[i];
         }
+        
         return result;
     }
     

@@ -20,6 +20,8 @@ angular.module('longCalculatorApp')
     var windowsData = windowsInfo.getWindows();
     var configData = windowsInfo.getConfig();
     
+    var prueba = casoPrueba();
+    
     $scope.gridOptions = {
         rowData: windowsData,
         rowSelection: 'single',
@@ -435,6 +437,31 @@ angular.module('longCalculatorApp')
         return {
             background: backgroundColor
         };
+    }
+    
+    function casoPrueba(name, width, height, wallLoss, numberFrames, line) {
+        var window1 = windowsFactory.newWindow('Ventana 2000',
+                                              2000,
+                                              2000,
+                                              0,
+                                              2,
+                                              'Linea 20');
+        
+        var window2 = windowsFactory.newWindow('Ventana 200',
+                                              200,
+                                              200,
+                                              0,
+                                              2,
+                                              'Linea 20');
+        
+        windowsData.push(window1);
+        windowsData.push(window1);
+        windowsData.push(window1);
+        windowsData.push(window1);
+        windowsData.push(window2);
+        windowsData.push(window2);
+        windowsData.push(window2);
+        return '';
     }
   });
     

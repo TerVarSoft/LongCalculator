@@ -12,7 +12,8 @@
                   </select>
             </div>
              <div class="col-md-6" ng-controller="saveDocumentCtrl" class="col-sm-2">
-                <button class="btn btn-success btn-md" ng-click="saveDocument()">
+                <button data-ot="Generar archivo pdf" data-ot-delay="1" class="btn btn-success btn-md" 
+                        ng-click="saveDocument()">
                     Guardar
                  </button>
             </div>
@@ -62,7 +63,7 @@
             <h4>Esquema De Corte:</h4>
             <hr/>
             <div class="row scroll">
-                <canvas id="sticksCanvas" width="800" height="700" ></canvas>
+                <canvas id="sticksCanvas" width="800" height="700"></canvas>
             </div>
             <h4>Reporte De Corte:</h4>
             <hr/>
@@ -112,4 +113,7 @@
         </div>
         
     </div>
+    
+    <script src="bower_components/opentip/lib/opentip.js"></script>
+    <script src="bower_components/opentip/lib/adapter-jquery.js"></script>
 </div>
