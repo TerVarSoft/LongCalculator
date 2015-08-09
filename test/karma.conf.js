@@ -30,6 +30,9 @@ module.exports = function(config) {
       'bower_components/jspdf/dist/jspdf.min.js',
       'bower_components/ag-grid/dist/angular-grid.js',
       'bower_components/angular-animate/angular-animate.js',
+      'bower_components/easeljs/lib/easeljs-0.8.1.combined.js',
+      'bower_components/jspdf-autotable/jspdf.plugin.autotable.js',
+      'bower_components/kineticjs/kinetic.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
