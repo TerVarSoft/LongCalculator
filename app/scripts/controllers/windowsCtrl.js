@@ -20,8 +20,6 @@ angular.module('longCalculatorApp')
     var windowsData = windowsInfo.getWindows();
     var configData = windowsInfo.getConfig();
     
-    var prueba = casoPrueba();
-    
     $scope.gridOptions = {
         rowData: windowsData,
         rowSelection: 'single',
@@ -32,7 +30,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'name',
                 headerName: 'Nombre',
-                group: 'Ventanas',
+                headerGroup: 'Ventanas',
                 editable: false,
                 width: 150,
                 cellStyle: createCellStyle('0, 0, 255')
@@ -40,7 +38,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'width',
                 headerName: 'Ancho',
-                group: 'Ventanas',
+                headerGroup: 'Ventanas',
                 editable: false,
                 width: 70,
                 cellStyle: createCellStyle('0, 0, 255')
@@ -48,7 +46,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'height',
                 headerName: 'Alto',
-                group: 'Ventanas',
+                headerGroup: 'Ventanas',
                 editable: false,
                 width: 70,
                 cellStyle: createCellStyle('0, 0, 255')
@@ -56,7 +54,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'wallLoss',
                 headerName: 'P/Pared',
-                group: 'Ventanas',
+                headerGroup: 'Ventanas',
                 editable: false,
                 width: 70,
                 cellStyle: createCellStyle('0, 0, 255')
@@ -64,7 +62,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'line',
                 headerName: 'Nº',
-                group: 'Linea',
+                headerGroup: 'Linea',
                 editable: false,
                 width: 70,
                 cellStyle: createCellStyle('255, 0, 0')
@@ -72,7 +70,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'numberFrames',
                 headerName: 'Cantidad',
-                group: 'Hojas',
+                headerGroup: 'Hojas',
                 editable: false,
                 width: 70,
                 cellStyle: createCellStyle('0, 255, 0')
@@ -80,7 +78,7 @@ angular.module('longCalculatorApp')
             {
                 field: 'rielSuperior',
                 headerName:'Longitud',
-                group: 'Riel Superior',
+                headerGroup: 'Riel Superior',
                 editable: false,
                 width: longColumnsWidth,
                 cellStyle: createCellStyle('165, 42, 42'),
@@ -94,7 +92,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'rielSuperior',
                  headerName:'Nº',
-                 group: 'Riel Superior',
+                 headerGroup: 'Riel Superior',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('165, 42, 42'),
@@ -103,7 +101,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'rielInferior',
                  headerName:'Longitud',
-                 group: 'Riel Inferior',
+                 headerGroup: 'Riel Inferior',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('255, 165, 0'),
@@ -117,7 +115,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'rielInferior',
                  headerName:'Nº',
-                 group: 'Riel Inferior',
+                 headerGroup: 'Riel Inferior',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('255, 165, 0'),
@@ -126,7 +124,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'jamba',
                  headerName:'Longitud',
-                 group: 'Jamba',
+                 headerGroup: 'Jamba',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('102, 0, 102'),
@@ -140,7 +138,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'jamba',
                  headerName:'Nº',
-                 group: 'Jamba',
+                 headerGroup: 'Jamba',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('102, 0, 102'),
@@ -149,7 +147,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'pierna',
                  headerName:'Longitud',
-                 group: 'Pierna',
+                 headerGroup: 'Pierna',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('204, 153, 0'),
@@ -163,7 +161,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'pierna',
                  headerName:'Nº',
-                 group: 'Pierna', 
+                 headerGroup: 'Pierna', 
                  ditable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('204, 153, 0'),
@@ -172,7 +170,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'gancho',
                  headerName:'Longitud',
-                 group: 'Gancho',
+                 headerGroup: 'Gancho',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('102, 102, 255'),
@@ -186,7 +184,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'gancho',
                  headerName:'Nº',
-                 group: 'Gancho',
+                 headerGroup: 'Gancho',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('102, 102, 255'),
@@ -195,7 +193,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'cabezalFijo',
                  headerName:'Longitud',
-                 group: 'Cabezal F.',
+                 headerGroup: 'Cabezal F.',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('255, 255, 0'),
@@ -209,7 +207,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'cabezalFijo',
                  headerName:'Nº',
-                 group: 'Cabezal F.',
+                 headerGroup: 'Cabezal F.',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('255, 255, 0'),
@@ -218,7 +216,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'socaloFijo',
                  headerName:'Longitud',
-                 group: 'Socalo F.',
+                 headerGroup: 'Socalo F.',
                  editable: false,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('0, 153, 204'),
@@ -232,7 +230,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'socaloFijo',
                  headerName:'Nº',
-                 group: 'Socalo F.',
+                 headerGroup: 'Socalo F.',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('0, 153, 204'),
@@ -241,7 +239,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'cabezalCorredizo',
                  headerName:'Longitud',
-                 group: 'Cabezal C.',
+                 headerGroup: 'Cabezal C.',
                  editable: false,
                  width: longColumnsWidth,
                  valueGetter : 'data.cabezalCorredizo.long',
@@ -255,7 +253,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'cabezalCorredizo',
                  headerName:'Nº',
-                 group: 'Cabezal C.',
+                 headerGroup: 'Cabezal C.',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('153, 255, 51'),
@@ -264,7 +262,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'socaloCorredizo',
                  headerName:'Longitud',
-                 group: 'Socalo C.',
+                 headerGroup: 'Socalo C.',
                  editable: true,
                  width: longColumnsWidth,
                  cellStyle: createCellStyle('102, 153, 153'),
@@ -278,7 +276,7 @@ angular.module('longCalculatorApp')
              {
                  field: 'socaloCorredizo',
                  headerName:'Nº',
-                 group: 'Socalo C.',
+                 headerGroup: 'Socalo C.',
                  editable: false,
                  width: quantityColumnsWidth,
                  cellStyle: createCellStyle('102, 153, 153'),
@@ -362,8 +360,6 @@ angular.module('longCalculatorApp')
         
         if($scope.error == '') {
             windowsData.push(window);
-        
-            windowsInfo.incrementNumberWindow();
         }
           
         $scope.gridOptions.api.onNewRows();
@@ -435,33 +431,9 @@ angular.module('longCalculatorApp')
     function createCellStyle(redIntensity, greenIntensity, blueIntensity) {
         var backgroundColor = 'rgba('+ redIntensity + ',0.2)';
         return {
-            background: backgroundColor
+            background: backgroundColor,
+            color: '#555555'
         };
-    }
-    
-    function casoPrueba(name, width, height, wallLoss, numberFrames, line) {
-        var window1 = windowsFactory.newWindow('Ventana 2000',
-                                              2000,
-                                              2000,
-                                              0,
-                                              2,
-                                              'Linea 20');
-        
-        var window2 = windowsFactory.newWindow('Ventana 200',
-                                              200,
-                                              200,
-                                              0,
-                                              2,
-                                              'Linea 20');
-        
-        windowsData.push(window1);
-        windowsData.push(window1);
-        windowsData.push(window1);
-        windowsData.push(window1);
-        windowsData.push(window2);
-        windowsData.push(window2);
-        windowsData.push(window2);
-        return '';
     }
   });
     

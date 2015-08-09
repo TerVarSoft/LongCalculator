@@ -3,7 +3,7 @@
 
 angular.module('longCalculatorApp')
   .controller('calculatorCtrl', function ($scope, windowsInfo, LongsSorter) {
-
+    
     $scope.longValue = '';
     $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
     $scope.selectedWindowPart = $scope.windowsPartsNames[0];
@@ -101,102 +101,200 @@ angular.module('longCalculatorApp')
                     values : [],
                     lostMilimeters: $scope.sticksSizes[iSticksSizes]
                 });
-            }            
-            
+            }               
         }
     }
     
-    function repaintCanvas(){
-        var sticksCanvas = document.getElementById('sticksCanvas');
-        var stage = new createjs.Stage("sticksCanvas");
-        var iSticksSizes = 1;
-        $scope.canvasData.lastXposition = 5;
-        $scope.canvasData.accumulatedMilimeters = 0;
-        $scope.canvasData.numberOfSticks = 1;
-        //context.clearRect(0, 0, sticksCanvas.width, sticksCanvas.height);
+    function repaintCanvas() {
+        var stage = new Kinetic.Stage({
+        container: 'sticksCanvas',
+        width: 800,
+        height: 700
+      });
         
-        var longTextLabel = new createjs.Text("Longitud", '12px Arial', '#821B2C');
-        longTextLabel.x = 5;
-        longTextLabel.y = 5;
-        var cutsTextLabel = new createjs.Text("Cortes de barras", '12px Arial', '#821B2C');
-        cutsTextLabel.x = 300;
-        cutsTextLabel.y = 5;
+        var shapesLayer = new Kinetic.Layer();
+        var tooltipLayer = new Kinetic.Layer();
         
-        //new Opentip("#sticksCanvas", "Shown after 2 seconds", { delay: 0 });
-        //this.longTextLabel.opentip("Shown after 2 seconds", { delay: 2 });
-        
-        stage.addChild(longTextLabel);
-        stage.addChild(cutsTextLabel);
-        paintSticks(stage);       
+        var indexTextLabel = new Kinetic.Text({
+                text: 'Numero',
+                x:5,
+                y:5,
+                fontFamily: 'Calibri',
+                fontSize: 18,
+                padding: 5,
+                fill: 'white'
+            });
+        var longTextLabel = new Kinetic.Text({
+                text: "Longitud",
+                x:70,
+                y:5,
+                fontFamily: "Calibri",
+                fontSize: 18,
+                padding: 5,
+                fill: 'white'
+            });
+        var cutsTextLabel = new Kinetic.Text({
+                text: "Cortes",
+                x:300,
+                y:5,
+                fontFamily: "Calibri",
+                fontSize: 18,
+                padding: 5,
+                fill: 'white'
+            });
+ 
+            shapesLayer.add(indexTextLabel);
+            shapesLayer.add(longTextLabel);
+            shapesLayer.add(cutsTextLabel);
+            
+            
+            paintSticks(stage, shapesLayer, tooltipLayer);
+            stage.add(shapesLayer);
+            stage.add(tooltipLayer);
     }
     
-    function paintSticks(stage) {
-        for(var i = 0; i < $scope.sticksDetails.length; i++){
-            $scope.canvasData.lastXposition = 70;
+    function paintSticks(stage, shapesLayer, tooltipLayer) {
+        for(var i = 0; i < $scope.sticksDetails.length; i++){               
             var stickDetails = $scope.sticksDetails[i];
+            console.log(stickDetails);
             var numberOfStick = stickDetails.numberOfStick;
             var stickLong = stickDetails.stickLong;
             var maxLongStick = _.max($scope.sticksSizes, function(sticksSizes) { return sticksSizes });
+        
+            var indexLabel = new Kinetic.Text({
+                text: stickDetails.numberOfStick,
+                x:5,
+                y:30 * numberOfStick,
+                fontFamily: "Calibri",
+                fontSize: 15,
+                padding: 5,
+                fill: 'white'
+            });
+            shapesLayer.add(indexLabel);
             
-            var longLabel = new createjs.Text(stickDetails.stickLong, '12px Arial', '#241C69');
-            longLabel.x = 5;
-            longLabel.y = 25 * numberOfStick;
-            stage.addChild(longLabel);
+            var longLabel = new Kinetic.Text({
+                text: stickDetails.stickLong,
+                x:70,
+                y:30 * numberOfStick,
+                fontFamily: "Calibri",
+                fontSize: 15,
+                padding: 5,
+                fill: 'white'
+            });
+            shapesLayer.add(longLabel);
             
-            var stickShape = new createjs.Shape();
-            stickShape.graphics.beginStroke("#000000").drawRect(70, 25 * numberOfStick, (600*stickLong) / maxLongStick, 10);
-            stickShape.graphics.endStroke();
-            stage.addChild(stickShape);
+            var stickShape = new Kinetic.Rect({
+                x: 135,
+                y: 30 * numberOfStick + 8,
+                stroke: '#ffffff',
+                strokeWidth: 1,
+                //fill: '#ddd',
+                width: (500*stickLong) / maxLongStick,
+                height: 10,
+                shadowColor: 'black',
+                shadowBlur: 1,
+                shadowOffset: {x:1,y:1},
+                shadowOpacity: 0.2,
+                cornerRadius: 1
+              });
+              stickShape.lostMilimeters = stickDetails.lostMilimeters;
+              stickShape.numberOfStick = stickDetails.numberOfStick;
+              shapesLayer.add(stickShape);
+                                    
+              stickShape.on("mousemove", function(evt){
+                  var mousePos = stage.getPointerPosition ();
+                  stickTooltip.position({x:mousePos.x -170, y:mousePos.y +5});
+                  stickTooltip.getText().text("Barra: " + this.numberOfStick + 
+                                              "\nPerdida:" + this.lostMilimeters + " [mm]");
 
+                  stickTooltip.show();
+                  shapesLayer.draw();               
+              });
 
-            if(stickDetails.values.length > 0) {
-                for(var j = 0; j < stickDetails.values.length; j++) {
-                    var longValue = stickDetails.values[j].value;
-                    var longShape = new createjs.Shape();
-                    longShape.graphics.beginFill("#C4BEBF")
-                             .drawRect($scope.canvasData.lastXposition, 25 * numberOfStick, (longValue*600)/maxLongStick, 10);
-                    $scope.canvasData.lastXposition += ((longValue*600) / maxLongStick);
-                    
-                    stage.enableMouseOver();
+              stickShape.on("mouseout", function(){
+                  stickTooltip.hide();
+                  shapesLayer.batchDraw();
+              });
+              
+              if(stickDetails.values.length > 0 && stickDetails.values[0].name != "-----") {
+                                    
+                  //Paint cuts
+                  $scope.canvasData.lastXposition = 135;
+                  for(var j = 0; j < stickDetails.values.length; j++) {
+                     var longValue = stickDetails.values[j].value;
+                     
+                     var longShape = new Kinetic.Rect({
+                         x: $scope.canvasData.lastXposition,
+                         y: 30 * numberOfStick + 8,
+                         stroke: '#ffffff',
+                         strokeWidth: 0,
+                         fill: '#ddd',
+                         width: (longValue*500)/maxLongStick,
+                         height: 10
+                     });
+                     longShape.name = stickDetails.values[j].name;
+                     longShape.value = stickDetails.values[j].value;  
+                     longShape.numberOfStick = stickDetails.numberOfStick;   
+                     $scope.canvasData.lastXposition += ((longValue*500) / maxLongStick);
+                     shapesLayer.add(longShape);
 
-                    longShape.onMouseOver = function(e) {
-                        stage.canvas.title = 'put your tooltip text here';
-                        console.log('put your tooltip text here');
-                    }
+                      longShape.on("mousemove", function(){
+                          var mousePos = stage.getPointerPosition ();
+                          //stickTooltip.setPosition(mousePos.x + 10, mousePos.y + 5);
+                          stickTooltip.position({x:mousePos.x + 10, y:mousePos.y +5});
+                          stickTooltip.getText().text("Barra: " + this.numberOfStick +
+                                                      "\nVentana: " + this.name + 
+                                                      "\nLongitud: " + this.value+" [mm]");
+                          stickTooltip.show();
+                          shapesLayer.draw();
+                      });
 
-                    longShape.onMouseOut = function(e) {
-                        stage.canvas.title = '';
-                        console.log('p');
-                    }
-                    stage.addChild(longShape);
+                      longShape.on("mouseout", function(){
+                          stickTooltip.hide();
+                          shapesLayer.draw();  
+                      });
+                  }
+                  
+                  //Paint separators
+                  $scope.canvasData.lastXposition = 135;
+                  for(var j = 0; j < stickDetails.values.length; j++) {  
+                      var longValue = stickDetails.values[j].value;
+                      $scope.canvasData.lastXposition += ((longValue*500) / maxLongStick);
+                      var separatorShape =  new Kinetic.Rect({
+                          x: $scope.canvasData.lastXposition,
+                          y: (30 * numberOfStick + 8)- 5,
+                          stroke: '#FF0000',
+                          strokeWidth: 1,
+                          width: 1,
+                          height: 20,
+                          cornerRadius: 1
+                        });                    
+                      shapesLayer.add(separatorShape);
+                  }
+                  
+                  var stickTooltip = new Kinetic.Label({
+                    opacity: 0.75,
+                    visible: false
+                  });
 
-                    var separatorShape = new createjs.Shape();
-                    separatorShape.graphics.setStrokeStyle(1,"round");
-                    separatorShape.graphics.beginStroke("#FF0000").moveTo($scope.canvasData.lastXposition,(25 * numberOfStick) - 5);
-                    separatorShape.graphics.lineTo($scope.canvasData.lastXposition,(25 * numberOfStick) + 15);
-                    separatorShape.graphics.endStroke();
-                    stage.addChild(separatorShape);
-                }
-            }
+                  stickTooltip.add(new Kinetic.Tag({
+                    fill: 'black',
+                    shadowOpacity: 0.5
+                  }));
+
+                  stickTooltip.add(new Kinetic.Text({
+                    //text: 'Tooltip pointing \ndown',
+                    text: '',
+                    fontFamily: 'Calibri',
+                    fontSize: 18,
+                    padding: 5,
+                    fill: 'white'
+                  }));
+                  shapesLayer.add(stickTooltip);
+                  
+              }   
         }
-        
-        stage.update();
     }
-    
-    /*function repaintCanvas(){
-        var sticksCanvas = document.getElementById('sticksCanvas');
-        var stage = new createjs.Stage("sticksCanvas");
-        
-        var text = new createjs.Text('Hello, World!', '32px Arial', '#53f');
-        text.textAlign = 'center';
-        text.x = sticksCanvas.width/2;
-        text.y = sticksCanvas.height/2;
-
-        stage.addChild(text);
-
-        stage.update();
-    }*/
-    
  
     $scope.refreshCanvas();
   });
