@@ -1,17 +1,73 @@
 'use strict';
 
 angular.module('longCalculatorApp')
- .service('windowsInfo', function(){
-    this.windowNumber = 1;
+ .service('windowsInfo', function(windowsFactory){ 
+//    var window1 = windowsFactory.newWindow('Ventana 2000',
+//                                              2012,
+//                                              2012,
+//                                              0,
+//                                              2,
+//                                              'Linea 20');
+//        
+//        var window2 = windowsFactory.newWindow('Ventana 200',
+//                                              212,
+//                                              212,
+//                                              0,
+//                                              2,
+//                                              'Linea 20');
+//        var window3 = windowsFactory.newWindow('Ventana 500',
+//                                              512,
+//                                              512,
+//                                              0,
+//                                              2,
+//                                              'Linea 20');
+//        var window4 = windowsFactory.newWindow('Ventana 900',
+//                                              912,
+//                                              912,
+//                                              0,
+//                                              2,
+//                                              'Linea 20');
+//        var window5 = windowsFactory.newWindow('Ventana 3500',
+//                                              3512,
+//                                              3512,
+//                                              0,
+//                                              2,
+//                                              'Linea 20');
+//    
+//    
     this.windows=[];
     
-    this.getNumberWindow = function(){
-        return this.windowNumber;
-    }
-    
-    this.incrementNumberWindow = function(){
-        this.windowNumber++;
-    }
+//    this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window3);
+//        this.windows.push(window3);
+//        this.windows.push(window4);
+//        this.windows.push(window4);
+//        this.windows.push(window4);
+//        this.windows.push(window5);
+//        this.windows.push(window5);
+//        this.windows.push(window5);
+//        
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
     
     this.getWindowsPartsNames = function(){
         return  [
@@ -25,7 +81,7 @@ angular.module('longCalculatorApp')
                 ];
     };
     
-    this.configuration = [
+   this.configuration = [
         {
             property : 'Long. barras',
             rielSuperior: 5000,
@@ -36,46 +92,106 @@ angular.module('longCalculatorApp')
             cabezal: 6000,
             socalo: 5000
         },
-        {
-            property : 'Restos',
-            rielSuperior: 3000,
-            rielInferior: 0,
-            jamba: 0,
-            pierna: 0,
-            gancho: 0,
-            cabezal: 0,
-            socalo: 0        
-        },
-        {
-            property : 'Restos',
-            rielSuperior: 100,
-            rielInferior: 0,
-            jamba: 0,
-            pierna: 0,
-            gancho: 0,
-            cabezal: 0,
-            socalo: 0        
-        },
-        {
-            property : 'Restos',
-            rielSuperior: 100,
-            rielInferior: 0,
-            jamba: 0,
-            pierna: 0,
-            gancho: 0,
-            cabezal: 0,
-            socalo: 0        
-        } ,
-        {
-            property : 'Restos',
-            rielSuperior: 200,
-            rielInferior: 0,
-            jamba: 0,
-            pierna: 0,
-            gancho: 0,
-            cabezal: 0,
-            socalo: 0        
-        }     
+//        {
+//            property : 'Restos',
+//            rielSuperior: 3000,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 100,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 100,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 800,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1000,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1000,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1500,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1500,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1500,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        },
+//        {
+//            property : 'Restos',
+//            rielSuperior: 1500,
+//            rielInferior: 0,
+//            jamba: 0,
+//            pierna: 0,
+//            gancho: 0,
+//            cabezal: 0,
+//            socalo: 0        
+//        }           
     ];
 
     this.updateConfig = function(windowPartName, sticksSizes){
@@ -154,7 +270,7 @@ angular.module('longCalculatorApp')
                 //add a longs quantity times
                 for(var j=0;j<quantity;j++){
                     results.push({
-                    name: (j==0) ? longObjects[i].fixedName : longObjects[i].fixedName+'*',
+                    name:  longObjects[i].fixedName,
                     value: longObjects[i].value
                     });
                 }
@@ -174,6 +290,4 @@ angular.module('longCalculatorApp')
         var propNoSpaces = propertyString.replace(/\s+/g, '');
         return propNoSpaces.substr(0,1).toLowerCase()+propNoSpaces.substr(1,propNoSpaces.length);
     }
-    
-    
 });
