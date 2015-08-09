@@ -142,22 +142,22 @@ angular.module('longCalculatorApp')
                     equation: 'Jamba - ' + subtrahendGancho
                 },
                 cabezalFijo : {
-                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo).toFixed(1),
+                    long: parseFloat((((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo + summandCabezalFijo).toFixed(1)/1),
                     quantity: cabezalFijoQuantity,
                     equation: cabezalFijoEquation
                 },
                 cabezalCorredizo : {
-                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandCabezalCorredizo).toFixed(1)/1,
                     quantity: cabezalCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandCabezalCorredizo
                 },
                 socaloFijo : {
-                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo + summandSocaloFijo).toFixed(1)/1,
                     quantity: socaloFijoQuantity,
                     equation: socaloFijoEquation
                 },
                 socaloCorredizo : {
-                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo).toFixed(1),
+                    long: (((widthWindow - wallLossWindow - subtrahendRielSuperior) / numberFramesWindow) + summandSocaloCorredizo).toFixed(1)/1,
                     quantity: socaloCorredizoQuantity,
                     equation: '(Riel Superior / ' + numberFramesWindow + ') + ' + summandSocaloCorredizo
                 }
