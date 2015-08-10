@@ -142,10 +142,19 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git{,*/}*'
+            '!<%= yeoman.dist %>/.git{,*/}*',
+            'build'
           ]
         }]
       },
+      buildTmp: {
+        files: [{
+          dot: true,
+          src: [
+            'build/.tmp',
+          ]
+        }]
+      },    
       server: '.tmp'
     },
 
@@ -336,14 +345,16 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
+          //dest: '<%= yeoman.dist %>',
+          dest: 'build',    
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'images/*',
+            'styles/fonts/{,*/}*.*',
+            'fonts/*'  
           ]
         }, {
           expand: true,
@@ -362,6 +373,18 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      final: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'build',
+          dest: 'c:/xampp/tomcat/webapps/ROOT',
+          //dest: 'prueba',
+          src: [
+            '**'
+          ]
+        }]
       }
     },
 
@@ -386,10 +409,92 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    },
+      
+      
+    ///////////////////////////////////////////////////////////
+    ///////////////Added by TerVarSoft/////////////////////////
+    ///////////////////////////////////////////////////////////
+              
+    concat: {
+        css: {
+            src: [                    
+                'bower_components/bootstrap/dist/css/bootstrap.css',
+                'bower_components/bootstrap/dist/css/superhero.css',
+                'bower_components/ag-grid/dist/angular-grid.css',
+                'bower_components/ag-grid/dist/theme-fresh.css',
+                'bower_components/ag-grid/dist/theme-dark.css',
+                'bower_components/opentip/css/opentip.css',
+                'app/styles/*'
+                ],
+            dest: 'build/.tmp/app.css'
+        },
+
+        js: {
+            src: [
+                'app/scripts/**/*'
+            ],
+            dest: 'build/.tmp/app.js'
+        },
+        
+        opentip: {
+            src: [
+                'bower_components/opentip/lib/opentip.js',
+                'bower_components/opentip/lib/adapter-jquery.js',
+            ],
+            dest: 'build/.tmp/opentip.js'
+        },
+
+        lib:{
+            src: [
+                'bower_components/jquery/jquery.min.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                'bower_components/kineticjs/kinetic.min.js',
+                'bower_components/angular/angular.min.js',
+                'bower_components/angular-route/angular-route.min.js',
+                'bower_components/angular-animate/angular-animate.js',
+                'bower_components/underscore/underscore-min.js',
+                'bower_components/ag-grid/dist/angular-grid.min.js',                
+                'bower_components/jspdf/dist/jspdf.min.js',
+//                'bower_components/jspdf-autotable/jspdf.plugin.autotable.js'
+//                'bower_components/opentip/lib/opentip.js',
+//                'bower_components/opentip/lib/adapter-jquery.js'
+            ],
+            dest: 'build/.tmp/dependencies.js'
+        }
+    },
+
+    cssmin:{
+        css:{
+            src: 'build/.tmp/app.css',
+            dest: 'build/styles/app.min.css'
+        }
+    },
+
+    uglify:{
+        js:{
+            files:{
+                'build/scripts/app.min.js': ['build/.tmp/app.js'],
+                'build/lib/dependencies.min.js': ['build/.tmp/dependencies.js'],
+                'build/lib/opentip.min.js': ['build/.tmp/opentip.js'],
+                'build/lib/jspdf.plugin.autotable.min.js': ['bower_components/jspdf-autotable/jspdf.plugin.autotable.js']
+            }
+        }
+    },
+
+    processhtml:{
+        dist:{
+            files:{
+                'build/index.html': 'app/index.html',
+                'build/views/calculator.html': 'app/views/calculator.html',
+                'build/views/windows.html': 'app/views/windows.html'
+            } 
+        }
+    }  
   });
 
-
+  grunt.loadNpmTasks('grunt-processhtml');
+    
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -441,4 +546,16 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+    
+  
+    
+  grunt.registerTask('tvsBuild', 
+                     ['clean:dist',
+                      'copy:dist',
+                      'concat',
+                      'cssmin',
+                      'uglify',
+                      'clean:buildTmp',
+                      'processhtml',
+                      'copy:final']);    
 };
