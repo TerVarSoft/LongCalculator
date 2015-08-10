@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('longCalculatorApp')
- .service('windowsInfo', function(windowsFactory){ 
+ .service('windowsInfo', ['windowsFactory', function(windowsFactory){ 
 //    var window1 = windowsFactory.newWindow('Ventana 2000',
 //                                              2012,
 //                                              2012,
@@ -290,4 +290,4 @@ angular.module('longCalculatorApp')
         var propNoSpaces = propertyString.replace(/\s+/g, '');
         return propNoSpaces.substr(0,1).toLowerCase()+propNoSpaces.substr(1,propNoSpaces.length);
     }
-});
+}]);

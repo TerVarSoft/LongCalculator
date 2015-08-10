@@ -2,7 +2,7 @@
 
 
 angular.module('longCalculatorApp')
-  .controller('calculatorCtrl', function ($scope, windowsInfo, LongsSorter) {
+  .controller('calculatorCtrl', ['$scope', 'windowsInfo', 'LongsSorter', function ($scope, windowsInfo, LongsSorter) {
     
     $scope.longValue = '';
     $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
@@ -156,7 +156,6 @@ angular.module('longCalculatorApp')
     function paintSticks(stage, shapesLayer, tooltipLayer) {
         for(var i = 0; i < $scope.sticksDetails.length; i++){               
             var stickDetails = $scope.sticksDetails[i];
-            console.log(stickDetails);
             var numberOfStick = stickDetails.numberOfStick;
             var stickLong = stickDetails.stickLong;
             var maxLongStick = _.max($scope.sticksSizes, function(sticksSizes) { return sticksSizes });
@@ -297,4 +296,4 @@ angular.module('longCalculatorApp')
     }
  
     $scope.refreshCanvas();
-  });
+  }]);

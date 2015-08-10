@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('saveDocumentCtrl', function ($scope, windowsInfo) {
+  .controller('saveDocumentCtrl', ['$scope', 'windowsInfo', function ($scope, windowsInfo) {
     $scope.saveDocument = function(){
         saveDocumentPDF();
     }
@@ -178,4 +178,4 @@ angular.module('longCalculatorApp')
         
         return dataGenerated;
     }
-  });
+  }]);
