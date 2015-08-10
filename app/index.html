@@ -6,9 +6,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
+    <!-- build:css styles/app.min.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/ag-grid/dist/angular-grid.css" />
     <link rel="stylesheet" href="bower_components/ag-grid/dist/theme-fresh.css" />
     <link rel="stylesheet" href="bower_components/ag-grid/dist/theme-dark.css" />
@@ -17,13 +16,11 @@
     
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/superhero.css" />
     
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/calculator.css">
     <link rel="stylesheet" href="styles/windows.css">
     <link rel="stylesheet" href="styles/angularGrid-TVS.css" />
-    <!-- endbuild -->
+    <!-- /build -->
 </head>
 <body ng-app="longCalculatorApp">
 
@@ -63,7 +60,7 @@
         </div>
     </div>
 
-    <!-- build:js(.) scripts/vendor.js -->
+    <!-- build:js lib/dependencies.min.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -78,10 +75,12 @@
     <script src="bower_components/opentip/lib/opentip.js"></script>
     <script src="bower_components/opentip/lib/adapter-jquery.js"></script>
     <!-- endbower -->            
-    <!-- endbuild -->
+    <!-- /build -->
         
-
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- build:js lib/jspdf.plugin.autotable.min.js -->
+    <!-- /build -->
+    
+    <!-- build:js scripts/app.min.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
@@ -93,6 +92,6 @@
     <script src="scripts/services/windowsInfo.js"></script>
     <script src="scripts/services/LongsSorter.js"></script>
     <script src="scripts/factories/windowsFactory.js"></script>
-    <!-- endbuild -->
+    <!-- /build -->
 </body>
 </html>

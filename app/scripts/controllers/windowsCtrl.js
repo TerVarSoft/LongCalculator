@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('windowsCtrl', function ($scope, windowsInfo, windowsFactory) {
+  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', function ($scope, windowsInfo, windowsFactory) {
     $scope.numberFrames = ["2", "3", "4"];
     $scope.lines = ["Linea 20", "Linea 25"];
     $scope.newWindowProperties = {};
@@ -435,7 +435,7 @@ angular.module('longCalculatorApp')
             color: '#555555'
         };
     }
-  });
+  }]);
     
     
     
