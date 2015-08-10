@@ -1,5 +1,8 @@
 node_modules
 dist
+build
 .tmp
 .sass-cache
 bower_components
+npm-debug.log
+Gruntfiletvs.js
