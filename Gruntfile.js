@@ -477,7 +477,7 @@ module.exports = function (grunt) {
                 'build/scripts/app.min.js': ['build/.tmp/app.js'],
                 'build/lib/dependencies.min.js': ['build/.tmp/dependencies.js'],
                 'build/lib/opentip.min.js': ['build/.tmp/opentip.js'],
-                'build/lib/jspdf.plugin.autotable.min.js': ['bower_components/jspdf-autotable/jspdf.plugin.autotable.js']
+                'build/lib/jspdf.plugin.autotable.min.js': ['bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js']
             }
         }
     },

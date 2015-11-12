@@ -1,17 +1,21 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('saveDocumentCtrl', ['$scope', 'windowsInfo', function ($scope, windowsInfo) {
+  .controller('saveDocumentCtrl', ['$scope', 'windowsInfo', 'glassesInfo',function ($scope, windowsInfo, glassesInfo) {
+
     $scope.saveDocument = function(){
         saveDocumentPDF();
     }
     
     function saveDocumentPDF() {
         var documentPDF = new jsPDF('p', 'pt', 'legal');
-        var y = 80;
+        var yPDF = 50;
         var actualRow = 1;
         var actualNumberOfStick = 1;
         var actualTableTitle = '';
+        var actualNumberRowsUsed = 0;
+        var newStickY = 0;
+        var longsY = 0;
         
         var actualCellColor = {
             redValue: 250,
@@ -21,107 +25,71 @@ angular.module('longCalculatorApp')
         
         var columns = [
             {
-                key: "numberOfStick",
+                dataKey: "numberOfStick",
                 title: "Numero de la Barra"
             },
             {
-                key: "stickLong",
-                title: "Longitud de la Barra"
+                dataKey: "stickLong",
+                title: "Longitud de\nla Barra"
             },
             {
-                key: "lostMilimeters",
+                dataKey: "lostMilimeters",
                 title: "Perdida [mm]"
             },
             {
-                key: "window",
+                dataKey: "window",
                 title: "Ventana"
             },
             {
-                key: "long",
-                title:"Corte [mm]"
+                dataKey: "long",
+                title: "Corte [mm]"
             }            
-        ];
-
-        var cell = function (x, y, width, height, key, value, row, settings) {
-            var rowsUsed = 1;
-            var incrementTitleHeight = 20;
-            y = y - height;
-            
-            if(row === 0) {
-                if(key === 'numberOfStick') {
-                    y = y - incrementTitleHeight - 25;
-                    height = height + incrementTitleHeight;
-
-                    documentPDF.setFillColor(255, 255, 255);
-                    documentPDF.rect(x, y, documentPDF.internal.pageSize.width - settings.margins.horizontal * 2, height, 'F');
-                    documentPDF.setFontSize(20);
-                    x = x + settings.padding;
-                    y = y + settings.lineHeight / 2 + documentPDF.autoTableTextHeight() / 2 - 2.5;
-                    documentPDF.text("Tabla de Cortes para: " + actualTableTitle, x, y);
-                }
-            }
-            else
+        ]; 
+        
+        var columnsGlasses = [
             {
-                if (key === "numberOfStick" || key === "lostMilimeters" || key === "stickLong") {
-                    if(row === actualRow) {
-                        for(var i = 0; i < data.length; i++) {
-                            if(data[i].numberOfStick == actualNumberOfStick) {
-                                if(data[i].numberOfStick % 2 == 0) {
-                                    actualCellColor = {
-                                        redValue: 200,
-                                        greenValue: 200,
-                                        blueValue: 200
-                                    };
-                                }
-                                else {
-                                    actualCellColor = {
-                                        redValue: 250,
-                                        greenValue: 250,
-                                        blueValue: 250
-                                    };
-                                }
-
-                                rowsUsed = data[i].quantityLongsOfStick;
-                                height = height * rowsUsed;
-                                i = data.length;
-                                
-                                if(key === "lostMilimeters") {
-                                    actualRow = row + rowsUsed;
-                                    actualNumberOfStick++;
-                                }
-                            }
-                        }
-                        
-                        documentPDF.setFillColor(actualCellColor.redValue, actualCellColor.greenValue, actualCellColor.blueValue);
-                        documentPDF.rect(x, y, width, height, 'F');
-                        documentPDF.rect(x, y, width, height, 'S');
-                        x = x + (width / 2) - (documentPDF.getStringUnitWidth('' + value) * documentPDF.internal.getFontSize() / 2);
-                        y = y + (settings.lineHeight * rowsUsed / 2) + (documentPDF.autoTableTextHeight() / 2) - 2.5;
-                        documentPDF.setFontStyle('Bold');
-                        documentPDF.setFontSize(12);
-                        documentPDF.text(value, x, y);
-                    }
-                }
-                else {
-                    documentPDF.setFillColor(actualCellColor.redValue, actualCellColor.greenValue, actualCellColor.blueValue);
-                    documentPDF.rect(x, y, width, height, 'F');
-                    documentPDF.rect(x, y, width, height, 'S');
-                    documentPDF.setFontSize(12);
-                    x = x + settings.padding;
-                    y = y + settings.lineHeight / 2 + documentPDF.autoTableTextHeight() / 2 - 2.5;
-                    documentPDF.text(value, x, y);
-                }
+                dataKey: "id",
+                title: "Codigo"
+            },
+            {
+                dataKey: "name",
+                title: "Nombre"
+            },
+            {
+                dataKey: "widthFixedWindowGlass",
+                title: "Ancho\nVidrio\nFijo"
+            },
+            {
+                dataKey: "heightFixedWindowGlass",
+                title: "Alto\nVidrio\nFijo"
+            },
+            {
+                dataKey: "partsFixedWindowGlass",
+                title: "Partes\nVidrio\nFijo"
+            },
+            {
+                dataKey: "widthSlidingWindowGlass",
+                title: "Ancho\nVidrio\nCorredizo"
+            },
+            {
+                dataKey: "heightSlidingWindowGlass",
+                title: "Alto\nVidrio\nCorredizo"
+            },
+            {
+                dataKey: "partsSlidingWindowGlass",
+                title: "Partes\nVidrio\nCorredizo"
             }
-        };
-             
+        ];
+        
+        var dataGlasses = glassesInfo.getGlasses();
+        var actualSelectedWindowPart = $scope.selectedWindowPart;
+        
         documentPDF.setFont("Courier");
         documentPDF.setFontType("Bold");
         documentPDF.setFontSize(30);
-        documentPDF.text("Ferreteria Cesar", 200, y);
+        documentPDF.text("Ferreteria Cesar", 200, yPDF);
         documentPDF.setFontSize(20);
-        
-        var actualSelectedWindowPart = $scope.selectedWindowPart;
-        
+    
         for (var j = 0; j < $scope.windowsPartsNames.length; j++) {
             var windowPartName = $scope.windowsPartsNames[j];
             $scope.windowPartDetails(windowPartName);
@@ -129,20 +97,104 @@ angular.module('longCalculatorApp')
             actualTableTitle = windowPartName;
             
             documentPDF.autoTable(columns, data, {
-                startY: y + 80,
-                avoidPageSplit: true,
-                renderCell: cell,
-                margins: {
-                    horizontal: 40,
-                    top: 100,
-                    bottom: 40
+                startY: yPDF + 80,
+                
+                styles: {
+                    fillStyle: 'DF',
+                    lineColor: [0, 0, 0],
+                    lineWidth: 0.5,
+                    valign: 'middle'
+                },
+                
+                headerStyles: {
+                    fontSize: 9,
+                    fillColor: [11, 81, 135],
+                    halign: 'center',
+                },
+                
+                bodyStyles: {
+                    fontSize: 7,
+                    lineWidth: 0.5,
+                    halign: 'left',
+                    rowHeight: 15
+                },
+                
+                drawRow: function(row, rowData) {
+                    if(row.index === 0) {
+                        row.y = row.y - 70;
+                        var xText = rowData.settings.margin.left + (rowData.table.width / 2);
+                        var yText = row.y + 5 + (row.height / 2);
+                        
+                        documentPDF.rect(rowData.settings.margin.left, row.y, rowData.table.width, 30, 'F');
+                        documentPDF.autoTableText("Tabla de Cortes para: " + actualTableTitle, xText, yText, {
+                            halign: 'right',
+                            valign: 'middle'
+                        });
+                    }
+                },
+                
+                createdCell: function(cell, cellData) {
+                    if(data[cellData.row.index].numberOfStick % 2 === 0) {
+                        cell.styles.fillColor = [225, 225, 225];
+                        cell.styles.fontStyle = 'bold';
+                    }
+                    else{
+                        cell.styles.fillColor = [255, 255, 255];
+                    }
                 }
             });
             
-            y = documentPDF.autoTableEndPosY();
-            actualRow = 1;
-            actualNumberOfStick = 1;
+            yPDF = documentPDF.autoTableEndPosY();
         }
+        
+        documentPDF.autoTable(columnsGlasses, dataGlasses, {
+            startY: yPDF + 80,
+            pageBreak: 'always',
+                
+            styles: {
+                fillStyle: 'DF',
+                lineColor: [0, 0, 0],
+                lineWidth: 0.5,
+                valign: 'middle'
+            },
+
+            headerStyles: {
+                fontSize: 9,
+                fillColor: [11, 81, 135],
+                halign: 'center',
+            },
+
+            bodyStyles: {
+                fontSize: 7,
+                lineWidth: 0.5,
+                halign: 'left',
+                rowHeight: 15
+            },
+
+            drawRow: function(row, rowData) {
+                if(row.index === 0) {
+                    row.y = row.y - 70;
+                    var xText = rowData.settings.margin.left + (rowData.table.width / 2);
+                    var yText = row.y + 5 + (row.height / 2);
+
+                    documentPDF.rect(rowData.settings.margin.left, row.y, rowData.table.width, 30, 'F');
+                    documentPDF.autoTableText("Vidrios", xText, yText, {
+                        halign: 'center',
+                        valign: 'middle'
+                    });
+                }
+            },
+
+            createdCell: function(cell, cellData) {
+                if(cellData.row.index % 2 === 0) {
+                    cell.styles.fillColor = [225, 225, 225];
+                    cell.styles.fontStyle = 'bold';
+                }
+                else{
+                    cell.styles.fillColor = [255, 255, 255];
+                }
+            }
+        });
         
         documentPDF.save('Reporte Cortes.pdf');
         
@@ -151,15 +203,6 @@ angular.module('longCalculatorApp')
     
     function generateData(dataLongs) {
         var dataGenerated = [];
-        
-        dataGenerated.push({
-            numberOfStick: '',
-            stickLong: '',
-            window: '',
-            long: '',
-            lostMilimeters: '',
-            quantityLongsOfStick: ''
-        });
         
         for(var i = 0; i < dataLongs.length; i++) {
             var dataLong = dataLongs[i];
