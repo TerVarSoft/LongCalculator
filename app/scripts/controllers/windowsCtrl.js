@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', function ($scope, windowsInfo, windowsFactory) {
+  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', 'glassesInfo', function ($scope, windowsInfo, windowsFactory, glassesInfo) {
+
     $scope.numberFrames = ["2", "3", "4"];
     $scope.lines = ["Linea 20", "Linea 25"];
     $scope.newWindowProperties = {};
@@ -344,7 +345,7 @@ angular.module('longCalculatorApp')
                 headerName:'Socalo',
                 editable: true,
                 width: configurationColumnsWidth,
-                 cellStyle: createCellStyle('0, 153, 204')
+                cellStyle: createCellStyle('0, 153, 204')
             }
         ]
     };
@@ -360,6 +361,7 @@ angular.module('longCalculatorApp')
         
         if($scope.error == '') {
             windowsData.push(window);
+            glassesInfo.addGlass(window);
         }
           
         $scope.gridOptions.api.onNewRows();
