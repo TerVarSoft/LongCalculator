@@ -20,6 +20,7 @@ angular.module('longCalculatorApp')
     $scope.longRows = _.pluck($scope.longObjects,'value');
     $scope.sticksDetails = [];
     var sortedLongs = [];
+    var lossByCut = 4;
     
     $scope.windowPartDetails = function(windowPart) {
         updateSticksDetails(windowPart);
@@ -43,6 +44,13 @@ angular.module('longCalculatorApp')
         });
         $scope.sticksSizes.push(defaultStickSize);
         $scope.longObjects = windowsInfo.getLongs(windowPart);
+
+        // Add loss by cut to all cuts before sorting       
+        for(var i = 0; i < $scope.longObjects.length; i++) {               
+            var longObject = $scope.longObjects[i];
+            longObject.value = longObject.value + lossByCut;
+        }
+        
         $scope.longRows = _.pluck($scope.longObjects,'value');
         
         sortedLongs = LongsSorter.sortLongs($scope.longObjects, $scope.sticksSizes);
@@ -102,6 +110,16 @@ angular.module('longCalculatorApp')
                     lostMilimeters: $scope.sticksSizes[iSticksSizes]
                 });
             }               
+        }
+        
+        // Remove loss by cut to all cuts after sorting   
+        for(var i = 0; i < $scope.sticksDetails.length; i++) {               
+            var actualStickDetail = $scope.sticksDetails[i];
+            for(var j = 0; j < actualStickDetail.values.length; j++) {
+                if(actualStickDetail.values[j].value != "-----") {
+                    actualStickDetail.values[j].value = actualStickDetail.values[j].value - lossByCut;
+                }
+            }
         }
     }
     
@@ -226,7 +244,7 @@ angular.module('longCalculatorApp')
                          x: $scope.canvasData.lastXposition,
                          y: 30 * numberOfStick + 8,
                          stroke: '#ffffff',
-                         strokeWidth: 0,
+                         strokeWidth: 2,
                          fill: '#ddd',
                          width: (longValue*500)/maxLongStick,
                          height: 10
@@ -239,7 +257,6 @@ angular.module('longCalculatorApp')
 
                       longShape.on("mousemove", function(){
                           var mousePos = stage.getPointerPosition ();
-                          //stickTooltip.setPosition(mousePos.x + 10, mousePos.y + 5);
                           stickTooltip.position({x:mousePos.x + 10, y:mousePos.y +5});
                           stickTooltip.getText().text("Barra: " + this.numberOfStick +
                                                       "\nVentana: " + this.name + 
@@ -253,11 +270,11 @@ angular.module('longCalculatorApp')
                           shapesLayer.draw();  
                       });
                   }
-                  
+                                    
                   //Paint separators
                   $scope.canvasData.lastXposition = 135;
-                  for(var j = 0; j < stickDetails.values.length; j++) {  
-                      var longValue = stickDetails.values[j].value;
+                  for(var k = 0; k < stickDetails.values.length; k++) {  
+                      var longValue = stickDetails.values[k].value;
                       $scope.canvasData.lastXposition += ((longValue*500) / maxLongStick);
                       var separatorShape =  new Kinetic.Rect({
                           x: $scope.canvasData.lastXposition,
@@ -270,6 +287,18 @@ angular.module('longCalculatorApp')
                         });                    
                       shapesLayer.add(separatorShape);
                   }
+                  
+                  //Paint loss by cuts
+                 var lossByCutShape = new Kinetic.Rect({
+                     x: $scope.canvasData.lastXposition + 2,
+                     y: 30 * numberOfStick + 8,
+                     stroke: 'yellow',
+                     strokeWidth: 0,
+                     fill: 'yellow',
+                     width: (stickDetails.values.length *lossByCut * 500) / maxLongStick,
+                     height: 10
+                 });
+                 shapesLayer.add(lossByCutShape);
                   
                   var stickTooltip = new Kinetic.Label({
                     opacity: 0.75,
