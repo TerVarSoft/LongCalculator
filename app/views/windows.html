@@ -51,18 +51,21 @@
                 </br>
         
                 <div class="form-row">
-                    <div data-ot="Agregar ventana" data-ot-delay="1" class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-lg" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
+                    <div data-ot="Agregar ventana" data-ot-delay="1" class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-md" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
                     </div>
 
-                    <div data-ot="Seleccione una ventana y eliminela" data-ot-delay="1" class="col-md-4">
-                        <button class="btn btn-success btn-lg" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
+                    <div data-ot="Seleccione una ventana y eliminela" data-ot-delay="1" class="col-md-3">
+                        <button class="btn btn-success btn-md" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
                     </div>
 
-                    <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-4">
-                        <a ng-href="#/calculator" class="btn btn-success btn-lg" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Calcular</a>
+                    <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-2">
+                        <a ng-href="#/calculator" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Barras</a>
                     </div>
-                </div>
+                    
+                    <div data-ot="Ver dimensiones de los vidrios" data-ot-delay="1" class="col-md-2">
+                        <a ng-href="#/glasses" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-th-large"/>    Vidrios</a>
+                    </div>
             </div>
         </form>
     </div>

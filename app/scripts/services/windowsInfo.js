@@ -1,73 +1,74 @@
 'use strict';
 
 angular.module('longCalculatorApp')
- .service('windowsInfo', ['windowsFactory', function(windowsFactory){ 
+ .service('windowsInfo', ['windowsFactory', 'glassesInfo', function(windowsFactory, glassesInfo){ 
+    this.windows=[];
+    
 //    var window1 = windowsFactory.newWindow('Ventana 2000',
 //                                              2012,
 //                                              2012,
 //                                              0,
-//                                              2,
+//                                              '2',
 //                                              'Linea 20');
 //        
 //        var window2 = windowsFactory.newWindow('Ventana 200',
 //                                              212,
 //                                              212,
 //                                              0,
-//                                              2,
+//                                              '2',
 //                                              'Linea 20');
 //        var window3 = windowsFactory.newWindow('Ventana 500',
 //                                              512,
 //                                              512,
 //                                              0,
-//                                              2,
+//                                              '2',
 //                                              'Linea 20');
 //        var window4 = windowsFactory.newWindow('Ventana 900',
 //                                              912,
 //                                              912,
 //                                              0,
-//                                              2,
+//                                              '2',
 //                                              'Linea 20');
 //        var window5 = windowsFactory.newWindow('Ventana 3500',
 //                                              3512,
 //                                              3512,
 //                                              0,
-//                                              2,
+//                                              '2',
 //                                              'Linea 20');
 //    
-//    
-    this.windows=[];
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window3);
+//        this.windows.push(window3);
+//        this.windows.push(window4);
+//        this.windows.push(window4);
+//        this.windows.push(window4);
+//        this.windows.push(window5);
+//        this.windows.push(window5);
+//        this.windows.push(window5);
+//        
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window1);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
+//        this.windows.push(window2);
     
-//    this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
-//        this.windows.push(window3);
-//        this.windows.push(window3);
-//        this.windows.push(window4);
-//        this.windows.push(window4);
-//        this.windows.push(window4);
-//        this.windows.push(window5);
-//        this.windows.push(window5);
-//        this.windows.push(window5);
-//        
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
-//        
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window1);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
-//        this.windows.push(window2);
+//        glassesInfo.prueba(this.windows);
     
     this.getWindowsPartsNames = function(){
         return  [
@@ -84,14 +85,14 @@ angular.module('longCalculatorApp')
    this.configuration = [
         {
             property : 'Long. barras',
-            rielSuperior: 5000,
-            rielInferior: 6000,
-            jamba: 5000,
-            pierna: 6000,
-            gancho: 5000,
-            cabezal: 6000,
-            socalo: 5000
-        },
+            rielSuperior: 5980,
+            rielInferior: 5980,
+            jamba: 5980,
+            pierna: 5980,
+            gancho: 5980,
+            cabezal: 5980,
+            socalo: 5980
+        }
 //        {
 //            property : 'Restos',
 //            rielSuperior: 3000,
