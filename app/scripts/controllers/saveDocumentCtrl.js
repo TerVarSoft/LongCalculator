@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('saveDocumentCtrl', ['$scope', 'windowsInfo', 'glassesInfo',function ($scope, windowsInfo, glassesInfo) {
+  .controller('saveDocumentCtrl', ['$scope', 'windowsInfo', 'cutsInfo', 'glassesInfo',function ($scope, windowsInfo, cutsInfo, glassesInfo) {
 
     $scope.saveDocument = function(){
         saveDocumentPDF();
@@ -89,7 +89,15 @@ angular.module('longCalculatorApp')
         documentPDF.setFontSize(30);
         documentPDF.text("Ferreteria Cesar", 200, yPDF);
         documentPDF.setFontSize(20);
-    
+        
+        if($scope.mode === 'windowMode') {
+            $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
+        }
+        else if($scope.mode === 'generalMode') {
+            $scope.windowsPartsNames = cutsInfo.getPartsNames();
+        }
+        
+        console.log($scope.windowsPartsNames.length);
         for (var j = 0; j < $scope.windowsPartsNames.length; j++) {
             var windowPartName = $scope.windowsPartsNames[j];
             $scope.windowPartDetails(windowPartName);

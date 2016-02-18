@@ -2,13 +2,15 @@
 
 
 angular.module('longCalculatorApp')
-  .controller('calculatorCtrl', ['$scope', 'windowsInfo', 'LongsSorter', function ($scope, windowsInfo, LongsSorter) {
-    
+  .controller('calculatorCtrl', ['$scope', '$routeParams', 'windowsInfo', 'cutsInfo', 'LongsSorter', function ($scope, $routeParams, windowsInfo, cutsInfo, LongsSorter) {
+    $scope.mode = $routeParams.mode;
+      
     $scope.longValue = '';
     $scope.windowsPartsNames = windowsInfo.getWindowsPartsNames();
     $scope.selectedWindowPart = $scope.windowsPartsNames[0];
     
     $scope.sticksSizes = windowsInfo.getSticksSizes($scope.selectedWindowPart);
+    
     
     $scope.canvasData ={
         numberOfSticks : 1,
@@ -22,20 +24,34 @@ angular.module('longCalculatorApp')
     var sortedLongs = [];
     var lossByCut = 4;
     
-    $scope.windowPartDetails = function(windowPart) {
+    $scope.windowPartDetails = function(windowPart) {        
         updateSticksDetails(windowPart);
         sortedLongs = [];
     }
 
 
     $scope.refreshCanvas = function(){
+        if($scope.mode === 'windowMode') {
+            $scope.selectedWindowPart = $scope.windowsPartsNames[0];
+        }
+        else if($scope.mode === 'generalMode') {
+            $scope.cutsPartsNames = cutsInfo.getPartsNames();
+            $scope.selectedWindowPart = $scope.cutsPartsNames[0];
+        }
+        
         updateSticksDetails($scope.selectedWindowPart);
         repaintCanvas();
         sortedLongs = [];
     }
     
     function updateSticksDetails(windowPart) {
-        $scope.sticksSizes = windowsInfo.getSticksSizes(windowPart);
+        if($scope.mode === 'windowMode') {
+            $scope.sticksSizes = windowsInfo.getSticksSizes(windowPart);
+        }
+        else if($scope.mode === 'generalMode') {
+            $scope.sticksSizes = cutsInfo.getSticksSizes(windowPart);
+        }
+
         var defaultStickSize = $scope.sticksSizes[0];
         $scope.sticksSizes.splice(0, 1);
         $scope.sticksSizes = _.filter($scope.sticksSizes, function (stickSize) { return stickSize != 0});
@@ -43,12 +59,19 @@ angular.module('longCalculatorApp')
             return stick1 - stick2;
         });
         $scope.sticksSizes.push(defaultStickSize);
-        $scope.longObjects = windowsInfo.getLongs(windowPart);
+        
+        if($scope.mode === 'windowMode') {
+            $scope.longObjects = windowsInfo.getLongs(windowPart);
+        }
+        else if($scope.mode === 'generalMode') {
+            $scope.longObjects = cutsInfo.getLongs(windowPart);
+        }
 
         // Add loss by cut to all cuts before sorting       
-        for(var i = 0; i < $scope.longObjects.length; i++) {               
-            var longObject = $scope.longObjects[i];
-            longObject.value = longObject.value + lossByCut;
+        for(var i = 0; i < $scope.longObjects.length; i++) {                           
+            $scope.longObjects[i].value += lossByCut;
+            var prueba = $scope.longObjects[i].value;
+            console.log(prueba);
         }
         
         $scope.longRows = _.pluck($scope.longObjects,'value');
@@ -58,7 +81,7 @@ angular.module('longCalculatorApp')
         if(!sortedLongs) sortedLongs = [];
         recalculateDetails();
     }
-    
+
     function recalculateDetails(){
         if(sortedLongs.length==0) 
         {
@@ -127,7 +150,7 @@ angular.module('longCalculatorApp')
         var stage = new Kinetic.Stage({
         container: 'sticksCanvas',
         width: 800,
-        height: 700
+        height: 5000
       });
         
         var shapesLayer = new Kinetic.Layer();

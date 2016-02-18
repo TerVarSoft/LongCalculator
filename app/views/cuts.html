@@ -1,0 +1,78 @@
+<div class="container">    
+    <div class="row">
+        <div>
+            <h1>Cortes</h1>
+        </div>
+        
+        <form name="newWindowForm" role="form">
+            <div class="row">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Nombre</label>
+                        <input type="text" class="form-control" placeholder="Nombre del Corte" ng-model="newCutProperties.name" required>
+                    </div>
+
+                    <div class="form-group col-md-3 ">
+                        <label class="control-label">Longitud</label>
+                        <input type="text" class="form-control" placeholder="Longitud del Corte" ng-model="newCutProperties.long" required input-number>
+                    </div>
+                    
+                    <div class="col-md-12 has-error">
+                        <label class="control-label">{{error}}</label>
+                    </div>
+                </div>
+
+                </br>
+                
+            </div>
+    
+            <div class="row">        
+                <div class="form-row">
+                    <div data-ot="Agregar corte" data-ot-delay="1" class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-md" ng-click="addNewCut()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Corte</button>
+                    </div>
+
+                    <div data-ot="Seleccione un corte y eliminelo" data-ot-delay="1" class="col-md-3">
+                        <button class="btn btn-success btn-md" ng-click="removeCut()"><i class="glyphicon glyphicon-trash"/>    Eliminar Corte</button>
+                    </div>
+                    
+                    <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-2">
+                        <a ng-href="#/calculator/generalMode" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Barras</a>
+                    </div>
+        </form>
+    </div>
+    
+    </br>
+    </br>
+    </br>
+
+    <div class="row">        
+        <div class="col-xs-12 col-md-12 col-lg-12 ">
+            <div ag-grid="gridOptions" class="ag-fresh gridStyle"></div>
+        </div>
+    </div>
+
+    </br>
+
+    <div class="row">
+        <h3>Configuracion de Barras</h3>
+        
+        <div data-ot="Agrega una fila vacia a la tabla de longitudes para especificar longitudes de barras diferentes a las por defecto" 
+             data-ot-delay="1" class="col-md-3">
+            <button class="btn btn-success btn-lg" ng-click="addNewConfiguration()"><i class="glyphicon glyphicon-plus"/>    Agregar Restos</button>
+        </div>
+    </div>
+
+    </br>
+    
+    <div class="row">        
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div ag-grid="configGridOptions" class="ag-fresh configurationGridStyle"></div>
+        </div>
+    </div>
+    
+    <!-- build:js lib/opentip.min.js -->
+    <script src="bower_components/opentip/lib/opentip.js"></script>
+    <script src="bower_components/opentip/lib/adapter-jquery.js"></script>
+    <!-- /build -->
+</div>

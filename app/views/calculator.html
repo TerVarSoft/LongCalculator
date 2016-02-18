@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
          <div class="row">
-            <div class="col-md-6">
+            <div ng-show="mode==='windowMode'" class="col-md-6">
                 <select class="btn btn-primary btn-md form-control" 
                         ng-model="selectedWindowPart" ng-change="refreshCanvas()">
                     <option ng-repeat="windowPartName in windowsPartsNames">{{windowPartName}}</option>
