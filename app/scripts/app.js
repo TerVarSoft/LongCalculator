@@ -16,15 +16,11 @@ angular
   ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-    .when('/calculator', {
+    .when('/calculator/:mode', {
         templateUrl: 'views/calculator.html',
         controller: 'calculatorCtrl'
     })
@@ -36,7 +32,11 @@ angular
         templateUrl: 'views/glasses.html',
         controller: 'glassesCtrl'
       })
+    .when('/cuts', {
+        templateUrl: 'views/cuts.html',
+        controller: 'cutsCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/windows'
       });
   }]);
