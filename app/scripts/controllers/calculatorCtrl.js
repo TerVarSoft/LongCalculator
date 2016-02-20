@@ -31,10 +31,7 @@ angular.module('longCalculatorApp')
 
 
     $scope.refreshCanvas = function(){
-        if($scope.mode === 'windowMode') {
-            $scope.selectedWindowPart = $scope.windowsPartsNames[0];
-        }
-        else if($scope.mode === 'generalMode') {
+        if($scope.mode === 'generalMode') {
             $scope.cutsPartsNames = cutsInfo.getPartsNames();
             $scope.selectedWindowPart = $scope.cutsPartsNames[0];
         }
