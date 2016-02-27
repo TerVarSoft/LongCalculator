@@ -201,7 +201,7 @@ angular.module('longCalculatorApp')
     }
     this.getWindows = function(){
       return this.windows;  
-    }; 
+    };
     
     this.getNames = function(){
         return _.pluck(this.windows, 'name');
@@ -240,6 +240,11 @@ angular.module('longCalculatorApp')
         this.windows.push(window);
         
     };
+     
+    this.removeWindow = function(selectedId){
+        this.windows.splice(selectedId, 1);
+        glassesInfo.removeGlass(selectedId);
+    }
      
     this.getLongObjectsByPropertyKey = function (propertyKey, addToName){        
        var longObjects =_.map(this.windows, function(window){
