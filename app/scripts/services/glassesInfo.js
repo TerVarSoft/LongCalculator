@@ -68,6 +68,10 @@ angular.module('longCalculatorApp')
         idGlass++;
     };
     
+    this.removeGlass = function(selectedId){
+        this.glasses.splice(selectedId, 1);
+    };
+    
     this.getGlasses = function() {
         return this.glasses;
     };
