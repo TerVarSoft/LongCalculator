@@ -445,6 +445,16 @@ module.exports = function (grunt) {
             dest: 'build/.tmp/opentip.js'
         },
 
+        // Moment has its minified versions so it is copied
+        // directly to build folder
+        moment: {
+            src: [
+                'bower_components/moment/min/moment.min.js',
+                'bower_components/angular-moment/angular-moment.min.js',
+            ],
+            dest: 'build/lib/tvs-moment.min.js'
+        },
+
         lib:{
             src: [
                 'bower_components/jquery/jquery.min.js',
@@ -455,10 +465,8 @@ module.exports = function (grunt) {
                 'bower_components/angular-animate/angular-animate.js',
                 'bower_components/underscore/underscore-min.js',
                 'bower_components/ag-grid/dist/angular-grid.min.js',                
-                'bower_components/jspdf/dist/jspdf.min.js',
-//                'bower_components/jspdf-autotable/jspdf.plugin.autotable.js'
-//                'bower_components/opentip/lib/opentip.js',
-//                'bower_components/opentip/lib/adapter-jquery.js'
+                'bower_components/jspdf/dist/jspdf.min.js',                
+                'bower_components/angular-download/angular-download.js'
             ],
             dest: 'build/.tmp/dependencies.js'
         }
@@ -477,7 +485,8 @@ module.exports = function (grunt) {
                 'build/scripts/app.min.js': ['build/.tmp/app.js'],
                 'build/lib/dependencies.min.js': ['build/.tmp/dependencies.js'],
                 'build/lib/opentip.min.js': ['build/.tmp/opentip.js'],
-                'build/lib/jspdf.plugin.autotable.min.js': ['bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js']
+                'build/lib/jspdf.plugin.autotable.min.js': ['bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js'],
+                'build/lib/angular-download.min.js': ['bower_components/angular-download/angular-download.js']
             }
         }
     },

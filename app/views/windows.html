@@ -1,86 +1,107 @@
 <div class="container">
     <div class="row">
-        <form name="newWindowForm" role="form">
-            <div class="row">
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre de la Ventana" ng-model="newWindowProperties.name" required>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Archivos</div>
+                <div class="panel-body">                        
+                    <div data-ot="Cargar Ventanas" data-ot-delay="1" class="col-md-6">
+                        <button type="button" class="btn btn-success btn-sm">
+                            <i class="glyphicon glyphicon-arrow-up"/>
+                            Cargar Ventanas
+                        </button>
                     </div>
 
-                    <div class="form-group col-md-3 ">
-                        <label class="control-label">Ancho</label>
-                        <input type="text" class="form-control" placeholder="Ancho de la Ventana" ng-model="newWindowProperties.width" required input-number>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Alto</label>
-                        <input type="text" class="form-control" placeholder="Alto de la Ventana" ng-model="newWindowProperties.height" required input-number>
-                    </div>
-                    
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Perdida por Pared</label>
-                        <input type="text" class="form-control" placeholder="Perdida de Pared" ng-model="newWindowProperties.wallLoss" required input-number>
-                    </div>
-                    
-                    <div class="col-md-12 has-error">
-                        <label class="control-label">{{error}}</label>
-                    </div>
-                    
-                    <div class=" col-md-3">
-                        <label class="control-label">Cantidad de Hojas</label>
-                        <select class="selectpicker btn btn-primary btn-lg" ng-model="newWindowProperties.numberFrames">
-                            <option ng-repeat="numberFrame in numberFrames">{{numberFrame}}</option>
-                        </select>
-
-                    </div>
-
-                    <div class=" col-md-3">
-                        <label class="control-label">Linea</label>
-                        <select class="selectpicker btn btn-primary btn-lg" ng-model="newWindowProperties.line">
-                            <option ng-repeat="line in lines">{{line}}</option>
-                        </select>
+                    <div data-ot="Salvar datos de las ventanas" data-ot-delay="1" class="col-md-6">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="exportJson()">
+                            <i class="glyphicon glyphicon-arrow-down"/>
+                            Salvar Ventanas
+                        </button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Propiedades de las ventanas</div>
+                <form class="panel-body" name="newWindowForm" role="form">            
+                    <div class="row">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Nombre de la Ventana" ng-model="newWindowProperties.name" required>
+                            </div>
 
-                </br>
+                            <div class="form-group col-md-3 ">
+                                <label class="control-label">Ancho</label>
+                                <input type="text" class="form-control" placeholder="Ancho de la Ventana" ng-model="newWindowProperties.width" required input-number>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Alto</label>
+                                <input type="text" class="form-control" placeholder="Alto de la Ventana" ng-model="newWindowProperties.height" required input-number>
+                            </div>
+                            
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Perdida por Pared</label>
+                                <input type="text" class="form-control" placeholder="Perdida de Pared" ng-model="newWindowProperties.wallLoss" required input-number>
+                            </div>
+                            
+                            <div class="col-md-12 has-error">
+                                <label class="control-label">{{error}}</label>
+                            </div>
+                            
+                            <div class=" col-md-3">
+                                <label class="control-label">Cantidad de Hojas</label>
+                                <select class="selectpicker btn btn-primary btn-lg" ng-model="newWindowProperties.numberFrames">
+                                    <option ng-repeat="numberFrame in numberFrames">{{numberFrame}}</option>
+                                </select>
+
+                            </div>
+
+                            <div class=" col-md-3">
+                                <label class="control-label">Linea</label>
+                                <select class="selectpicker btn btn-primary btn-lg" ng-model="newWindowProperties.line">
+                                    <option ng-repeat="line in lines">{{line}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        </br>
+                        
+                    </div>
+            
+                    <div class="row">
+                        </br>
                 
+                        <div class="form-row">
+                            <div data-ot="Agregar ventana" data-ot-delay="1" class="col-md-3">
+                                <button type="submit" class="btn btn-success btn-md" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
+                            </div>
+
+                            <div data-ot="Seleccione una ventana y eliminela" data-ot-delay="1" class="col-md-3">
+                                <button class="btn btn-success btn-md" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
+                            </div>
+
+                            <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-2">
+                                <a ng-href="#/calculator/windowMode" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Barras</a>
+                            </div>
+                            
+                            <div data-ot="Ver dimensiones de los vidrios" data-ot-delay="1" class="col-md-2">
+                                <a ng-href="#/glasses" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-th-large"/>    Vidrios</a>
+                            </div>
+                    </div>
+                </form>
             </div>
-    
-            <div class="row">
-                </br>
-        
-                <div class="form-row">
-                    <div data-ot="Agregar ventana" data-ot-delay="1" class="col-md-3">
-                        <button type="submit" class="btn btn-success btn-md" ng-click="addNewWindow()" ng-disabled="newWindowForm.$invalid"><i class="glyphicon glyphicon-plus"/>    Agregar Ventana</button>
-                    </div>
+        </div>
+    </div>        
 
-                    <div data-ot="Seleccione una ventana y eliminela" data-ot-delay="1" class="col-md-3">
-                        <button class="btn btn-success btn-md" ng-click="removeWindow()"><i class="glyphicon glyphicon-trash"/>    Eliminar Ventana</button>
-                    </div>
-
-                    <div data-ot="Ver optimizacion de cortes" data-ot-delay="1" class="col-md-2">
-                        <a ng-href="#/calculator/windowMode" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-stats"/>    Barras</a>
-                    </div>
-                    
-                    <div data-ot="Ver dimensiones de los vidrios" data-ot-delay="1" class="col-md-2">
-                        <a ng-href="#/glasses" class="btn btn-success btn-md" ng-click="saveData()"><i class="glyphicon glyphicon-th-large"/>    Vidrios</a>
-                    </div>
-            </div>
-        </form>
-    </div>
-    
-    </br>
-
-    <div>
-        <label>Formula: {{equation}}</label>
-    </div>
-
-    </br>
-
-    <div class="row">        
+    <div class="row">  
+        <h3>Ventanas</h3>      
         <div class="col-xs-12 col-md-12 col-lg-12 ">
             <div ag-grid="gridOptions" class="ag-fresh gridStyle"></div>
+        </div>
+        <div>
+            <label>Formula: {{equation}}</label>
         </div>
     </div>
 
