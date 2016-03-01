@@ -371,7 +371,7 @@ angular.module('longCalculatorApp')
     $scope.removeWindow = function(){
         var selectedWindow = $scope.gridOptions.selectedRows[0];
         var selectedId = windowsData.indexOf(selectedWindow);
-        windowsData.splice(selectedId, 1);
+        windowsInfo.removeWindow(selectedId);
         $scope.gridOptions.api.onNewRows();
     }
     
