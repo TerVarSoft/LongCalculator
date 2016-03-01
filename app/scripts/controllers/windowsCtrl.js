@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', 'glassesInfo', function ($scope, windowsInfo, windowsFactory, glassesInfo) {
+  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', 'glassesInfo', 'download', 'moment',
+    function ($scope, windowsInfo, windowsFactory, glassesInfo, download, moment) {
 
     $scope.numberFrames = ["2", "3", "4"];
     $scope.lines = ["Linea 20", "Linea 25"];
@@ -377,6 +378,32 @@ angular.module('longCalculatorApp')
     $scope.saveData = function() {
         windowsInfo.saveData(windowsData, configData);
     }
+
+    // Files Managment Functions
+    $scope.exportJson = function()
+    {
+        var currentDate = moment().format("YYYYMMDD_HHmmss dddd");
+
+        var objectToPersist =  {
+            currentDate: currentDate,
+            windows: windowsData,
+            config: configData 
+        }
+        download.fromData(JSON.stringify(objectToPersist), "application/json", currentDate + "-LongCalculator.json");
+
+        /*var currentDate = moment().format("YYYYMMDD_HHmmss dddd");
+        console.log("Hello");
+        var data = new Blob([JSON.stringify({
+            currentDate: currentDate,
+            windows: windowsData,
+            config: configData
+        })          
+        ], { type: 'text/plain;charset=utf-8' });
+
+        FileSaver.saveAs(data, 'LCBackUp' + '-' + currentDate + '.txt');*/
+
+    }
+
     
     $scope.showEquation = function(data, partOfWindowName){
         $scope.equation = data[partOfWindowName].equation;
