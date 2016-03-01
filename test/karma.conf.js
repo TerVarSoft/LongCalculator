@@ -32,9 +32,12 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/opentip/lib/opentip.js',
       'bower_components/opentip/lib/adapter-component.js',
-      'bower_components/easeljs/lib/easeljs-0.8.1.combined.js',
+      'bower_components/easeljs/lib/easeljs-0.8.2.combined.js',
       'bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js',
       'bower_components/kineticjs/kinetic.js',
+      'bower_components/angular-download/angular-download.js',
+      'bower_components/moment/moment.js',
+      'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

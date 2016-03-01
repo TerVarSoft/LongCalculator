@@ -12,7 +12,9 @@ angular
   .module('longCalculatorApp', [
     'ngRoute',
     'ngAnimate',
-    'angularGrid'
+    'angularGrid',    
+    'angularMoment',
+    'download',
   ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
