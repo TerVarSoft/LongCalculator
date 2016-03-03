@@ -236,16 +236,6 @@ angular.module('longCalculatorApp')
         return longObjects;
     };
     
-    this.addWindow = function(window){
-        this.windows.push(window);
-        
-    };
-     
-    this.removeWindow = function(selectedId){
-        this.windows.splice(selectedId, 1);
-        glassesInfo.removeGlass(selectedId);
-    }
-     
     this.getLongObjectsByPropertyKey = function (propertyKey, addToName){        
        var longObjects =_.map(this.windows, function(window){
                 window['value'] = window[propertyKey].long;
@@ -264,7 +254,17 @@ angular.module('longCalculatorApp')
         this.windows = windows;
         this.configuration = configuration;
     };
-    
+
+    this.addWindow = function(window){
+        this.windows.push(window);
+        
+    };
+     
+    this.removeWindow = function(selectedId){
+        this.windows.splice(selectedId, 1);
+        glassesInfo.removeGlass(selectedId);
+    }
+         
     function ModifyListByQuantityValues(longObjects){
         var results = [];
         var lenght = longObjects.length

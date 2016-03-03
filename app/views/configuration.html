@@ -10,11 +10,10 @@
                     </div>       
                     <br/>
                     <div class="row">
-                        <div data-ot="Cargar Ventanas" data-ot-delay="1" class="col-md-6">
-                            <button type="button" class="btn btn-success btn-lg ">
-                                <i class="glyphicon glyphicon-arrow-up"/>
-                                Cargar Configuracion
-                            </button>
+                        <div ng-show="enableLoadingFiles" data-ot="Cargar Ventanas" data-ot-delay="1" class="col-md-6">
+                            <span class="btn btn-success btn-lg btn-file">
+                                <i class="glyphicon glyphicon-arrow-up"/> Cargar Configuracion <input id="import" type="file">
+                            </span>
                         </div>
 
                         <div data-ot="Salvar datos de las ventanas" data-ot-delay="1" class="col-md-6">
