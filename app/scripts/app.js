@@ -40,5 +40,9 @@ angular
       })
       .otherwise({
         redirectTo: '/windows'
+      })
+      .when('/configuration', {
+        templateUrl: 'views/configuration.html',
+        controller: 'configurationCtrl'
       });
   }]);
