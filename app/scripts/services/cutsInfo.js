@@ -29,12 +29,7 @@ angular.module('longCalculatorApp')
     this.getPartsNames = function(){
         return ['Longitud'];
     };
-     
-    this.saveData = function(cuts, configuration) {
-        this.cuts = cuts;
-        this.configuration = configuration;
-    };
-    
+         
     this.getSticksSizes = function(cutsPartName){
         var propertyKey = toPropertyKey(cutsPartName);
         var sticksSizes = [];
@@ -50,6 +45,11 @@ angular.module('longCalculatorApp')
         var longObjects = populateResults(this.cuts);
         
         return longObjects;
+    };
+
+    this.saveData = function(cuts, configuration) {
+        this.cuts = cuts;
+        this.configuration = configuration;
     };
      
     function populateResults(longObjects) {

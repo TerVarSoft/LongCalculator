@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('longCalculatorApp')
-  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', 'glassesInfo', 'download', 'moment',
-    function ($scope, windowsInfo, windowsFactory, glassesInfo, download, moment) {
+  .controller('windowsCtrl', ['$scope', 'windowsInfo', 'windowsFactory', 'glassesInfo',
+    function ($scope, windowsInfo, windowsFactory, glassesInfo) {
 
     $scope.numberFrames = ["2", "3", "4"];
     $scope.lines = ["Linea 20", "Linea 25"];
