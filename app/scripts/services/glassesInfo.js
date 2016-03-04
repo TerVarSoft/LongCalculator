@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('longCalculatorApp')
- .service('glassesInfo', function(){
+ .service('glassesInfo', ['windowsInfo', function(windowsInfo) {
+    
     this.glasses = [];
     
     var idGlass = 1;
@@ -11,6 +12,37 @@ angular.module('longCalculatorApp')
     var widthFixedGlass;
     var heightFixedGlass;
     var partsFixedGlass;
+
+    this.getGlasses = function() {
+        this.glasses = calculateGlasses();
+
+        return this.glasses;
+    };
+
+    function calculateGlasses() {
+        var idGlass = 1;
+        var glasses = [];
+        var windows = windowsInfo.getWindows();
+        
+        _.each(windows, function(window) {
+            calculateDimensions(window);
+
+            glasses.push({
+                id: idGlass,
+                name: window.name,
+                widthSlidingWindowGlass: widthSlidingGlass,
+                heightSlidingWindowGlass: heightSlidingGlass,
+                partsSlidingWindowGlass: partsSlidingGlass,
+                widthFixedWindowGlass: widthFixedGlass,
+                heightFixedWindowGlass: heightFixedGlass,
+                partsFixedWindowGlass: partsFixedGlass
+            });
+            
+            idGlass++;
+        });
+
+        return glasses;
+    }
     
     function calculateDimensions(window) {
         if(window.line === "Linea 20") {
@@ -70,11 +102,7 @@ angular.module('longCalculatorApp')
     
     this.removeGlass = function(selectedId){
         this.glasses.splice(selectedId, 1);
-    };
-    
-    this.getGlasses = function() {
-        return this.glasses;
-    };
+    };    
     
     this.prueba = function(windows) {
         for(var i = 0; i < windows.length; i++) {
@@ -96,4 +124,4 @@ angular.module('longCalculatorApp')
             idGlass++;
         }
     }
-});
+}]);
