@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('longCalculatorApp')
- .service('windowsInfo', ['windowsFactory', 'glassesInfo', function(windowsFactory, glassesInfo){ 
+ .service('windowsInfo', ['windowsFactory', function(windowsFactory){ 
     this.windows=[];
     
 //    var window1 = windowsFactory.newWindow('Ventana 2000',
@@ -262,7 +262,6 @@ angular.module('longCalculatorApp')
      
     this.removeWindow = function(selectedId){
         this.windows.splice(selectedId, 1);
-        glassesInfo.removeGlass(selectedId);
     }
          
     function ModifyListByQuantityValues(longObjects){
