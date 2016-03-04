@@ -362,7 +362,6 @@ angular.module('longCalculatorApp')
         
         if($scope.error == '') {
             windowsData.push(window);
-            glassesInfo.addGlass(window);
         }
           
         $scope.gridOptions.api.onNewRows();
